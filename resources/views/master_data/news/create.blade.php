@@ -3,7 +3,7 @@
     NEWS
 @endsection
 @section('content')
-    <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
     <style>
         .ms-container .ms-list {
