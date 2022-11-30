@@ -113,7 +113,7 @@
 <div class="row">
     <div class="container">
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:40px;">GET <span class="gold">MORE</span> UPDATES</p>
+            <p class="black" style="margin-top:20px; margin-bottom:40px;">GET <span class="gold">MORE</span> UPDATES11</p>
         </center>
 
         <div class="gallery-env">
@@ -130,7 +130,7 @@
                             <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}" loading="lazy" />
                         </header>
                         <section class="album-info shadow" style="">
-                            <a href="/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;"><b>{{$news->news_title}}<b></h4></a>
+                            <a href="/newsletter/{{ $news->news_slug }}"><h4 style="height: 35px; line-height: normal;"><b>{{$news->news_title}}<b></h4></a>
 
                             <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                         </section>
@@ -145,7 +145,7 @@
                         <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" loading="lazy" />
                     </header>
                     <section class="album-info shadow">
-                        <a href="/news_detail/{{$news->id}}">
+                        <a href="/newsletter/{{ $news->news_slug }}">
                             <h4 style="height:45px; line-height: normal;"><b>{{$news->news_title}}<b></h4>
                         </a>
                         <p style="font-size:12px; margin-top:0px !important;">{{$news->news_publish_date}}</p>
