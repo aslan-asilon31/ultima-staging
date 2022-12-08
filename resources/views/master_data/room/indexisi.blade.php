@@ -51,7 +51,7 @@
                                 @endforeach
                             </p>
                         </div>
-                        <div class="col-lg-6">
+                        {{-- <div class="col-lg-6">
                             <h4><strong>Room Amenities</strong></h4>
                             @if (count($room['amenities']) > 0)
                                 @php
@@ -113,7 +113,7 @@
                             <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"
                                 class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             @endforeach

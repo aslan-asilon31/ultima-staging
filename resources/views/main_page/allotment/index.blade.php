@@ -1,10 +1,64 @@
 @extends('templates/template')
 @section("header_title") ALLOTMENT @endsection
 @section('content')
+
+
+<style>
+    h1 {
+        color: green;
+    }
+           
+    /* toggle in label designing */
+    .toggle {
+        position : relative ;
+        display : inline-block;
+        width : 36px;
+        height : 18px;
+        background-color: #1B729E;
+        border-radius: 30px;
+        border: 2px solid white;
+    }
+           
+    /* After slide changes */
+    .toggle:after {
+        content: '';
+        position: absolute;
+        width: 10.5px;
+        height: 10.5px;
+        border-radius: 50%;
+        background-color: white;
+        top: 1px;
+        left: 1px;
+        transition:  all 0.5s;
+    }
+           
+    /* Toggle text */
+    p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+           
+    /* Checkbox checked effect */
+    .checkbox:checked + .toggle::after {
+        left : 20px;
+    }
+           
+    /* Checkbox checked toggle label bg color */
+    .checkbox:checked + .toggle {
+        background-color: grey;
+    }
+           
+    /* Checkbox vanished */
+    .checkbox {
+        display : none;
+    }
+</style>
+    
 <script>
     var dateStart = 0;
     var diffDay = 0;
 </script>
+
 
 <div class="col-lg-12">
     <h4><strong>Room Type</strong></h4>
@@ -61,88 +115,150 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        <div class="col-lg-5 ">
-            <form action="/master_data/package/indexisi">
-                <div class="panel panel-horison">
-                    <div class="panel-heading">
-                        <div class="panel-title white text-center" style="float:none">
-                            <h2 class="white"><strong>Set Rooms Allotment</strong></h2>
-                        </div>
-                    </div>
-                    <div class="panel-body shadow" style="display: block;">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="field-1" class="control-label">Room Type</label>
-                                    <input type="text" class="form-control" id="room_type" disabled>
+                </div>
+        
+                <div class="col-lg-5 ">
+                    <form action="/master_data/package/indexisi">
+                        <div class="panel panel-horison">
+                            <div class="panel-heading">
+                                <div class="panel-title white text-center" style="float:none">
+                                    <h2 class="white"><strong>Set Rooms Allotment</strong></h2>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="field-1" class="control-label">Date Period</label>
-                                    <div class="input-group">
-                                        <div class="daterange daterange-inline" id="date-range" data-format="MMMM D, YYYY">
-                                            <input type="hidden" name="date_start" id="date_start">
-                                            <input type="hidden" name="date_end" id="date_end">
-                                            <span id="date-show">START DATE - END DATE</span>
-                                            <i class="entypo-calendar"></i>
+                            <div class="panel-body shadow" style="display: block;">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="field-1" class="control-label">Room Type</label>
+                                            <input type="text" class="form-control" id="room_type" disabled>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="field-1" class="control-label">Available Rate Plan</label>
+                                            <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
+                                            <select name="" id="" class="form-control">
+                                                <option value="volvo">Room Only</option>
+                                                <option value="saab">Room With Breakfast</option>
+                                                <option value="mercedes">Room With Breakfast</option>
+                                                <option value="audi">Room With Breakfast</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="field-1" class="control-label">Date</label>
+                                            <h6 style="margin:0px;font-weight: normal;">Select date period for the selected rate plan</h6>                                     </div>
+                                            <div class="input-group">
+                                                <div class="daterange daterange-inline" id="date-range" data-format="MMMM D, YYYY">
+                                                    <input type="hidden" name="date_start" id="date_start">
+                                                    <input type="hidden" name="date_end" id="date_end">
+                                                    <span id="date-show">START DATE - END DATE</span> 
+                                                    <i class="entypo-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                    
+                                    <div class="open-allotment " style="margin-top:12px;">
+                                        <div class="col-lg-6" style="">
+                                            <!-- ID ROOM EXTRA BED -->
+                                            <input type="hidden" id="room_id" name="room_id">
+                                            <input type="hidden" id="room_extrabed_rate">
+                                            <div class="form-group">
+                                                <label for="field-1" class="control-label">Opened Allotment</label>
+                                                <input type="text"  class="form-control thousandSeperator" id="room_allotment" required>
+                                                <input type="hidden" class="form-control" id="room_allotment_input">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- ID ROOM EXTRA BED -->
+                                            <div class="form-group" style="">
+                                                <label for="field-1" class="control-label"><strong>Booked</strong> <i class="glyphicon glyphicon-info-sign"></i></label>
+                                                 {{-- <i class="glyphicon glyphicon-info-sign"></i> --}}
+                                              
+                                                <input type="text"  class="form-control" id="" placeholder="2" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- ID ROOM EXTRA BED -->
+                                            <div class="form-group">
+                                                <label for="field-1" class="control-label">Pending <i class="glyphicon glyphicon-info-sign"></i></label>
+                                                <input type="text"  class="form-control" id="" placeholder="4"  disabled>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr style="color:grey;">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group" >
+                                                    <label for="field-1" class="control-label"></label>
+                                                    
+                                                    <div class="" style="padding: 5px;">
+                                                        <div class="col-lg-12" style="box-shadow: -5px 0px #1B729E;">
+                                                            <label for="field-1" class="control-label">Room Only</label>
+                                                                <h6 style="color:#1B729E;margin-top:-4px;padding:0px;">Enable Slash Rate</h6>                                     </div>
+                                                        
+
+                                                                <div class="col-lg-12" style="box-shadow: -5px -0px #1B729E;">
+                                                                    <label for="field-1" class="control-label">Rate <i class="glyphicon glyphicon-info-sign"></i></label>
+                                                                    <div class="form-group">
+                                                                        <input type="text" id="room_publish_rate" class="form-control thousandSeperator" required>
+                                                                        <input type="hidden" id="room_publish_rate_input" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12" style="box-shadow: -5px -0px #1B729E;">
+                                                                    <label for="field-1" class="control-label">Extra Bed Rate <i class="glyphicon glyphicon-info-sign"></i></label>
+                                                                    <div class="form-group">
+                                                                        <input type="text" id="room_ro_rate" class="form-control thousandSeperator" required>
+                                                                        <input type="hidden" id="room_ro_rate_input" class="form-control" >
+                                                                    </div>
+                                                                </div>
+
+                                                    </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 mt-10">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Activate this Rate Plan</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mt-10">
+                                            <!-- ID ROOM EXTRA BED -->
+                                            <div class="form-group">
+                                                <input type="checkbox" id="switch"
+                                                class="checkbox" />
+                                                <label for="switch" class="toggle">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group" style="margin-top:13px;" align="left">
+                                                    <a onClick="submitAllotment();"
+                                                        class="btn btn-horison2 btn-lg"><strong>Save</strong></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <!-- ID ROOM EXTRA BED -->
-                                <input type="hidden" id="room_id" name="room_id">
-                                <input type="hidden" id="room_extrabed_rate">
-                                <div class="form-group">
-                                    <label for="field-1" class="control-label">Opened Allotment</label>
-                                    <input type="text"  class="form-control thousandSeperator" id="room_allotment" required>
-                                    <input type="hidden" class="form-control" id="room_allotment_input">
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- ID ROOM EXTRA BED -->
-                                <div class="form-group">
-                                    <label for="field-1" class="control-label">Remaining Allotment</label>
-                                    <input type="text"  class="form-control" id="remaining_allotment"  disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <label for="field-1" class="control-label">Publish Rate (Rp)</label>
-                                <div class="form-group">
-                                    <input type="text" id="room_publish_rate" class="form-control thousandSeperator" required>
-                                    <input type="hidden" id="room_publish_rate_input" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <label for="field-1" class="control-label">Room Only Rate (Rp)</label>
-                                <div class="form-group">
-                                    <input type="text" id="room_ro_rate" class="form-control thousandSeperator" required>
-                                    <input type="hidden" id="room_ro_rate_input" class="form-control" >
-                                </div>
-                            </div>
-                            {{-- <div class="col-lg-4">
-                                <div class="form-group">
-                                    <a href="#" class="btn btn-horison2 shadow"><strong>SET ALLOTMENT</strong></a>
-                                </div>
-                            </div> --}}
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group" style="margin-top:13px;" align="left">
-                                    <a onClick="submitAllotment();"
-                                        class="btn btn-horison2 btn-lg"><strong>Save</strong></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-        </div>
-        </form>
-    </div>
 </div>
 
 <script>

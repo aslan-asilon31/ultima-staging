@@ -76,17 +76,32 @@
                 <div class="panel panel-horison">
                     <div class="panel-heading">
                         <div class="panel-title white text-center" style="float:none">
-                            <h2 class="white"><strong>Set Rooms Allotment</strong></h2>
+                            <h2 class="white"><strong>Set Allotment</strong></h2>
                         </div>
                     </div>
                     <div class="panel-body shadow" style="display: block;">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="field-1" class="control-label">Room Type</label>
-                                    <input type="text" class="form-control" id="room_type" disabled>
+                                    <label for="field-1" class="control-label">Room Type
+                                    <p style="font-weight:normal;">Deluxe Bussiness</p>
+                                    </label>
                                 </div>
                             </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Available Rate Plan</label>
+                                    <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
+                                    <select name="" id="" class="form-control">
+                                        <option value="volvo">Room Only</option>
+                                        <option value="saab">Room With Breakfast</option>
+                                        <option value="mercedes">Room With Breakfast</option>
+                                        <option value="audi">Room With Breakfast</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Date Period</label>
@@ -120,7 +135,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Net Booked
-                                        <i class="fa fa-fw fa-clock-o"></i>
+                                        <i class="fa fa-fw fa-info-circle"></i>
                                     </label>
                                     <p class="mb mt">4</p>
                                 </div>
@@ -128,7 +143,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Pending
-                                        <i class="fa fa-fw fa-clock-o"></i>
+                                        <i class="fa fa-fw fa-info-circle"></i>
                                     </label>
                                     <p class="mb mt">4</p>
                                 </div>
@@ -163,33 +178,24 @@
                                 </div>
                             </div> --}}
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p>Room Only</p>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="make-switch switch-small" style="margin-bottom: 8px;">
-                                    <input name="room_only" type="checkbox" id="room_only">
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row">
                             {{-- NOTE --}}
                             <div class="col-lg-12">
                                 <div class="col-lg-6"
                                     style="border-left-style: solid; border-color: blue; margin-bottom: 50px;">
+                                    <label for="weekday_rate">Room Only
+                                    <span id="enable-discount-rate">
+                                        <p class="mt mb" style="color: blue; cursor: pointer; font-weight:normal;">
+                                            Enable slash rate
+                                        </p>
+                                    </span>
+                                    </label>
+
+                                    <br>
+
                                     <label for="weekday_rate">Rate
                                         <i class="fa fa-fw fa-clock-o"></i>
                                     </label>
-                                    <span id="enable-discount-rate">
-                                        <p class="mt mb" style="color: blue; cursor: pointer;">
-                                            Enable discounted rate
-                                        </p>
-                                    </span>
-
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="Base Weekday Publish Rate"
@@ -211,7 +217,7 @@
 
                                 <div class="col-lg-6" id="pre-discount-rate" style="display:none">
                                     <label for="weekend_rate">Pre-discount Rate
-                                        <i class="fa fa-fw fa-clock-o"></i>
+                                        <i class="fa fa-fw fa-info-circle"></i>
                                     </label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
@@ -220,6 +226,19 @@
                                             id="weekend_rate" value="3" />
                                         <input type="hidden" name="room_weekend_rate" id="weekend_rate_input" value="3" />
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p style="font-weight: bold;">Active This Rate Plan</p>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="make-switch switch-small" style="margin-bottom: 8px;">
+                                    <input name="room_only" type="checkbox" id="room_only">
                                 </div>
                             </div>
                         </div>

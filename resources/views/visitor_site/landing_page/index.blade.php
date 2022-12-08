@@ -149,7 +149,7 @@
                             <h4 style="height:45px; line-height: normal;"><b>{{$news->news_title}}<b></h4>
                         </a>
                         <p style="font-size:12px; margin-top:0px !important;">{{$news->news_publish_date}}</p>
-                        
+
                     </section>
                 </article>
         </div>

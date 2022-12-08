@@ -291,14 +291,27 @@
 
 
             {{-- Box Room with breakfast --}}
-            <div class="row"> {{-- row button --}}
-                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
-                    <div class="col-md-12">
+            <div class="row " > {{-- row button --}}
+                <div class="col-md-12 col-xs-12 boxrs-room-with-breakfast ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                    <div class="col-md-12 mt-1">
                         <p class="pt-20"><strong>Room with Breakfast</strong></p>
                     </div>
-                    <div class="col-md-6" style="margin-left:-16px;">
+                    <div class="col-md-12" style="margin-top:-10px;">
+                        <p class="" style="font-size:12px; color: green;padding:0px;margin:0px;"> Meal Inclusive</p>
+                    </div>
+                    <div class="col-md-6 pt-12 " style="margin-left:-16px;margin-top:15px;">
+
+                        <div class="col-md-12 mb-12">
+                            <p style="font-size:12px;"> <s> Rp
+                                <strong>
+                                    <script>
+                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
+                                    </script>
+                                </strong> / Night </s></p>
+                        </div>
+
                         <div class="col-md-12">
-                            <p>Rp
+                            <p style="color:red;">Rp
                                 <strong>
                                     <script>
                                         document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
@@ -309,7 +322,7 @@
                             <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
                         </div>
                     </div>
-                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
+                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6 mb-20">
                         <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
                             class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
                     </div>
@@ -317,7 +330,6 @@
             </div>
 
             {{-- Box Room Only - Disabled --}}
-
             <div class="row"> {{-- row button --}}
                 @if($totalExtrabed > 0)
                 @php
@@ -353,7 +365,7 @@
                                             </script>
                                         </strong> / Night</p>
                                 </div>
-                                <div class="col-md-12 col-xs-12" style="margin-top:-10px;">
+                                <div class="col-md-12 col-xs-12 ml-20 mt-15" style="margin-top:-10px;">
                                     <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
                                 </div>
                             </div>
@@ -365,6 +377,79 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Free Upgrade to Suite --}}
+            <div class="row" style="background-color:;width:575px;margin-left:575px;"> {{-- row button --}}
+                <div class="col-md-12 col-xs-12 boxrs-room-with-breakfast-add ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                    <div class="col-md-12 mt-1 ">
+                        <p class="pt-20"><strong>Free Upgrade to Suite</strong></p>
+                    </div>
+                    <div class="col-md-12" style="margin-top:-10px;">
+                        <p class="" style="font-size:12px; color: green;padding:0px;margin:0px;"> Meal Inclusive</p>
+                    </div>
+                    <div class="col-md-6 pt-12 " style="margin-left:-16px;margin-top:15px;">
+
+                        <div class="col-md-12 mb-12">
+                            <p style="font-size:12px;"> <s> Rp
+                                <strong>
+                                    <script>
+                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
+                                    </script>
+                                </strong> / Night </s></p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <p style="color:red;">Rp
+                                <strong>
+                                    <script>
+                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
+                                    </script>
+                                </strong> / Night</p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:-10px;">
+                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6 mb-20">
+                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                            class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
+                    </div>
+                </div>
+            </div>
+
+            
+            {{-- Room Only --}}
+            <div class="row" style="background-color:;width:575px;margin-left:575px;"> {{-- row button --}}
+                <div class="col-md-12 col-xs-12 boxrs-room-with-breakfast-add ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                    <div class="col-md-12 mt-1 ">
+                        <p class="pt-20"><strong>Room Only</strong></p>
+                    </div>
+                    <div class="col-md-12" style="margin-top:-10px;">
+                        <p class="" style="font-size:12px; color: grey;padding:0px;margin:0px;"> No Meal</p>
+                    </div>
+                    <div class="col-md-6 pt-12 " style="margin-left:-16px;margin-top:15px;">
+
+                        <div class="col-md-12">
+                            <p style="">Rp
+                                <strong>
+                                    <script>
+                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
+                                    </script>
+                                </strong> / Night</p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:-10px;">
+                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6 mb-20">
+                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                            class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
+                    </div>
+                </div>
+            </div>
+
+            
+
         </div>
         <br>
 

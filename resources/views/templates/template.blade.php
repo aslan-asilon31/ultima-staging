@@ -136,6 +136,7 @@
             </footer>
         </div>
     </div>
+    </div>
 
     <link rel="stylesheet" href="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.css') }}">
     {{--

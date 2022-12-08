@@ -21,6 +21,7 @@ class RoomController extends Controller
 {
     public function __construct()
     {
+        ini_set('max_execution_time', 300);
         //DEFINISIKAN PATH
         $this->path = base_path() . '/public/user';
     }
@@ -54,7 +55,7 @@ class RoomController extends Controller
     {
         $setting = $this->setting();
         $amenitiess = Amenities::orderBy('id')->get();
-        return view('master_data.room.create', get_defined_vars());
+        return view('master_data.room.createRatePlan', get_defined_vars());
     }
 
     public function insert(Request $request)

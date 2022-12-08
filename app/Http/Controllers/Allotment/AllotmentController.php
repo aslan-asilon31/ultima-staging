@@ -28,10 +28,12 @@ class AllotmentController extends Controller
     {
         $setting = $this->setting();
         $rooms = Type::orderBy('room_name')->with('photo')->get();
+        $mytime = date('d/m/Y');
+
         if (count($rooms) > 0) {
-            return view('main_page.allotment.index', get_defined_vars());
+            return view('main_page.allotment.indexRatePlan', get_defined_vars());
         } else {
-            return view('main_page.allotment.index', get_defined_vars());
+            return view('main_page.allotment.indexRatePlan', get_defined_vars());
         }
     }
 
@@ -46,7 +48,7 @@ class AllotmentController extends Controller
             AND rsvp_status IN ('Payment received', 'Waiting for payment') )) AS remaining_allotment
             FROM allotment where room_id = '".$value['id']."' and allotment_date >= CURDATE() ORDER BY allotment.allotment_date";
             $allotment = DB::select(DB::raw($query));
-            $value['allotment'] = $allotment;
+            $value['allotment'] = $allotment; 
         }
         return $rooms;
     }
