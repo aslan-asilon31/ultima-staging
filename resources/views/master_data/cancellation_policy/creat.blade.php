@@ -3,7 +3,7 @@
     CREATE RATES PLAN
 @endsection
 @section('content')
-    <div class="col-lg-8">
+    <div class="col-lg-6">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
