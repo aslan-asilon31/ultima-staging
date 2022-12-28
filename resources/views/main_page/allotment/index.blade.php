@@ -215,7 +215,7 @@
                                                                 <div class="col-lg-12" style="box-shadow: -5px -0px #1B729E;">
                                                                     <label for="field-1" class="control-label">Extra Bed Rate <i class="glyphicon glyphicon-info-sign"></i></label>
                                                                     <div class="form-group">
-                                                                        <input type="text" id="room_ro_rate" class="form-control thousandSeperator" required>
+                                                                        <input type="text" id="room_ro_rate" class="form-control thousandSeperator" required >
                                                                         <input type="hidden" id="room_ro_rate_input" class="form-control" >
                                                                     </div>
                                                                 </div>

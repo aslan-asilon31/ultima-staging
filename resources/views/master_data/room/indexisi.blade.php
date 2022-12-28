@@ -114,6 +114,9 @@
                                 class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
                             </a>
                         </div> --}}
+                        <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"
+                            class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
+                        </a>
                     </div>
                 </div>
             @endforeach

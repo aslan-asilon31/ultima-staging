@@ -94,10 +94,8 @@
                                     <label for="field-1" class="control-label">Available Rate Plan</label>
                                     <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
                                     <select name="" id="" class="form-control">
-                                        <option value="volvo">Room Only</option>
-                                        <option value="saab">Room With Breakfast</option>
-                                        <option value="mercedes">Room With Breakfast</option>
-                                        <option value="audi">Room With Breakfast</option>
+                                        <option value="">Room Only</option>
+                                        <option value="">Room With Breakfast</option>
                                     </select>
                                 </div>
                             </div>
@@ -105,6 +103,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Date Period</label>
+                                    <p style="margin:0px;font-weight:normal;">select date period for selected rate plan</p>
                                     <div class="input-group">
                                         <div class="daterange daterange-inline" id="date-range" data-format="MMMM D, YYYY">
                                             <input type="hidden" name="date_start" id="date_start">
@@ -153,15 +152,6 @@
                                 <hr>
                             </div>
 
-                            <div class="col-lg-12">
-                                <h5 class="mb">
-                                    <strong>Available Rate Plan</strong>
-                                </h5>
-                                <p class="mt mb">
-                                    Select available rate plan for March 16, 2022
-                                </p>
-                            </div>
-
                             {{-- <div class="col-lg-6">
                                 <label for="field-1" class="control-label">Publish Rate (Rp)</label>
                                 <div class="form-group">
@@ -200,7 +190,7 @@
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="Base Weekday Publish Rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="1" />
+                                            id="weekday_rate" value="1" disabled />
                                         <input type="hidden" name="room_publish_rate" id="weekday_rate_input" value="1" />
                                     </div>
                                     <br>
@@ -210,7 +200,7 @@
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="Extra Bed Rate"
-                                            class="form-control room_price thousandSeperator" id="bed_price" value="2" />
+                                            class="form-control room_price thousandSeperator" id="bed_price" value="2" disabled />
                                         <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" />
                                     </div>
                                 </div>
