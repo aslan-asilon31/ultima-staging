@@ -73,10 +73,20 @@
                                 <input type="checkbox" id="policy" name="policy" value="0">
                                 <label>Set minimum nights</label>
                             </div>
-                            <br>
                             <hr>
-
-                            {{-- Apply rates to room types --}}
+                            <div class="form-group">
+                                <h5 class="mt mb">
+                                    <strong>Set Cancellation Policy</strong>
+                                </h5>
+                                <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
+                                <select name="" id="" class="form-control">
+                                    <option value="volvo">Free Cancellation</option>
+                                    <option value="saab">Free Cancellationt</option>
+                                    <option value="mercedes">Free Cancellationt</option>
+                                    <option value="audi">Free Cancellationt</option>
+                                </select>
+                            </div>
+                            <hr>
                             <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                             <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                             <div class="row">
@@ -88,19 +98,29 @@
                                         </div>
                                     </div>
                                 @endforeach
-
                             </div>
                             <br>
-                            <br>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-6 col-md-4">
+                                <label for="product_name">Base Rate</label>
+                                <input type="text" class="form-control" id="product_name" name="room_name"
+                                    value="" placeholder="Rp.">
+                                <br>
+                                <label for="room_order">Extra Bad Rate</label>
+                                <input type="text" class="form-control" id="room_order" name="room_order"
+                                    value="" placeholder="Rp.">
+                                <br>
+                            </div>
                         </div>
                     </div>
+                    <div class="pull-right">
+                        <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                            Cancel
+                        </a>
+                        <button type="button" class="btn btn-horison-gold btn-padding">Save</button>
+                    </div>
                 </div>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
-                    Cancel
-                </a>
-                <button type="button" class="btn btn-horison-gold btn-padding">Save Rate Plan</button>
             </div>
         </div>
     </div>

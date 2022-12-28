@@ -91,12 +91,18 @@
                             <span class="title">Rooms</span>
                         </a>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="/master_data/rates-plan">
                             <i class="fa fa-fw fa-columns"></i>
                             <span class="title">Rates Plan</span>
                         </a>
-                    </li> --}}
+                    </li>
+                    <li>
+                        <a href="/master_data/rates-plan">
+                            <i class="fa fa-star"></i>
+                            <span class="title">Cancellation Policy</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="/master_data/amenities">
                             <i class="fa fa-fw fa-diamond"></i>
@@ -113,12 +119,6 @@
                         <a href="/master_data/function_room">
                             <i class="fa fa-magic" style="padding-right: 5px; padding-left: 5px;"></i>
                             <span class="title">Function Room</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/master_data/rates-plan">
-                            <i class="fa fa-star" style="padding-right: 5px; padding-left: 5px;"></i>
-                            <span class="title">Rates Plan</span>
                         </a>
                     </li>
                 </ul>

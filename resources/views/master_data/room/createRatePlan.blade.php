@@ -264,7 +264,7 @@
                 <div class="panel-heading shadow">
                     <div class="panel-title">
                         <h4>
-                            <strong>Rate Plans</strong>
+                            <strong>Room Base Allotment</strong>
                         </h4>
                     </div>
                     <div class="panel-options">
@@ -274,7 +274,7 @@
                     </div>
                 </div>
                 <div class="panel-body shadow" style="display: block;">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <div class="col-lg-12">
                             <h5 class="mb"><strong>Available Rate Plan</strong></h5>
                             <p class="mt mb">Set available rate plan for this room type, you must have atleast
@@ -282,7 +282,6 @@
                             </p>
                         </div>
                     </div>
-
                     <div class="col-lg-4">
                         <p>Room Only</p>
                         <p>Free Upgrade to Suite</p>
@@ -300,21 +299,19 @@
                         <div class="make-switch switch-small">
                             <input name="room_breakfast" type="checkbox" id="room_breakfast">
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <div class="col-lg-12">
                             <h5 class="mb">
                                 <strong>Future Availabilty</strong>
                             </h5>
-                            <p class="mt mb">Future availability used <strong>Automatic Allotment</strong>
-                                based on
-                                <strong>Base Allotment on each type of Room</strong>
+                            <p class="mt mb">Provide <strong>Automatic Allotment</strong>
+                                to the ensure availability for the next priod using
+                                <strong>Base Allotment </strong>for this room type. You may override this value manually in Allotment menu
                             </p>
-                            <p class="mt">Note that this availability can be change
-                                <strong>Manually</strong> if
-                                necessary.
-                            </p>
+                            <strong>Available for the next</strong>
+                            <br>
                             <input type="hidden" id="future_availability" name="room_future_availability">
                             <a id="availability_0" onclick="setAvailability('0');"
                                 class="btn btn-horison-gold btn-padding">
@@ -343,7 +340,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="col-lg-12">
+                        {{-- <div class="col-lg-12">
                             <h5 class="mb">
                                 <strong>Default Rate</strong>
                             </h5>
@@ -352,7 +349,7 @@
                             <br>
                         </div>
 
-                        {{-- Room With Breakfast --}}
+                        Room With Breakfast
                         <div class="col-lg-12">
                             <h5 class="mb">
                                 <strong>Room with Breakfast</strong>
@@ -408,7 +405,7 @@
                             </div>
                         </div>
 
-                        {{-- Free Upgrade to Suite --}}
+                        Free Upgrade to Suite
                         <div class="col-lg-12">
                             <h5 class="mb">
                                 <strong>Free Upgrade to Suite</strong>
@@ -461,7 +458,7 @@
                                 <input type="hidden" name="room_weekend_rate" id="weekend_rate_input"
                                     value="{{ $room_weekend_rate }}" />
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
