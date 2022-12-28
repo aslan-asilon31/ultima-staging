@@ -16,7 +16,7 @@ class CancellationController extends Controller
         //menu code
         $menu = $this->menu();
 
-        return view('master_data.cancellation_policy.index', get_defined_vars());
+        return view('master_data.cancellation_policy.create', get_defined_vars());
     }
 
     public function create()
