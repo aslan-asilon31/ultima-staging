@@ -50,6 +50,23 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/setdata/{id}', ['as' => 'rates_plan.setdata', 'uses' => 'Master\RatesPlanController@setdata']);
     });
 
+    // Panel Cancellation Policy
+    Route::group(['prefix' => 'master_data/cancellation-policy'], function() {
+        Route::get('/', ['as' => 'cancellation_policy.index', 'uses' => 'Master\CancellationController@index']);
+        //get RatesPlan DATA
+        Route::get('/data', ['as' => 'cancellation_policy.data', 'uses' => 'Master\CancellationController@data']);
+        // Create Insert
+        Route::get('/create', ['as' => 'cancellation_policy.create', 'uses' => 'Master\CancellationController@create']);
+        Route::post('/insert', ['as' => 'cancellation_policy.insert', 'uses' => 'Master\CancellationController@insert']);
+        // Edit Update
+        Route::get('/edit/{id}', ['as' => 'cancellation_policy.edit', 'uses' => 'Master\CancellationController@edit']);
+        Route::post('/update', ['as' => 'cancellation_policy.update', 'uses' => 'Master\CancellationController@update']);
+        // Delete
+        Route::post('/delete', ['as' => 'cancellation_policy.delete', 'uses' => 'Master\CancellationController@delete']);
+        // AJAX
+        Route::get('/setdata/{id}', ['as' => 'cancellation_policy.setdata', 'uses' => 'Master\CancellationController@setdata']);
+    });
+
     // Panel Amenities
     Route::group(['prefix' => 'master_data/amenities'], function() {
         Route::get('/', ['as' => 'amenities.index', 'uses' => 'Master\AmenitiesController@index']);
