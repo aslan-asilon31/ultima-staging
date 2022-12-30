@@ -84,7 +84,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Room Type
-                                    <p style="font-weight:normal;">Deluxe Bussiness</p>
+                                    <p style="font-weight:normal;">Deluxe Room</p>
                                     </label>
                                 </div>
                             </div>

@@ -97,6 +97,15 @@
                             <span class="title">Rates Plan</span>
                         </a>
                     </li>
+<<<<<<< HEAD
+=======
+                    <li>
+                        <a href="/master_data/rates-plan">
+                            <i class="fa fa-star"></i>
+                            <span class="title">Cancellation Policy</span>
+                        </a>
+                    </li>
+>>>>>>> d1c62e62bb1bd293d11353098a23b478331ffe20
                     <li>
                         <a href="/master_data/amenities">
                             <i class="fa fa-fw fa-diamond"></i>
@@ -115,7 +124,10 @@
                             <span class="title">Function Room</span>
                         </a>
                     </li>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d1c62e62bb1bd293d11353098a23b478331ffe20
                 </ul>
             </li>
             @endif
