@@ -4765,41 +4765,47 @@ img {
 
 .boxrs-room-with-breakfast {
     width: 90%;
-    height: 200px;
+    height: 145px;
     font-size: 14px;
     border: 1px solid;
     border-color: #BDBDBD;
     border-radius: 5px;
+    margin-top: -10px;;
 }
 
 .boxrs-room-with-breakfast-add {
-    width: 90%;
-    height: 200px;
+    width: 45%;
+    height: 145px;
     font-size: 14px;
     border: 1px solid;
     border-color: #BDBDBD;
     border-radius: 5px;
     padding-bottom: 10px;
     background-color: #EBEBEB;
+    float: right;
+    margin-right: 3%;
 }
 
 .boxrs {
     width: 90%;
-    height: 150px;
+    height: 145px;
     font-size: 14px;
     border: 1px solid;
-    border-color: #BDBDBD;
     border-radius: 5px;
+    background-color: #fff;
+    border-color: #BDBDBD;
 }
 
 .boxrs-disable {
     width: 90%;
-    height: 120px;
+    height: 145px;
     font-size: 14px;
     border: 1px solid;
     border-color: #BDBDBD;
     border-radius: 5px;
     background-color: #F2F2F4;
+    /* float: right;
+    margin-right: 3%; */
 }
 
 
