@@ -56,6 +56,8 @@ class RoomController extends Controller
         $setting = $this->setting();
         $amenitiess = Amenities::orderBy('id')->get();
         return view('master_data.room.createRatePlan', get_defined_vars());
+        // return view('master_data.room.create', get_defined_vars());
+
     }
 
     public function insert(Request $request)
@@ -66,11 +68,11 @@ class RoomController extends Controller
                 'room_desc' => 'required',
                 'bed_type' => 'required',
                 'room_allotment' => 'required',
-                'room_publish_rate' => 'required',
-                'room_ro_rate' => 'required',
-                'room_weekend_rate' => 'required',
-                'room_weekend_ro_rate' => 'required',
-                'room_extrabed_rate' => 'required',
+                // 'room_publish_rate' => 'required',
+                // 'room_ro_rate' => 'required',
+                // 'room_weekend_rate' => 'required',
+                // 'room_weekend_ro_rate' => 'required',
+                // 'room_extrabed_rate' => 'required',
                 'room_future_availability' => 'required',
                 'room_order' => 'required|integer|min:1|max:100',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
@@ -88,11 +90,11 @@ class RoomController extends Controller
                 'room_desc' => 'required',
                 'bed_type' => 'required',
                 'room_allotment' => 'required',
-                'room_publish_rate' => 'required',
-                'room_ro_rate' => 'required',
-                'room_weekend_rate' => 'required',
-                'room_weekend_ro_rate' => 'required',
-                'room_extrabed_rate' => 'required',
+                // 'room_publish_rate' => 'required',
+                // 'room_ro_rate' => 'required',
+                // 'room_weekend_rate' => 'required',
+                // 'room_weekend_ro_rate' => 'required',
+                // 'room_extrabed_rate' => 'required',
                 'room_future_availability' => 'required',
                 'room_order' => 'required|integer|min:1|max:100',
                 'img' => 'required',
@@ -123,11 +125,11 @@ class RoomController extends Controller
                 'room_slug' => $slug,
                 'room_desc' => $request['room_desc'],
                 'room_allotment' => $request['room_allotment'],
-                'room_publish_rate' => $request['room_publish_rate'],
-                'room_ro_rate' => $request['room_ro_rate'],
-                'room_weekend_rate' => $request['room_weekend_rate'],
-                'room_weekend_ro_rate' => $request['room_weekend_ro_rate'],
-                'room_extrabed_rate' => $request['room_extrabed_rate'],
+                // 'room_publish_rate' => $request['room_publish_rate'],
+                // 'room_ro_rate' => $request['room_ro_rate'],
+                // 'room_weekend_rate' => $request['room_weekend_rate'],
+                // 'room_weekend_ro_rate' => $request['room_weekend_ro_rate'],
+                // 'room_extrabed_rate' => $request['room_extrabed_rate'],
                 'room_future_availability' => $request['room_future_availability'],
                 'room_order' => $request['room_order']
             ]);

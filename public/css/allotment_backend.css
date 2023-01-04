@@ -1,0 +1,127 @@
+.aslan {
+    background-color: white;
+}
+
+.net-booked {
+    display: inline;
+    position: relative;
+}
+
+.net-booked:hover:after {
+    background: #333;
+    background: transparent;
+    /* border-radius: 5px; */
+    bottom: 5px;
+    color: #000;
+    content: attr(title);
+    left: 20%;
+    padding: 10px 20px;
+    position: absolute;
+    z-index: 98;
+    width: 150px;
+}
+
+.net-booked:hover:before {
+    border: solid;
+    border-color: rgb(200, 196, 196) transparent;
+    /* border-width: 6px 6px 0 6px; */
+    bottom: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    /* z-index: 99; */
+}
+
+.pending {
+    display: inline;
+    position: relative;
+}
+
+.pending:hover:after {
+    background: #333;
+    background: transparent;
+    /* border-radius: 5px; */
+    bottom: 5px;
+    color: #000;
+    content: attr(title);
+    left: 0%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 80px;
+}
+
+.pending:hover:before {
+    border: solid;
+    border-color: rgb(200, 196, 196) transparent;
+    /* border-width: 6px 6px 0 6px; */
+    bottom: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    /* z-index: 99; */
+}
+
+
+/* Toggle Button */
+
+
+/* source : https://alvarotrigo.com/blog/toggle-switch-css/ */
+
+.toggle {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.toggle-switch {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 16px;
+    width: 55px;
+    height: 25px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+
+.toggle-switch:before,
+.toggle-switch:after {
+    content: "";
+}
+
+.toggle-switch:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: left 0.25s;
+}
+
+.toggle:hover .toggle-switch:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.toggle-checkbox:checked+.toggle-switch {
+    background: #56c080;
+}
+
+.toggle-checkbox:checked+.toggle-switch:before {
+    left: 30px;
+}
+
+.toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+}

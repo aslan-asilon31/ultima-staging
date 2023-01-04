@@ -1,6 +1,6 @@
 @extends('templates/template')
 @section('header_title')
-    CREATE RATES PLAN
+    ADD RATES PLAN
 @endsection
 @section('content')
     <div class="col-lg-7">
@@ -11,11 +11,11 @@
                         <div class="col-lg-12 col-md-12">
                             <label for="rates_name">Rates Name</label>
                             <input type="text" class="form-control" id="rates_name" name="room_name" value=""
-                                placeholder="Rates Name">
+                                placeholder="Free Upgrade to Super Deluxe">
                             <br>
 
                             {{-- Cancellation Policy --}}
-                            <h5 class="mt mb">
+                            {{-- <h5 class="mt mb">
                                 <strong>Cancellation Policy</strong>
                             </h5>
                             <p class="mt mb">Applied cancellation policy for this rate plan</p>
@@ -28,13 +28,13 @@
                                 <label><strong>Apply First Night Cancellation Fee</strong>upon cancellation 4 days prior
                                     before arrival</label>
                             </div>
-                            <br>
+                            <br> --}}
 
                             {{-- Meals --}}
                             <h5 class="mt mb">
                                 <strong>Meals</strong>
                             </h5>
-                            <p class="mt mb">Applied meals plan for this rate plan</p>
+                            <p class="mt mb">Applied meals plan for this rate plan ?</p>
                             <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
                                 <input type="checkbox" id="policy" name="policy" value="0">
                                 <label>Include Meal</label>
@@ -51,13 +51,21 @@
                             </h5>
                             <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
                             <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                <input type="checkbox" id="policy" name="policy" value="0">
+                                <input type="radio" id="AnyDays" name="action" value="0">
                                 <label>Any days</label>
                             </div>
+
                             <div class="radio radio-replace color-primary">
-                                <input type="checkbox" id="policy" name="policy" value="0">
-                                <label>Set number of days before check in</label>
+                                <input type="radio" id="SetNumber" name="action" value="green"/>
+                                <label>Set number of days before check in </label>
                             </div>
+
+                            {{-- <div  class="radio radio-replace color-primary" style="margin-top:1px; margin-right:5px;" hidden>
+                                <input type="radio" name="action" value="red"/>
+                                <label>Any Days 1 </label>
+                            </div> --}}
+                              <input id="DaySet" type="text"  class="show-hide" style="display:none;margin-bottom:1px;margin-left:27px;" value="0">
+
                             <br>
 
                             {{-- Minimum length of stay --}}
@@ -65,14 +73,19 @@
                                 <strong>Minimum length of stay</strong>
                             </h5>
                             <p class="mt mb">How many nights require for guest to book for this rate plan?</p>
+
                             <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                <input type="checkbox" id="policy" name="policy" value="0">
-                                <label>No minimum</label>
+                                <input type="radio" id="NoMinimum" name="action1" value="0">
+                                <label>No Minimum </label>
                             </div>
+
                             <div class="radio radio-replace color-primary">
-                                <input type="checkbox" id="policy" name="policy" value="0">
-                                <label>Set minimum nights</label>
+                                <input type="radio" name="action1"/>
+                                <label>Set Minimum Nights </label>
                             </div>
+
+                              <input  type="text" id="InputSet" class="show-hide1" style="display:none;margin-bottom:1px;margin-left:27px;" value="0">
+
                             <hr>
                             <div class="form-group">
                                 <h5 class="mt mb">
@@ -107,7 +120,7 @@
                                 <input type="text" class="form-control" id="product_name" name="room_name"
                                     value="" placeholder="Rp.">
                                 <br>
-                                <label for="room_order">Extra Bad Rate</label>
+                                <label for="room_order">Extra Bed Rate</label>
                                 <input type="text" class="form-control" id="room_order" name="room_order"
                                     value="" placeholder="Rp.">
                                 <br>
@@ -126,5 +139,47 @@
     </div>
 
     <script>
+        // function set_number(){
+        //     document.getElementById('input_set_number').style.display = 'inline';
+        // }
+
+        // $(document).ready(function(){ 
+        //     $("input[name=set_number]").change(function() {
+        //         var test = $(this).val();
+        //         $(".class-number").hide();
+        //         $("#"+test).show();
+        //     });
+        // });
+
+        // $(document).ready(function(){ 
+        //     $("input[name=action]").change(function() {
+        //         var test = $(this).val();
+        //         $(".show-hide").hide();
+        //         $("#"+test).show();
+        //     });
+        // });
+
+        $(function () {
+            $("input[name='action']").click(function () {
+                if ($("#AnyDays").is(":checked")) {
+                    $("#DaySet").hide();
+                } else {
+                    $("#DaySet").show();
+                }
+            });
+        });
+
+
+        $(function () {
+            $("input[name='action1']").click(function () {
+                if ($("#NoMinimum").is(":checked")) {
+                    $("#InputSet").hide();
+                } else {
+                    $("#InputSet").show();
+                }
+            });
+        });
+
+
     </script>
 @endsection

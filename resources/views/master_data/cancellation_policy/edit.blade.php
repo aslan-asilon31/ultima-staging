@@ -1,13 +1,13 @@
 @extends('templates/template')
 @section('header_title')
-    CREATE CANCELLATION POLICY
+    EDIT CANCELLATION POLICY
 @endsection
 @section('content')
     <div class="col-lg-7">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form enctype="multipart/form-data" method="POST"  action="{{ route('cancellation_policy.insert') }}">                        
+                    <form enctype="multipart/form-data" method="POST"  action="{{ route('cancellation_policy.insert') }}">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">

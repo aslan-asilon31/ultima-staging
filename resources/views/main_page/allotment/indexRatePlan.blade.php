@@ -3,6 +3,10 @@
     ALLOTMENT
 @endsection
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/allotment_backend.css') }}">
+
+{{-- <script src="{{ asset('js/allotment_backend') }}"></script> --}}
+
     <script>
         var dateStart = 0;
         var diffDay = 0;
@@ -133,8 +137,8 @@
 
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="field-1" class="control-label">Net Booked
-                                        <i class="fa fa-fw fa-info-circle"></i>
+                                    <label for="field-1" class="control-label ">Net Booked
+                                        <i class="fa fa-fw fa-info-circle net-booked"  title="Amount of allotment data has been booked"></i>
                                     </label>
                                     <p class="mb mt">4</p>
                                 </div>
@@ -142,11 +146,13 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Pending
-                                        <i class="fa fa-fw fa-info-circle"></i>
+                                        <i class="fa fa-fw fa-info-circle pending" title="Amount of allotment data for waiting"></i>
                                     </label>
                                     <p class="mb mt">4</p>
                                 </div>
                             </div>
+
+
 
                             <div class="col-lg-12">
                                 <hr>
@@ -171,22 +177,15 @@
                         <div class="row">
                             {{-- NOTE --}}
                             <div class="col-lg-12">
-                                <div class="col-lg-6"
-                                    style="border-left-style: solid; border-color: blue; margin-bottom: 50px;">
+                                <div class="col-lg-12" style="border-left-style: solid; border-color: blue; margin-bottom: 50px;">
                                     <label for="weekday_rate">Room Only
-                                    <span id="enable-discount-rate">
-                                        <p class="mt mb" style="color: blue; cursor: pointer; font-weight:normal;">
-                                            Enable slash rate
-                                        </p>
-                                    </span>
                                     </label>
 
                                     <br>
 
                                     <label for="weekday_rate">Rate
-                                        <i class="fa fa-fw fa-clock-o"></i>
                                     </label>
-                                    <div class="input-group col-lg-12">
+                                    <div class="input-group col-lg-6">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="Base Weekday Publish Rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
@@ -195,42 +194,45 @@
                                     </div>
                                     <br>
                                     <label for="bed_price">Extra Bed Rate
-                                        <i class="fa fa-fw fa-clock-o"></i>
                                     </label>
-                                    <div class="input-group col-lg-12">
+                                    <div class="input-group col-lg-6" >
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="Extra Bed Rate"
                                             class="form-control room_price thousandSeperator" id="bed_price" value="2" disabled />
                                         <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" />
                                     </div>
+
+                                    <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
+                                        <div class="col-lg-6" >
+                                            <label for="bed_price" style="margin-top:0px;padding-right:20px;">Enable Promo Rate</label>
+                                            <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="toggle" style="margin-left:150px;">
+                                                <input class="toggle-checkbox show-textbox" type="checkbox">
+                                                <div class="toggle-switch"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <div class="col-lg-6" id="pre-discount-rate" style="display:none">
-                                    <label for="weekend_rate">Pre-discount Rate
-                                        <i class="fa fa-fw fa-info-circle"></i>
-                                    </label>
-                                    <div class="input-group col-lg-12">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Pre-discount Rate"
-                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekend_rate" value="3" />
-                                        <input type="hidden" name="room_weekend_rate" id="weekend_rate_input" value="3" />
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
-                        
+
                         <div class="row">
                             <div class="col-lg-6">
-                                <p style="font-weight: bold;">Active This Rate Plan</p>
+                                <p style="font-weight: bold;margin-top:12px;" class>Active This Rate Plan</p>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="make-switch switch-small" style="margin-bottom: 8px;">
-                                    <input name="room_only" type="checkbox" id="room_only">
-                                </div>
+                            <div class="col-lg-6 ">
+                                <label class="toggle" style="margin-left:150px;">
+                                    <input class="toggle-checkbox " type="checkbox" checked>
+                                    <div class="toggle-switch"></div>
+                                </label>
                             </div>
+
                         </div>
 
                         <div class="row">
@@ -737,4 +739,11 @@
             });
         });
     </script>
+
+    <script>
+        $(".show-textbox").click(function() {
+            $("#enable-promo").toggle();
+        });
+    </script>
+
 @endsection
