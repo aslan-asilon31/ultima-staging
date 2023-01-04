@@ -93,10 +93,10 @@
                                 </h5>
                                 <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
                                 <select name="" id="" class="form-control">
-                                    <option value="volvo">Free Cancellation</option>
-                                    <option value="saab">Free Cancellationt</option>
-                                    <option value="mercedes">Free Cancellationt</option>
-                                    <option value="audi">Free Cancellationt</option>
+                                    <option value="">Choose Cancellation</option>
+                                    @foreach($cancellations as $cancel)
+                                    <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <hr>

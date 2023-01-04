@@ -16,6 +16,8 @@ class CancellationController extends Controller
         //menu code
         $menu = $this->menu();
 
+        $cancellations = CancellationPolicy::all();
+
         return view('master_data.cancellation_policy.index', get_defined_vars());
     }
 
@@ -25,7 +27,7 @@ class CancellationController extends Controller
         //menu code
         $menu = $this->menu();
 
-        return redirect('master_data.cancellation_policy.create', get_defined_vars());
+        return view('master_data.cancellation_policy.create', get_defined_vars());
     }
 
     public function edit()
@@ -34,7 +36,7 @@ class CancellationController extends Controller
         //menu code
         $menu = $this->menu();
 
-        return redirect('master_data.cancellation_policy.edit', get_defined_vars());
+        return view('master_data.cancellation_policy.edit', get_defined_vars());
     }
 
     public function insert(Request $request)

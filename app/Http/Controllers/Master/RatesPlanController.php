@@ -8,7 +8,7 @@ use App\Models\RatesPlan;
 use App\Models\Room\Type;
 use Carbon\Carbon;
 use DB;
-
+use App\Models\Cancellation\CancellationPolicy;
 use File;
 use Illuminate\Support\Str;
 
@@ -29,6 +29,7 @@ class RatesPlanController extends Controller
         //menu code
         $menu = $this->menu();
         $rooms = Type::orderBy('room_order', 'ASC')->with('bed')->with('amenities')->with('photo')->get();
+        $cancellations = CancellationPolicy::all();
 
         return view('master_data.rates_plan.create', get_defined_vars());
     }
@@ -66,5 +67,14 @@ class RatesPlanController extends Controller
         return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di Update');
 
     }
+
+        //UPDATE DATA
+        // public function edit($id)
+        // {
+        //     $setting = $this->setting();
+        //     $amenitiess = Amenities::orderBy('id')->get();
+        //     $id = Crypt::decryptString($id);
+        //     return view('master_data.room.create', get_defined_vars());
+        // }
 
 }
