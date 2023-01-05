@@ -12,8 +12,13 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <label for="rates_name">Rates Name</label>
-                                <input type="text" class="form-control" id="rates_name" name="room_name"
+                                <input type="text" class="form-control @error('rates_name') is-invalid @enderror" id="rates_name" name="rates_name"
                                     placeholder="Free Upgrade to Super Deluxe">
+                                    @error('name')
+                                        <div class="invalid-feedback">
+                                        {{$message}}
+                                        </div>
+                                    @enderror
                                 <br>
 
                                 {{-- Meals --}}
@@ -22,11 +27,11 @@
                                 </h5>
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="checkbox" id="policy" name="policy" value="0">
+                                    <input type="checkbox" id="def_meal_available" name="def_meal_available" value="">
                                     <label>Include Meal</label>
                                 </div>
                                 <div class="radio radio-replace color-primary">
-                                    <input type="checkbox" id="policy" name="policy" value="0">
+                                    <input type="checkbox" id="def_meal_available" name="def_meal_available" value="">
                                     <label>No, don’t add meal plan for this rate plan</label>
                                 </div>
                                 <br>
@@ -37,12 +42,12 @@
                                 </h5>
                                 <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="AnyDays" name="action" value="0">
+                                    <input type="radio" id="AnyDays" name="def_bookable" value="anydays">
                                     <label>Any days</label>
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="action" value="green"/>
+                                    <input type="radio" id="SetNumber" name="def_bookable" value="setnumber"/>
                                     <label>Set number of days before check in </label>
                                 </div>
 
@@ -61,12 +66,12 @@
                                 <p class="mt mb">How many nights require for guest to book for this rate plan?</p>
 
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="NoMinimum" name="action1" value="0">
+                                    <input type="radio" id="NoMinimum" name="def_minimum_stay" value="nominimum">
                                     <label>No Minimum </label>
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" name="action1"/>
+                                    <input type="radio" name="def_minimum_stay" value="setminimum">
                                     <label>Set Minimum Nights </label>
                                 </div>
 
@@ -109,20 +114,20 @@
                                     <label for="weekday_rate" class="">Base Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Base Weekday Publish Rate"
+                                        <input type="text" name="base_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                             id="weekday_rate" value="" />
-                                        <input type="hidden" name="room_publish_rate" id="weekday_rate_input"
+                                        <input type="hidden" name="base_rate" id="weekday_rate_input"
                                             value="" />
                                     </div>
                                     <br>
                                     <label for="weekday_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Base Weekday Publish Rate"
+                                        <input type="text" name="extrabed_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                             id="weekday_rate" value="" />
-                                        <input type="hidden" name="room_publish_rate" id="weekday_rate_input"
+                                        <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
                                             value="" />
                                     </div>
                                     <br>
@@ -165,7 +170,7 @@
         // });
 
         $(function () {
-            $("input[name='action']").click(function () {
+            $("input[name='def_bookable']").click(function () {
                 if ($("#AnyDays").is(":checked")) {
                     $("#DaySet").hide();
                 } else {
@@ -176,7 +181,7 @@
 
 
         $(function () {
-            $("input[name='action1']").click(function () {
+            $("input[name='def_minimum_stay']").click(function () {
                 if ($("#NoMinimum").is(":checked")) {
                     $("#InputSet").hide();
                 } else {

@@ -8,17 +8,31 @@
             <div class="panel panel-default">
                 <div class="panel-body shadow">
                     <form method="POST" action="" enctype="multipart/form-data" autocomplete="off">
+                        @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
-                                <label for="name">Cancellations Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="cancellation Name">
+                                    <label>Cancellation Name</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $cancellationpolicy->name) }}" placeholder="Masukkan Cancellation">
+                            
+                                    <!-- error message untuk title -->
+                                    @error('name')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 <br>
                             </div>
                             <div class="col-lg-12 col-md-12">
-                                <label for="description">Description</label>
+                                {{-- <label for="description">Description</label>
                                 <textarea type="text" class="form-control" id="description" name="description"
-                                    placeholder="New Description"></textarea>
+                                    placeholder="New Description"></textarea> --}}
+                                    {{-- <label for="description">Description</label>
+                                    <input type="text" class="form-control" id="description" name="description"
+                                        value="{{old('description', $description)}}" placeholder="Description">
+                                    @error('description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror --}}
                                 <br>
                             </div>
                         </div>

@@ -40,6 +40,14 @@ class VisitorController extends Controller
         return view('visitor_site.landing_page.index', get_defined_vars());
     }
 
+    public function settemplate()
+    {
+        $menu = $this->menu();
+        $setting = $this->setting();
+
+        return view('templates.visitor_template', get_defined_vars());
+    }
+
     public function rooms()
     {
         $arrContextOptions = array(

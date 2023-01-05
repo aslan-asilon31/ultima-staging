@@ -12,31 +12,21 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <label for="name">Cancellations Name</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Cancellation name">
-                                
-                                    <!-- error message untuk title -->
+                                <input type="text" class="form-control" id="name" name="name" value=""
+                                    placeholder="cancellation Name">
+
+                                    {{-- <label for="name">Cancellation Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        value="{{old('name', $name)}}" placeholder="Cancellation Name">
                                     @error('name')
-                                        <div class="alert alert-danger mt-2">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror --}}
                                 <br>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <label for="description">Description</label>
-                                <label for="name">Cancellations Name</label>
-                                <div class="form-group">
-                                    <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"></textarea>
-                                
-                                    <!-- error message untuk title -->
-                                    @error('description')
-                                        <div class="alert alert-danger mt-2">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                <textarea type="text" class="form-control" id="description" name="description" value=""
+                                    placeholder="New Description"></textarea>
                                 <br>
                             </div>
                         </div>

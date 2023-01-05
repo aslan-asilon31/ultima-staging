@@ -36,32 +36,35 @@ class RatesPlanController extends Controller
 
     public function insert(Request $request)
     {
+        // dd($request->all());
         $setting = $this->setting();
         //menu code
         $menu = $this->menu();
 
         $this->validate($request, [
             'cancellation_id'     => 'required',
+            'rate_name'     => 'required',
             'def_meal_available'     => 'required',
             'def_bookable'     => 'required',
             'def_minimum_stay'     => 'required',
             'base_rate'     => 'required',
             'extrabed_rate'     => 'required',
-            'promo_rate'     => 'required',
-            'is_rate_plan_activate'     => 'required',
-            'is_promo_rate'     => 'required'
+            // 'promo_rate'     => 'required',
+            // 'is_rate_plan_activate'     => 'required',
+            // 'is_promo_rate'     => 'required'
         ]);
 
         $rates_plans = RatesPlan::create([
             'cancellation_id'     => $request->cancellation_id,
+            'rate_name'     => $request->rate_name,
             'def_meal_available'   => $request->def_meal_available,
             'def_bookable'   => $request->def_bookable,
             'def_minimum_stay'   => $request->def_minimum_stay,
             'base_rate'   => $request->base_rate,
             'extrabed_rate'   => $request->extrabed_rate,
-            'promo_rate'   => $request->promo_rate,
-            'is_rate_plan_activate'   => $request->is_rate_plan_activate,
-            'is_promo_rate_activate'   => $request->def_meal_available,
+            // 'promo_rate'   => $request->promo_rate,
+            // 'is_rate_plan_activate'   => $request->is_rate_plan_activate,
+            // 'is_promo_rate_activate'   => $request->def_meal_available,
 
         ]);
         return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di Update');

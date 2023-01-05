@@ -10,7 +10,7 @@
         <br>
         <div class="row">
             <?php $no = 0; ?>
-            @foreach ($cancellations as $cancel)
+            @foreach ($cancellationpolicies as $cancel)
                 <?php $no++; ?>
                 <div class="panel panel-default">
                     <div class="panel-body shadow">

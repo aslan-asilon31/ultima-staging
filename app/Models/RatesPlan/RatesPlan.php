@@ -15,14 +15,13 @@ class RatesPlan extends Model
     protected $fillable =
     [
         'cancellation_id',
+        'rate_name',
         'def_meal_available',
         'def_bookable',
         'def_minimum_stay',
         'base_rate',
         'extrabed_rate',
-        'promo_rate',
-        'is_rate_plan_activate',
-        'is_promo_rate_activate',
+
 
     ];
 }

@@ -16,9 +16,9 @@ class CancellationController extends Controller
         //menu code
         $menu = $this->menu();
 
-        $cancellations = CancellationPolicy::all();
+        $cancellationpolicies = CancellationPolicy::all();
 
-        return view('master_data.cancellation_policy.index', get_defined_vars());
+        return view('master_data.cancellation_policy.index', compact('cancellationpolicies','menu','setting'));
     }
 
     public function create()
@@ -43,21 +43,43 @@ class CancellationController extends Controller
             'description'     => 'required',
         ]);
 
-        $cancellations = CancellationPolicy::create([
+        $insertcancellations = CancellationPolicy::create([
             'name'     => $request->name,
             'description'   => $request->description
         ]);
-        return view('master_data.cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di Update');
+
+        if($insertcancellations){
+            //redirect dengan pesan sukses
+            return view('master_data.cancellation_policy.index', get_defined_vars())->with('status', 'Cancellation Policy Berhasil di Insert');
+            
+          }else{
+            //redirect dengan pesan error
+            return view('master_data.cancellation_policy.index', get_defined_vars())->with('status', 'Cancellation Policy Gagal di Insert');
+            
+          }
+        // return view('master_data.cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di Update');
+        // return redirect()->route('master_data/cancellation-policy/index');
 
     }
 
-    public function edit($id)
+    // public function edit($id)
+    // {
+    //     $setting = $this->setting();
+    //     // $id = Crypt::decryptString($id);
+    //     $menu = $this->menu();
+    //     $cancellations = CancellationPolicy::find($id);
+    //     return view('master_data.cancellation_policy.edit', get_defined_vars());
+    // }
+
+    public function edit(Cancellationpolicy $cancellationpolicy)
     {
         $setting = $this->setting();
         // $id = Crypt::decryptString($id);
         $menu = $this->menu();
         $cancellations = CancellationPolicy::find($id);
         return view('master_data.cancellation_policy.edit', get_defined_vars());
+        // return view('master_data.cancellation_policy.edit', compact('setting','menu'));
+
     }
 
     public function update(Request $request, $id){
