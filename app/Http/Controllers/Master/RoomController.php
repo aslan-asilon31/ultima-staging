@@ -57,7 +57,6 @@ class RoomController extends Controller
         $amenitiess = Amenities::orderBy('id')->get();
         return view('master_data.room.createRatePlan', get_defined_vars());
         // return view('master_data.room.create', get_defined_vars());
-
     }
 
     public function insert(Request $request)

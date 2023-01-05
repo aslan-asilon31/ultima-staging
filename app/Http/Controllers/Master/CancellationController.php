@@ -26,16 +26,17 @@ class CancellationController extends Controller
         $setting = $this->setting();
         //menu code
         $menu = $this->menu();
+        $cancellations = CancellationPolicy::all();
 
         return view('master_data.cancellation_policy.create', get_defined_vars());
     }
 
-    public function edit()
+    public function edit($id)
     {
         $setting = $this->setting();
-        //menu code
+        // $id = Crypt::decryptString($id);
         $menu = $this->menu();
-
+        $cancellations = CancellationPolicy::all();
         return view('master_data.cancellation_policy.edit', get_defined_vars());
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\RatesPlan;
+use App\Models\RatesPlan\RatesPlan;
 use App\Models\Room\Type;
 use Carbon\Carbon;
 use DB;
@@ -69,12 +69,12 @@ class RatesPlanController extends Controller
     }
 
         //UPDATE DATA
-        // public function edit($id)
-        // {
-        //     $setting = $this->setting();
-        //     $amenitiess = Amenities::orderBy('id')->get();
-        //     $id = Crypt::decryptString($id);
-        //     return view('master_data.room.create', get_defined_vars());
-        // }
+        public function edit($id)
+        {
+            $setting = $this->setting();
+            $cancellations = CancellationPolicy::orderBy('id')->get();
+            // $id = Crypt::decryptString($id);
+            return view('master_data.room.edit', get_defined_vars());
+        }
 
 }
