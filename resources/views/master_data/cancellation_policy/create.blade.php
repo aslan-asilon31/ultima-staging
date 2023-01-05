@@ -7,7 +7,7 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form enctype="multipart/form-data" method="POST"  action="{{ route('cancellation_policy.insert') }}">                        
+                    <form enctype="multipart/form-data" method="POST"  action="{{ route('cancellation_policy.insert') }}">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                             <div class="pull-right">
-                                <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                                <a class="btn btn-white btn-padding" href="{{ route('cancellation_policy.index') }}">
                                     Cancel
                                 </a>
                                 <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>

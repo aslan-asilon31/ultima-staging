@@ -8,7 +8,7 @@ class CancellationPolicy extends Model
 {
     protected $table = 'cancellation_policy';
 
-    // public $primaryKey = 'id';
+    public $primaryKey = 'id';
 
     public $timestamps = true;
 
