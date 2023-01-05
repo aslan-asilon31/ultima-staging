@@ -279,7 +279,7 @@ $room_order = "";
                             </div>
                             <br>
                         </div>
-                        <div class="col-lg-12"></div>
+                        {{-- <div class="col-lg-12"></div>
                         <div class="col-lg-4" hidden>
                             <label for="weekday_rate" class="">Base Weekday Publish Rate</label>
                             <div class="input-group col-lg-12">
@@ -333,7 +333,7 @@ $room_order = "";
                                     value="{{$room_extrabed_rate}}" />
                             </div>
                             <br>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

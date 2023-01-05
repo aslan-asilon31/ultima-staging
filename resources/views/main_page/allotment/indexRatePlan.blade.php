@@ -203,7 +203,7 @@
                                     </div>
 
                                     <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
-                                        <div class="col-lg-6" >
+                                        <div class="col-lg-6" style="margin-left: -15px;">
                                             <label for="bed_price" style="margin-top:0px;padding-right:20px;">Enable Promo Rate</label>
                                             <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
                                         </div>
@@ -220,8 +220,20 @@
                             </div>
                         </div>
 
+                        <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
+                            <div class="col-lg-6" style="margin-left: -10px; margin-right;">
+                                <label for="bed_price" style="margin-top:0px;padding-right:20px;">Enable Promo Rate</label>
+                                <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="toggle" style="margin-left:150px;">
+                                    <input class="toggle-checkbox " type="checkbox" checked>
+                                    <div class="toggle-switch"></div>
+                                </label>
+                            </div>
+                        </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-lg-6">
                                 <p style="font-weight: bold;margin-top:12px;" class>Active This Rate Plan</p>
                             </div>
@@ -232,8 +244,7 @@
                                     <div class="toggle-switch"></div>
                                 </label>
                             </div>
-
-                        </div>
+                        </div> --}}
 
                         <div class="row">
                             <div class="col-lg-4">
