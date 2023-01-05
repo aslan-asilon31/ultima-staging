@@ -42,7 +42,7 @@ class CancellationController extends Controller
 
     public function insert(Request $request)
     {
-        // $setting = $this->setting();
+        $setting = $this->setting();
         // menu code
         $menu = $this->menu();
 

@@ -98,7 +98,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/master_data/cancellation-policy/edit/{id}">
+                        <a href="/master_data/cancellation-policy/">
                             <i class="fa fa-star"></i>
                             <span class="title">Cancellation Policy</span>
                         </a>
