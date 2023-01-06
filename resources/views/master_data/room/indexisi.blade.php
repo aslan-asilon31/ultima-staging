@@ -114,9 +114,73 @@
                                 class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
                             </a>
                         </div> --}}
-                        <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"
-                            class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
-                        </a>
+
+
+                        <div class="col-lg-12" style="margin-top:-20px;">
+                            <div class="col-lg-6" style="margin-right:-20px;">
+                                <h4 class="mb" style="margin-left:50%;"><strong>Rate Plan(s)</strong></h4>
+                                <div class="panel panel-default" style="width: 70%;height:9%;margin-left:50%;margin-top:1%;">
+                                        <div class="panel-body shadow">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-12 col-md-12">
+                                                    <h5 style="margin-bottom:-5px;">
+                                                        <strong>Free upgrade to super deluxe</strong> 
+                                                    </h5>
+                                                    <br>
+            
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6 col-md-6">
+                                                    <h6 style="margin-bottom:-5px;">
+                                                        <strong>Rate strategy</strong>
+                                                    </h6>
+                                                    <ul class="checklist-ul mt">
+                                                        <li class="mt text-muted">No Meal</li>
+                                                        <li class="mt">Allow extra beds</li>
+                                                    </ul>
+                                                </div>
+                        
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+    
+                            <div class="col-lg-6" style="margin-right:px;">
+                                <h4 class="mb" style="margin-left:50%;margin-top:5%;"></h4>
+
+                                <div class="panel panel-default" style="width: 70%;height:9%;margin-left:25%;margin-top:1%;">
+                                        <div class="panel-body shadow">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-12 col-md-12">
+                                                    <h5 style="margin-bottom:-5px;">
+                                                        <strong>Room with breakfast</strong> 
+                                                    </h5>
+
+                                                    <br>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6 col-md-6">
+                                                    <h6 style="margin-bottom:-5px;">
+                                                        <strong>Rate strategy</strong>
+                                                    </h6>
+                                                    <ul class="checklist-ul mt">
+                                                        <li class="mt text-muted">No Meal</li>
+                                                        <li class="mt">Allow extra beds</li>
+                                                    </ul>
+                                                </div>
+                        
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"
+                                class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             @endforeach
