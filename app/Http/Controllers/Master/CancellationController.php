@@ -51,11 +51,11 @@ class CancellationController extends Controller
         if($insertcancellations){
             //redirect dengan pesan sukses
             return view('master_data.cancellation_policy.index', get_defined_vars())->with('status', 'Cancellation Policy Berhasil di Insert');
-            
+
           }else{
             //redirect dengan pesan error
             return view('master_data.cancellation_policy.index', get_defined_vars())->with('status', 'Cancellation Policy Gagal di Insert');
-            
+
           }
         // return view('master_data.cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di Update');
         // return redirect()->route('master_data/cancellation-policy/index');
@@ -73,10 +73,12 @@ class CancellationController extends Controller
 
     public function edit(Cancellationpolicy $cancellationpolicy)
     {
+        // $setting = $this->setting();
+        // $menu = $this->menu();
+        // $cancellations = CancellationPolicy::find($id);
         $setting = $this->setting();
-        // $id = Crypt::decryptString($id);
         $menu = $this->menu();
-        $cancellations = CancellationPolicy::find($id);
+        $cancellationpolicies = CancellationPolicy::all();
         return view('master_data.cancellation_policy.edit', get_defined_vars());
         // return view('master_data.cancellation_policy.edit', compact('setting','menu'));
 
