@@ -25,8 +25,9 @@
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <label for="description">Description</label>
-                                <textarea type="text" class="form-control" id="description" name="description"
-                                    placeholder="New Description"></textarea>
+                                <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"  style="padding: 2% 0% 20% 2%;">
+                                {{-- <textarea type="text" class="form-control" id="description" name="description"
+                                    placeholder="New Description"></textarea> --}}
                                     {{-- <label for="description">Description</label>
                                     <input type="text" class="form-control" id="description" name="description"
                                         value="{{old('description', $description)}}" placeholder="Description">

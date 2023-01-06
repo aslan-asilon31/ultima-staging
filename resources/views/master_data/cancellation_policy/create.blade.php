@@ -14,7 +14,7 @@
                                 <label for="name">Cancellations Name</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Cancellation name">
-                                
+
                                     <!-- error message untuk title -->
                                     @error('name')
                                         <div class="alert alert-danger mt-2">
@@ -28,8 +28,9 @@
                                 <label for="description">Description</label>
                                 <label for="name">Cancellations Name</label>
                                 <div class="form-group">
-                                    <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"></textarea>
-                                
+                                    {{-- <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"></textarea> --}}
+                                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"  style="padding: 2% 0% 20% 2%;">
+
                                     <!-- error message untuk title -->
                                     @error('description')
                                         <div class="alert alert-danger mt-2">
