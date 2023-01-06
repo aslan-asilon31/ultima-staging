@@ -71,27 +71,44 @@ class CancellationController extends Controller
     //     return view('master_data.cancellation_policy.edit', get_defined_vars());
     // }
 
-    public function edit(Cancellationpolicy $cancellationpolicy)
-    {
-        // $setting = $this->setting();
-        // $menu = $this->menu();
-        // $cancellations = CancellationPolicy::find($id);
-        $setting = $this->setting();
-        $menu = $this->menu();
-        $cancellationpolicies = CancellationPolicy::all();
-        return view('master_data.cancellation_policy.edit', get_defined_vars());
-        // return view('master_data.cancellation_policy.edit', compact('setting','menu'));
+    // public function edit(Cancellationpolicy $cancellationpolicy)
+    // {
+    //     // $setting = $this->setting();
+    //     // $menu = $this->menu();
+    //     // $cancellations = CancellationPolicy::find($id);
+    //     $setting = $this->setting();
+    //     $menu = $this->menu();
+    //     $cancellationpolicies = CancellationPolicy::all();
+    //     return view('master_data.cancellation_policy.edit', get_defined_vars());
+    //     // return view('master_data.cancellation_policy.edit', compact('setting','menu'));
 
-    }
+    // }
 
-    public function update(Request $request, $id){
-        $setting = $this->setting();
+    // public function update(Request $request, $id){
+    //     $setting = $this->setting();
+    //     // $id = Crypt::decryptString($id);
+    //     $menu = $this->menu();
+    //     $cancellations = CancellationPolicy::find($id);
+
+    //     $data->update($request->all());
+
+    //     return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil diedit']);
+    // }
+
+    public function edit($id){
+        $cancellationpolicies = CancellationPolicy::find($id);
         // $id = Crypt::decryptString($id);
-        $menu = $this->menu();
-        $cancellations = CancellationPolicy::find($id);
-
-        $data->update($request->all());
+        return view('master_data.cancellation_policy.edit', compact('cancellationpolicies'));
+    }
+    public function update(Request $request, $id){
+        $cancellationpolicies = CancellationPolicy::find($id);
+        $cancellationpolicies->update($request->all());
 
         return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil diedit']);
+    }
+    public function delete($id){
+        $cancellationpolicies = CancellationPolicy::find($id);
+        $cancellationpolicies->delete();
+        return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil dihapus']);
     }
 }

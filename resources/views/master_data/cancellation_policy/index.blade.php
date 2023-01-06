@@ -21,7 +21,7 @@
                             <h4 class="mb"><strong>{{ $cancel->description }}</strong></h4>
                             <p class="mt">Free night cancellation 4 days prior before arrival</p>
 
-                            <a href="/master_data/cancellation-policy/edit" style="margin-top:20px;"
+                            <a href="/master_data/cancellation-policy/edit/{{ $cancel->id }}" style="margin-top:20px;"
                             class="btn btn-horison manage-pkg" style=""><b>Manage Cancellation Policy</b>
                             </a>
                         </div>

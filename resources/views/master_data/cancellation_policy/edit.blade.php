@@ -7,13 +7,13 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form method="POST" action="" enctype="multipart/form-data" autocomplete="off">
+                    <form method="POST" action="/update/{{ $cancellationpolicies->id }}" enctype="multipart/form-data" autocomplete="off">
                         @csrf
-                        @method('PUT')
+                        {{-- @method('PUT') --}}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                     <label>Cancellation Name</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Cancellation">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan Cancellation" value="{{ $cancellationpolicies->name }}">
 
                                     <!-- error message untuk title -->
                                     {{-- @error('name')
@@ -24,8 +24,8 @@
                                 <br>
                             </div>
                             <div class="col-lg-12 col-md-12">
-                                <label for="description">Description</label>
-                                <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"  style="padding: 2% 0% 20% 2%;">
+                                <label for="description">Description</label><br>
+                                <input type="text" class="form-control" name="description" id="description" value="{{ $cancellationpolicies->description }}" placeholder="Description" style="padding: 2% 0% 20% 2%;"><br><br>
                                 {{-- <textarea type="text" class="form-control" id="description" name="description"
                                     placeholder="New Description"></textarea> --}}
                                     {{-- <label for="description">Description</label>
