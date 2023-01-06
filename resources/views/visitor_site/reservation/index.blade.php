@@ -354,6 +354,9 @@
                                 <p class="pt-20"><strong>Room Only</strong></p>
                                 @endif
                             </div>
+                            <div class="col-md-12" style="margin-top:-18px;">
+                                <p class="" style="font-size:12px; color: grey;padding:0px;margin:0px;"> No Meal</p>
+                            </div>
                             <div class="col-md-6" style="margin-left:-16px;">
                                 <div class="col-md-12 col-xs-12">
                                     <p>Rp
