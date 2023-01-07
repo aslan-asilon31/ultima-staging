@@ -11,10 +11,15 @@ use Illuminate\Support\Facades\Crypt;
 
 class AmenitiesController extends Controller
 {
+    // public function __construct()
+    // {
+    //     //DEFINISIKAN PATH
+    //     // $this->path = storage_path('app/public/user');
+    // }
+
     public function __construct()
     {
-        //DEFINISIKAN PATH
-        // $this->path = storage_path('app/public/user');
+        ini_set('max_execution_time', 300);
     }
 
     public function index()

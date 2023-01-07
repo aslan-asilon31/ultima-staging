@@ -146,7 +146,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Pending
-                                        <i class="fa fa-fw fa-info-circle pending" title="Amount of allotment data for waiting"></i>
+                                        <i class="fa fa-fw fa-info-circle pending" title="Amount of allotment data waiting for payment"></i>
                                     </label>
                                     <p class="mb mt">4</p>
                                 </div>
@@ -204,8 +204,16 @@
 
                                     <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
                                         <div class="col-lg-6" style="margin-left: -15px;">
-                                            <label for="bed_price" style="margin-top:0px;padding-right:20px;">Enable Promo Rate</label>
-                                            <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                                            <label for="bed_price" style="margin-top:0px;width:200px;padding-right:21px;font-size:11px;">Enable/disable Promo Rate</label>
+                                            {{-- <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required> --}}
+                                            <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
+                                                <span class="input-group-addon" >Rp.</span>
+                                                <input type="text" name=""
+                                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                                     value="" />
+                                                <input type="hidden" name="" id=""
+                                                    value="" />
+                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <label class="toggle" style="margin-left:150px;">
@@ -222,7 +230,7 @@
 
                         <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
                             <div class="col-lg-6" style="margin-left: -10px; margin-right;">
-                                <label for="bed_price" style="margin-top:0px;padding-right:20px;">Enable Promo Rate</label>
+                                <label for="bed_price" style="margin-top:0px;padding-right:20px;">Enable/disable Promo Rate</label>
                                 <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
                             </div>
                             <div class="col-lg-6">

@@ -77,8 +77,10 @@
 
                                 <div class="input-group col-lg-12">
                                     <input type="text" name="Base Weekday Publish Rate"
-                                        class="show-hide1 form-control thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="InputSet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;"" />
+                                        class="show-hide1 form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                        id="InputSet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+
+
                                 </div>
 
                                 <hr>

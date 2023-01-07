@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-lg-12 col-md-12">
                             <h5 style="margin-bottom:-5px;">
-                                <strong>Room with Breakfast</strong> 
+                                <strong>Room with Breakfast</strong>
                             </h5>
                             <p class="mt">Applied for Deluxe Room, Super Deluxe Room, Executive Room, Executive
                                 Suite Room
