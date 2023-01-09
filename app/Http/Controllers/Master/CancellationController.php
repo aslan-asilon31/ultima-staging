@@ -52,7 +52,7 @@ class CancellationController extends Controller
             if($cancellationpolicies){
                 //redirect dengan pesan sukses
 
-                return redirect()->route('cancellation_policy.index')->withSuccess('Data berhasil disimpan');
+                return redirect()->route('cancellation_policy.index')->with(['error', 'data gagal ditambahkan']);
               }else{
                 //redirect dengan pesan error
                 return redirect()->route('cancellation_policy.index')->with(['error', 'data gagal ditambahkan']);

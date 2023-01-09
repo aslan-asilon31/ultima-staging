@@ -248,7 +248,7 @@ return [
         'Sanitizer' => Waavi\Sanitizer\Laravel\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        // 'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];
