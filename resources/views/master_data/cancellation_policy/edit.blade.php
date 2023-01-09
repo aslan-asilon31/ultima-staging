@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <label for="description">Description</label><br>
-                                <input type="text" class="form-control" name="description" id="description" value="{{ $cancellationpolicies->description }}" placeholder="Description" style="padding: 2% 0% 20% 2%;"><br><br>
+                                <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" style="padding: 2% 0% 20% 2%;">{{ $cancellationpolicies->description }}</textarea><br><br>
                                 {{-- <textarea type="text" class="form-control" id="description" name="description"
                                     placeholder="New Description"></textarea> --}}
                                     {{-- <label for="description">Description</label>
