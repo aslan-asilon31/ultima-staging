@@ -45,7 +45,7 @@
                                     Cancel
                                 </a>
                                 <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
-                        </div>
+                            </div>
                     </form>
 
                 </div>
