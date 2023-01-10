@@ -525,6 +525,7 @@
                                 class="btn btn-horison btn-lg ipad-book {{$class}}"><b>BOOK NOW</b></a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

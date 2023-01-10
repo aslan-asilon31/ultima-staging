@@ -7,13 +7,13 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form enctype="multipart/form-data" method="POST"  action="{{ route('cancellation_policy.insert') }}">
-                        {{ csrf_field() }}
+                    <form enctype="multipart/form-data" method="POST" action="insert">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <label for="name">Cancellations Name</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Cancellation name">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="Cancellation name">
 
                                     <!-- error message untuk title -->
                                     @error('name')
@@ -26,10 +26,9 @@
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <label for="description">Description</label>
-                                <label for="name">Cancellations Name</label>
                                 <div class="form-group">
                                     {{-- <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"></textarea> --}}
-                                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"  style="padding: 2% 0% 20% 2%;">
+                                    <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" style="padding: 2% 0% 20% 2%;"></textarea>
 
                                     <!-- error message untuk title -->
                                     @error('description')
@@ -46,7 +45,7 @@
                                     Cancel
                                 </a>
                                 <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
-                        </div>
+                            </div>
                     </form>
 
                 </div>

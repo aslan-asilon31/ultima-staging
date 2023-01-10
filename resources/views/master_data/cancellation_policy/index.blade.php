@@ -7,6 +7,15 @@
         <div class="row">
             <a href="/master_data/cancellation-policy/create" class="btn btn-horison btn-lg pull-right"><b>ADD CANCELLATION POLICY</b></a>
         </div>
+        @if ($message = Session::get('success'))
+        <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+            <div class="flex">
+            <div>
+                <strong>{{ $message }}</strong>
+            </div>
+            </div>
+        </div>
+        @endif
         <br>
         <div class="row">
             <?php $no = 0; ?>
@@ -33,4 +42,5 @@
 
         </div>
     </div>
+    {{-- @include('sweetalert::alert') --}}
 @endsection
