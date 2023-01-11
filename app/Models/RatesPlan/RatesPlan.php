@@ -14,6 +14,7 @@ class RatesPlan extends Model
 
     protected $fillable =
     [
+        'id',
         'cancellation_id',
         'rate_name',
         'def_meal_available',

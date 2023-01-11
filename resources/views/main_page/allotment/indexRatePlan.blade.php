@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="{{ asset('css/allotment_backend.css') }}">
 
 {{-- <script src="{{ asset('js/allotment_backend') }}"></script> --}}
-
+@php
+$promo_rate = '0';
+@endphp
     <script>
         var dateStart = 0;
         var diffDay = 0;
@@ -188,7 +190,7 @@
                                     <div class="input-group col-lg-6">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="Base Weekday Publish Rate"
-                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            class="form-control "
                                             id="weekday_rate" value="1" disabled />
                                         <input type="hidden" name="room_publish_rate" id="weekday_rate_input" value="1" />
                                     </div>
@@ -210,7 +212,7 @@
                                                 <span class="input-group-addon" >Rp.</span>
                                                 <input type="text" name=""
                                                     class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                                     value="" />
+                                                     value="{{ $promo_rate }}" id="promo_rate" />
                                                 <input type="hidden" name="" id=""
                                                     value="" />
                                             </div>
@@ -763,6 +765,36 @@
         $(".show-textbox").click(function() {
             $("#enable-promo").toggle();
         });
+    </script>
+
+    <script>
+            if ("{{ $promo_rate }}" != "") {
+        var e = document.getElementById("promo_rate");
+        e.value = formatRupiah(e, e.value);
+        }
+
+        function ambilRupiah(e) {
+            var hiddenInput = document.getElementById(e.id + "_value");
+            hiddenInput.value = hiddenInput.value.replace(/[^0-9]*/g, '');
+            hiddenInput.value = e.value.match(/\d/g).join("");
+            e.value = formatRupiah(e, e.value);
+        }
+
+        /* Fungsi formatRupiah */
+        function formatRupiah(rupiah, angka, prefix) {
+            var number_string = angka.replace(/[^0-9]*/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+        }
     </script>
 
 @endsection

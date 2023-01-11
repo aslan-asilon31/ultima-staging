@@ -202,8 +202,7 @@
                                                     <div class="" style="padding: 5px;">
                                                         <div class="col-lg-12" style="box-shadow: -5px 0px #1B729E;">
                                                             <label for="field-1" class="control-label">Room Only</label>
-                                                                <h6 style="color:#1B729E;margin-top:-4px;padding:0px;">Enable Slash Rate</h6>                                     </div>
-                                                        
+                                                                <h6 style="color:#1B729E;margin-top:-4px;padding:0px;">Enable Slash Rate</h6>
 
                                                                 <div class="col-lg-12" style="box-shadow: -5px -0px #1B729E;">
                                                                     <label for="field-1" class="control-label">Rate <i class="glyphicon glyphicon-info-sign"></i></label>

@@ -2,11 +2,7 @@
 @section('header_title')
     ADD RATES PLAN
 @endsection
-
 @section('content')
-@php
-$set_days = "0";
-@endphp
     <div class="col-lg-7">
         <div class="row">
             <div class="panel panel-default">
@@ -15,10 +11,10 @@ $set_days = "0";
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
-                                <label for="rates_name">Rates Name</label>
-                                <input type="text" class="form-control @error('rates_name') is-invalid @enderror" id="rates_name" name="rates_name"
-                                    placeholder="Free Upgrade to Super Deluxe">
-                                    @error('rates_name')
+                                <label for="rate_name">Rates Name</label>
+                                <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
+                                    placeholder="Free Upgrade to Super Deluxe" value="{{ $ratesplans->rate_name }}">
+                                    @error('rate_name')
                                         <div class="invalid-feedback">
                                         {{$message}}
                                         </div>
@@ -31,21 +27,13 @@ $set_days = "0";
                                 </h5>
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="1">
-
+                                    <input type="radio" id="available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 1 ? 'checked' : '' }}>
                                     <label>Include Meal</label>
                                 </div>
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="no_available" name="def_meal_available" value="0">
-
+                                    <input type="radio" id="no_available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 0 ? 'checked' : '' }}>
                                     <label>No, don’t add meal plan for this rate plan</label>
                                 </div>
-
-                                @error('def_meal_available')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
                                 <br>
 
                                 {{-- Bookables --}}
@@ -54,26 +42,20 @@ $set_days = "0";
                                 </h5>
                                 <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="AnyDays" name="def_bookable" value="0">
+                                    <input type="radio" id="AnyDays" name="def_bookable" value="" {{ $ratesplans->def_bookable == 0 ? 'checked' : '' }}>
                                     <label>Any days</label>
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="def_bookable" value="setnumber"/>
+                                    <input type="radio" id="SetNumber" name="def_bookable" value="" {{ $ratesplans->def_bookable > 0 ? 'checked' : '' }}>
                                     <label>Set number of days before check in </label>
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="text" class="form-control @error('def_meal_available') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" name="SetNumber"
+                                    <input type="number" name="Base Weekday Publish Rate"
                                         class="show-hide form-control "
-                                        id="DaySet" value="{{ $set_days }}" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+                                        id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
-
-                                @error('def_meal_available')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
 
                                 <br>
 
@@ -84,26 +66,22 @@ $set_days = "0";
                                 <p class="mt mb">How many nights require for guest to book for this rate plan?</p>
 
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="NoMinimum" name="def_minimum_stay" value="1">
+                                    <input type="radio" id="NoMinimum" name="def_minimum_stay" value="1">
                                     <label>No Minimum </label>
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="set_minimum" name="def_minimum_stay" value="0">
+                                    <input type="radio" id="set_minimum" name="def_minimum_stay" value="0">
                                     <label>Set Minimum Nights </label>
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="text"  name="Base Weekday Publish Rate"
-                                        class="show-hide1 form-control " onkeypress="return onlyNumberKey(event)" maxlength="11"
+                                    <input type="number" name="Base Weekday Publish Rate"
+                                        class="show-hide1 form-control"
                                         id="InputSet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
-                                </div>
 
-                                @error('def_minimum_stay')
-                                <div class="invalid-feedback">
-                                {{$message}}
+
                                 </div>
-                                @enderror
 
                                 <hr>
                                 <div class="form-group">
@@ -111,36 +89,33 @@ $set_days = "0";
                                         <strong>Set Cancellation Policy</strong>
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
-                                    <select name="cancellation_id" id="" class="form-control @error('cancellation_id') is-invalid @enderror">
+                                    <select name="cancellation_id" id="" class="form-control">
                                         <option value="">Choose Cancellation</option>
                                         @foreach($cancellations as $cancel)
                                         <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
                                         @endforeach
+                                        {{-- <option value="{{ $ratesplans->name }}">{{ $$ratesplans->name}}</option> --}}
                                     </select>
                                 </div>
-                                @error('cancellation_id')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
                                 <hr>
                                 <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                 <div class="row">
-                                    @foreach ($rooms as $room)
+                                    {{-- @foreach ($rooms as $room)
                                         <div class="col-lg-4">
                                             <div class="checkbox checkbox-replace color-primary">
-                                                <input type="checkbox" class="form-control @error('room_name[]') is-invalid @enderror" id="rd-1" name="room_name[]" value="{{ $room->id }}">
+                                                <input type="checkbox" id="rd-1" name="room_name[]" value="{{ $room->id }}">
                                                 <label>{{ $room->room_name }}</label>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @endforeach --}}
+                                    <div class="col-lg-4">
+                                        {{-- <div class="checkbox checkbox-replace color-primary">
+                                            <input type="checkbox" id="rd-1" name="room_name[]" value="{{ $room->id }}">
+                                            <label>{{ $ratesplans->rate_name }}</label>
+                                        </div> --}}
+                                    </div>
                                 </div>
-                                @error('room_name[]')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
                                 <br>
                             </div>
                             <div class="form-group">
@@ -149,31 +124,21 @@ $set_days = "0";
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="number" name="base_rate"
-                                            class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="base_rate" value="" />
+                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="base_rate" value="{{ $ratesplans->base_rate }}" />
                                       {{--   <input type="hidden" name="base_rate" id="base_rate"
                                             value="" /> --}}
                                     </div>
-                                    @error('base_rate')
-                                    <div class="invalid-feedback">
-                                    {{$message}}
-                                    </div>
-                                    @enderror
                                     <br>
                                     <label for="extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="number" name="extrabed_rate"
-                                            class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="extrabed_rate" value="" />
+                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="extrabed_rate" value="{{ $ratesplans->extrabed_rate }}" />
                                       {{--   <input type="hidden" name="extrabed_rate" id="extrabed_rate"
                                             value="" /> --}}
                                     </div>
-                                    @error('extrabed_rate')
-                                    <div class="invalid-feedback">
-                                    {{$message}}
-                                    </div>
-                                    @enderror
                                     <br>
                                 </div>
                             </div>
@@ -181,6 +146,9 @@ $set_days = "0";
                         <div class="pull-right">
                             <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
                                 Cancel
+                            </a>
+                            <a class="btn btn-white btn-padding" style="border-style: solid; border-color:red;" href="">
+                                Delete
                             </a>
                             <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
                         </div>
@@ -232,7 +200,7 @@ $set_days = "0";
                     $("#InputSet").show();
                 }
             });
-
+            
         });
 
         $("#DaySet").on("input",function(){
@@ -243,6 +211,7 @@ $set_days = "0";
             $("#set_minimum").val(this.value);
         });
 
+      
 
         $(function () {
             $("input[name='def_meal_available']").click(function () {
@@ -257,101 +226,14 @@ $set_days = "0";
 
 
     </script>
-
-<script type="text/javascript">
-    if ("{{$set_days}}" != "") {
-            var e = document.getElementById("weekday_rate");
-            e.value = formatRupiah(e, e.value);
-    }
-
-
-    function ambilRupiah(e) {
-        var hiddenInput = document.getElementById(e.id + "_value");
-        hiddenInput.value = hiddenInput.value.replace(/[^0-9]*/g, '');
-        hiddenInput.value = e.value.match(/\d/g).join("");
-        e.value = formatRupiah(e, e.value);
-    }
-
-    /* Fungsi formatRupiah */
-    function formatRupiah(rupiah, angka, prefix) {
-        var number_string = angka.replace(/[^0-9]*/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-        // tambahkan titik jika yang di input sudah menjadi angka ribuan
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
-    }
-
-    function confirmBox(e) {
-        var room_price = document.getElementsByClassName('room_price');
-        console.log(room_price.length);
-        var cek = true;
-        var msg = '';
-
-        for (let index = 0; index < room_price.length; index++) {
-            const element = room_price[index];
-
-            if(element.value == "0"){
-                if(msg == ''){
-                    msg += element.name;
-                }else{
-                    msg += ', '+element.name;
-                }
-                cek = false;
+    {{-- <script>
+        
+          $("input[type='radio']").click(function () {
+            var radioValue = $("input[name='def_meal_available']:checked").val();
+            if (radioValue) {
+              alert("result: you choose " + radioValue);
             }
-            console.log(msg);
-            if(msg != ''){
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: 'This '+msg+' will be sold for Rp 0 ',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: 'No'
-                    }).then((result) => {
-                    if (result.value) {
-                        e.setAttribute('type','submit');
-                        e.setAttribute('onclick','');
-                        e.click();
-                        cek = false;
-                    // For more information about handling dismissals please visit
-                    // https://sweetalert2.github.io/#handling-dismissals
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire(
-                        'Cancelled',
-                        'Operation Cancel!',
-                        'error'
-                        )
-                    }
-                })
-            }
-
-        }
-
-        if(cek){
-            e.setAttribute('type','submit');
-            e.setAttribute('onclick','');
-            e.click();
-        }
-    }
-</script>
-
-<script>
-    function onlyNumberKey(evt) {
-
-        // Only ASCII character in that range allowed
-        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-            return false;
-        return true;
-    }
-</script>
-
-
+          });
+        
+    </script> --}}
 @endsection

@@ -12,6 +12,8 @@ class CancellationPolicy extends Model
 
     public $timestamps = true;
 
+    protected $guarded = []; 
+
     protected $fillable =
     [
         'id',

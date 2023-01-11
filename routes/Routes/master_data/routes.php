@@ -61,7 +61,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         // Edit Update
         // Route::get('/edit/{id}', ['as' => 'cancellation_policy.edit', 'uses' => 'Master\CancellationController@edit']);
         Route::get('/edit/{id}', ['as' => 'cancellation_policy.edit', 'uses' => 'Master\CancellationController@edit']);
-        Route::post('/update/{id}', ['as' => 'cancellation_policy.update', 'uses' => 'Master\CancellationController@update']);
+        Route::post('/update', ['as' => 'cancellation_policy.update', 'uses' => 'Master\CancellationController@update']);
         // Delete
         Route::post('/delete/{id}', ['as' => 'cancellation_policy.delete', 'uses' => 'Master\CancellationController@delete']);
         // AJAX

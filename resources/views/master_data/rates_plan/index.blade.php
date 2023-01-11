@@ -19,24 +19,28 @@
         <br>
 
         <div class="row">
+            @foreach ($ratesplans as $rate)
             <div class="panel panel-default">
                 <div class="panel-body shadow">
                     <div class="row">
+                        
                         <div class="col-xs-12 col-lg-12 col-md-12">
                             <h5 style="margin-bottom:-5px;">
-                                <strong>Room with Breakfast</strong>
+                                <strong>{{ $rate->rate_name }}</strong>
                             </h5>
                             <p class="mt">Applied for Deluxe Room, Super Deluxe Room, Executive Room, Executive
                                 Suite Room
                                 and
                                 President Suite room</p>
                         </div>
+                        
+
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             <h5 style="margin-bottom:-5px;">
                                 <strong>Room with Breakfast</strong>
                             </h5>
                             <ul class="checklist-ul mt">
-                                <li class="mt text-muted">No Meal</li>
+                                <li class="mt text-muted">{{ $rate->def_meal_available == 1 ? 'Meal' : 'No meal'  }}</li>
                                 <li class="mt">Allow extra beds</li>
                             </ul>
                         </div>
@@ -50,13 +54,15 @@
                         </div>
 
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            <a href="/master_data/room/edit/" class="btn btn-horison pull-right">
+                            <a href="/master_data/rates-plan/edit/{{ $rate->id }}" class="btn btn-horison pull-right">
                                 <b>Manage Rates Plan</b>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+
         </div>
 
         <div class="row">
