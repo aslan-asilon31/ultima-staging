@@ -15,10 +15,10 @@ $set_days = "0";
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
-                                <label for="rates_name">Rates Name</label>
-                                <input type="text" class="form-control @error('rates_name') is-invalid @enderror" id="rates_name" name="rates_name"
+                                <label for="rate_name">Rates Name</label>
+                                <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
                                     placeholder="Free Upgrade to Super Deluxe">
-                                    @error('rates_name')
+                                    @error('rate_name')
                                         <div class="invalid-feedback">
                                         {{$message}}
                                         </div>
