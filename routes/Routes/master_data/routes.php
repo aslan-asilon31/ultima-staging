@@ -1,4 +1,6 @@
 <?php
+
+
 Route::group(['middleware' => ['web', 'auth']], function () {
 
     // Panel Package
@@ -68,6 +70,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/setdata/{id}', ['as' => 'cancellation_policy.setdata', 'uses' => 'Master\CancellationController@setdata']);
     });
 
+
+
     // Panel Amenities
     Route::group(['prefix' => 'master_data/amenities'], function() {
         Route::get('/', ['as' => 'amenities.index', 'uses' => 'Master\AmenitiesController@index']);
@@ -76,7 +80,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::post('/insert', ['as' => 'amenities.insert', 'uses' => 'Master\AmenitiesController@insert']);
         // Edit Update
         Route::get('/edit/{id}', ['as' => 'amenities.edit', 'uses' => 'Master\AmenitiesController@edit']);
-        Route::post('/update', ['as' => 'amenities.update', 'uses' => 'Master\AmenitiesController@update']);
+        Route::post('/update/{id}', ['as' => 'amenities.update', 'uses' => 'Master\AmenitiesController@update']);
         // Delete
         Route::post('/delete', ['as' => 'amenities.delete', 'uses' => 'Master\AmenitiesController@delete']);
         // AJAX

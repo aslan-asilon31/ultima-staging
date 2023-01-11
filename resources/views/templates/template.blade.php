@@ -287,5 +287,11 @@
     </script>
 
     <script type="text/javascript" src="{{ asset('js/slick.min.js')}}"></script>
+
+    <!-- Alpine Plugins -->
+<script defer src="https://unpkg.com/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
+ 
+<!-- Alpine Core -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>

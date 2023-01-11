@@ -31,7 +31,8 @@ class RatesPlanController extends Controller
         $setting = $this->setting();
         //menu code
         $menu = $this->menu();
-        $rooms = Type::orderBy('room_order', 'ASC')->with('bed')->with('amenities')->with('photo')->get();
+        // $rooms = Type::orderBy('room_order', 'ASC')->with('bed')->with('amenities')->with('photo')->get();
+        $rooms = Type::all();
         $cancellations = CancellationPolicy::all();
         return view('master_data.rates_plan.create', get_defined_vars());
     }

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form enctype="multipart/form-data" method="POST" action="insert">
+                    <form enctype="multipart/form-data" method="POST" action="{{ route('cancellation_policy.insert') }}">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">

@@ -6,7 +6,11 @@
 @section('content')
 @php
 $set_days = "0";
+$base_rate_val = "1.000.000";
+$extrabed_rate_val = "1.000.000";
 @endphp
+
+
     <div class="col-lg-7">
         <div class="row">
             <div class="panel panel-default">
@@ -117,6 +121,7 @@ $set_days = "0";
                                         <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                                 @error('cancellation_id')
                                 <div class="invalid-feedback">
@@ -126,16 +131,13 @@ $set_days = "0";
                                 <hr>
                                 <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
-                                <div class="row">
-                                    @foreach ($rooms as $room)
-                                        <div class="col-lg-4">
-                                            <div class="checkbox checkbox-replace color-primary">
-                                                <input type="checkbox" class="form-control @error('room_name[]') is-invalid @enderror" id="rd-1" name="room_name[]" value="{{ $room->id }}">
-                                                <label>{{ $room->room_name }}</label>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                    <select name="" id="" class="form-control  " >
+                                        <option value="">Choose Room</option>
+                                        @foreach($rooms as $room)
+                                        <option  value="{{ $room->id }}"><label>{{ $room->room_name }}</label></option>
+                                        @endforeach
+                                    </select>
+
                                 @error('room_name[]')
                                 <div class="invalid-feedback">
                                 {{$message}}
@@ -150,7 +152,7 @@ $set_days = "0";
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="number" name="base_rate"
                                             class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="base_rate" value="" />
+                                            id="base_rate" value="{{ $base_rate_val }}" />
                                       {{--   <input type="hidden" name="base_rate" id="base_rate"
                                             value="" /> --}}
                                     </div>
@@ -163,9 +165,9 @@ $set_days = "0";
                                     <label for="extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="number" name="extrabed_rate"
+                                        <input x-mask:dynamic="$money($input, ',')" type="number" name="extrabed_rate"
                                             class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="extrabed_rate" value="" />
+                                            id="extrabed_rate" value="{{ $extrabed_rate_val }}" />
                                       {{--   <input type="hidden" name="extrabed_rate" id="extrabed_rate"
                                             value="" /> --}}
                                     </div>
@@ -258,10 +260,20 @@ $set_days = "0";
 
     </script>
 
+<script>
+    var e = document.getElementById("extrabed_rate");
+    e.value = formatRupiah(e, e.value);
+</script>
+
 <script type="text/javascript">
     if ("{{$set_days}}" != "") {
             var e = document.getElementById("weekday_rate");
             e.value = formatRupiah(e, e.value);
+    }
+
+    if ("{{ $extrabed_rate_val }}" != "") {
+        var e = document.getElementById("extrabed_rate");
+        e.value = formatRupiah(e, e.value);
     }
 
 
@@ -352,6 +364,5 @@ $set_days = "0";
         return true;
     }
 </script>
-
 
 @endsection
