@@ -97,14 +97,8 @@ class CancellationController extends Controller
             // $cancellation->name = e($request->input('name'));
             // $cancellation->description = e($request->input('description'));
             // $cancellation->save();
-            // $this->validate($request, [
-            //     'name'     => 'required|min:5',
-            //     'description'   => 'required|min:10'
-            // ]);
-            $post->update([
-                'name'     => $request->name,
-                'description'   => $request->description
-            ]);
+            $cancellationpolicies = CancellationPolicy::find($id);
+            $cancellationpolicies->update($request->all());
 
             return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di ubah');
     }

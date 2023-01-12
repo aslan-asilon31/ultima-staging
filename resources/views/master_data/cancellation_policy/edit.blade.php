@@ -9,7 +9,7 @@
                 <div class="panel-body shadow">
                     <form method="POST" action="/update/{{$cancellationpolicies->id}}" enctype="multipart/form-data" autocomplete="off">
                         @csrf
-                        @method('PUT')
+                        {{-- @method('PUT') --}}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                     <label>Cancellation Name</label>
