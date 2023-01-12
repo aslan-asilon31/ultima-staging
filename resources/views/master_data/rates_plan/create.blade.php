@@ -6,8 +6,8 @@
 @section('content')
 @php
 $set_days = "0";
-$base_rate_val = "1.000.000";
-$extrabed_rate_val = "1.000.000";
+$base_rate_val = "0";
+$extrabed_rate_val = "0";
 @endphp
 
 
