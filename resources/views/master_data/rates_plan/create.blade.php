@@ -21,7 +21,7 @@ $extrabed_rate_val = "0";
                             <div class="col-lg-12 col-md-12">
                                 <label for="rate_name">Rates Name</label>
                                 <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
-                                    placeholder="Free Upgrade to Super Deluxe">
+                                    placeholder="Rates Name">
                                     @error('rate_name')
                                         <div class="invalid-feedback">
                                         {{$message}}

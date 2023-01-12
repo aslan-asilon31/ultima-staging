@@ -40,7 +40,7 @@
                             </div>
                         </div>
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-outline-danger btn-padding">Delete</button>
+                                <a type="button" class="btn btn-outline-danger btn-padding delete" data-id="{{ $cancellationpolicies->id }}" data-kategori="{{ $cancellationpolicies->name }}">Delete</a>
                                 <a class="btn btn-white btn-padding" href="{{ route('cancellation_policy.index') }}">
                                     Cancel
                                 </a>
@@ -55,4 +55,31 @@
 
     <script>
     </script>
+    <script>
+        $('.delete').click(function(){
+        var barang_id = $(this).attr('data-id');
+        var barang = $(this).attr('data-nama_barang');
+        swal({
+        title: "Apa kamu yakin?",
+        text: "kamu akan menghapus barang dengan nama "+barang+" ",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+              window.location = "/delete/"+barang_id+""
+              swal("Barang "+barang+" berhasil di hapus", {
+              icon: "success",
+              });
+        } else {
+              swal(
+                    'Oooops!!!',
+                    'Barang '+barang+' gagal di hapus :)',
+                    'error'
+              )
+        }
+        });
+              });
+  </script>
 @endsection
