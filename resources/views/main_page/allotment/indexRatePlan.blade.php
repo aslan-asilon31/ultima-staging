@@ -89,9 +89,8 @@ $promo_rate = '0';
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="field-1" class="control-label">Room Type
-                                    <p style="font-weight:normal;">Deluxe Room</p>
-                                    </label>
+                                    <label for="field-1" class="control-label">Room Type</label>
+                                    <input type="text" class="form-control" id="room_type" disabled>
                                 </div>
                             </div>
 

@@ -7,6 +7,11 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
+                    <form id="delete_room" onsubmit="return confirm('Are you sure ?')" method="POST"
+                        action="{{ route('cancellation_policy.delete') }}" enctype="multipart/form-data" autocomplete="off">
+                        <input type="hidden" name="id" id="cancellation-id" value="{{ $cancellationpolicies->id }}">
+                        {{ csrf_field() }}
+                    </form>
                     <form method="POST" action="/update/{{$cancellationpolicies->id}}" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         {{-- @method('PUT') --}}
@@ -40,7 +45,9 @@
                             </div>
                         </div>
                             <div class="pull-right">
-                                <a type="button" class="btn btn-outline-danger btn-padding delete" data-id="{{ $cancellationpolicies->id }}" data-kategori="{{ $cancellationpolicies->name }}">Delete</a>
+                                <button type="submit" form="delete_room" class="btn btn-delete btn-padding">
+                                    Delete
+                                </button>
                                 <a class="btn btn-white btn-padding" href="{{ route('cancellation_policy.index') }}">
                                     Cancel
                                 </a>
@@ -53,33 +60,35 @@
         </div>
     </div>
 
-    <script>
-    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
         $('.delete').click(function(){
-        var barang_id = $(this).attr('data-id');
-        var barang = $(this).attr('data-nama_barang');
-        swal({
-        title: "Apa kamu yakin?",
-        text: "kamu akan menghapus barang dengan nama "+barang+" ",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-        if (willDelete) {
-              window.location = "/delete/"+barang_id+""
-              swal("Barang "+barang+" berhasil di hapus", {
-              icon: "success",
-              });
-        } else {
-              swal(
-                    'Oooops!!!',
-                    'Barang '+barang+' gagal di hapus :)',
-                    'error'
-              )
-        }
+            var cancellation_id = $(this).attr('data-id');
+            var cancellation = $(this).attr('data-name');
+            swal({
+                  title: "Yakin?",
+                  text: "kamu akan menghapus "+cancellation+" ",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                  if (willDelete) {
+                        window.location = "/delete/"+cancellation+""
+                        swal("Data berhasil di hapus", {
+                        icon: "success",
+                        });
+                  } else {
+                        // swal("cancellation "+cancellation+" gagal di hapus");
+                        swal(
+                              'Oooops!!!',
+                              'Data gagal di hapus :)',
+                              'error'
+                        )
+                  }
+                  });
         });
-              });
-  </script>
+
+    </script>
 @endsection
