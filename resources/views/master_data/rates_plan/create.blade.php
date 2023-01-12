@@ -148,13 +148,24 @@ $extrabed_rate_val = "1.000.000";
                             <div class="form-group">
                                 <div class="col-lg-6 col-md-4">
                                     <label for="base_rate" class="">Base Rate</label>
+                                    {{-- <div class="input-group col-lg-12">
+                                        <span class="input-group-addon">Rp.</span>
+                                        <input type="text" name="Base Weekday Publish Rate"
+                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="weekday_rate" value="{{$base_rate_val}}" />
+                                        <input type="hidden" name="base_rate_val" id="weekday_rate_input"
+                                            value="{{$base_rate_val}}" />
+                                    </div> --}}
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="number" name="base_rate"
+                                        <input type="text" name="Base Weekday Publish Rate"
+                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="weekday_rate" value="{{$base_rate_val}}" />
+                                        <input type="hidden" name="base_rate_val" id="weekday_rate_input"
+                                            value="{{$base_rate_val}}" />
+                                        {{-- <input type="number" name="base_rate"
                                             class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="base_rate" value="{{ $base_rate_val }}" />
-                                      {{--   <input type="hidden" name="base_rate" id="base_rate"
-                                            value="" /> --}}
+                                            id="base_rate" value="{{ $base_rate_val }}" /> --}}
                                     </div>
                                     @error('base_rate')
                                     <div class="invalid-feedback">
@@ -165,9 +176,14 @@ $extrabed_rate_val = "1.000.000";
                                     <label for="extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input x-mask:dynamic="$money($input, ',')" type="number" name="extrabed_rate"
+                                        <input type="text" name="Base Weekday Publish Rate"
+                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="weekday_rate" value="{{$extrabed_rate_val}}" />
+                                        <input type="hidden" name="extrabed_rate_val" id="weekday_rate_input"
+                                            value="{{$extrabed_rate_val}}" />
+                                        {{-- <input x-mask:dynamic="$money($input, ',')" type="number" name="extrabed_rate"
                                             class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="extrabed_rate" value="{{ $extrabed_rate_val }}" />
+                                            id="extrabed_rate" value="{{ $extrabed_rate_val }}" /> --}}
                                       {{--   <input type="hidden" name="extrabed_rate" id="extrabed_rate"
                                             value="" /> --}}
                                     </div>
@@ -181,10 +197,10 @@ $extrabed_rate_val = "1.000.000";
                             </div>
                         </div>
                         <div class="pull-right">
-                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}" onclick="confirmBox(this)">
                                 Cancel
                             </a>
-                            <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
+                            <button type="submit" class="btn btn-horison-gold btn-padding" onclick="confirmBox(this)">Save</button>
                         </div>
                     </form>
                 </div>
@@ -199,7 +215,7 @@ $extrabed_rate_val = "1.000.000";
         //     document.getElementById('input_set_number').style.display = 'inline';
         // }
 
-        // $(document).ready(function(){ 
+        // $(document).ready(function(){
         //     $("input[name=set_number]").change(function() {
         //         var test = $(this).val();
         //         $(".class-number").hide();
@@ -207,7 +223,7 @@ $extrabed_rate_val = "1.000.000";
         //     });
         // });
 
-        // $(document).ready(function(){ 
+        // $(document).ready(function(){
         //     $("input[name=action]").change(function() {
         //         var test = $(this).val();
         //         $(".show-hide").hide();

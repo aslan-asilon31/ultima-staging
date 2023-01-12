@@ -185,7 +185,7 @@ $promo_rate = '0';
 
                                     <br>
 
-                                    <label for="weekday_rate">Rate
+                                    <label for="weekday_rate">Base Rate
                                     </label>
                                     <div class="input-group col-lg-6">
                                         <span class="input-group-addon">Rp.</span>
@@ -209,12 +209,17 @@ $promo_rate = '0';
                                             <label for="bed_price" style="margin-top:0px;width:200px;padding-right:21px;font-size:11px;">Enable/Disable Promo Rate</label>
                                             {{-- <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required> --}}
                                             <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
-                                                <span class="input-group-addon" >Rp.</span>
-                                                <input type="text" name=""
+                                                <span class="input-group-addon">Rp.</span>
+                                                <input type="text" name="Base Weekday Publish Rate"
+                                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                                    id="weekday_rate" value="{{$promo_rate}}" />
+                                                <input type="hidden" name="promo_rate" id="weekday_rate_input"
+                                                    value="{{$promo_rate}}" />
+                                                {{-- <input type="text" name=""
                                                     class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                                      value="{{ $promo_rate }}" id="promo_rate" style="width: 175px;" />
                                                 <input type="hidden" name="" id=""
-                                                    value="" />
+                                                    value="" /> --}}
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

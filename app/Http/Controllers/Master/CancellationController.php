@@ -35,16 +35,6 @@ class CancellationController extends Controller
         return view('master_data.cancellation_policy.create', get_defined_vars());
     }
 
-    //UPDATE DATA
-    public function edit($id)
-    {
-        $setting = $this->setting();
-        $cancellations = CancellationPolicy::orderBy('id')->first();
-        // $id = Crypt::decryptString($id);
-        return view('master_data.cancellation_policy.edit', get_defined_vars());
-    }
-
-
     public function insert(Request $request)
     {
 
@@ -75,44 +65,52 @@ class CancellationController extends Controller
                 'name'     => $request->name,
                 'description'   => $request->description
             ]);
-            
+
             // Session::flash('success','Data berhasil di tambahkan');
 
             return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di tambah');
-
-
     }
+
+    //Edit DATA
+    public function edit($id){
+        $setting = $this->setting();
+        //menu code
+        $menu = $this->menu();
+        $cancellationpolicies = CancellationPolicy::find($id);
+        // $id = Crypt::decryptString($id);
+        return view('master_data.cancellation_policy.edit', compact('cancellationpolicies'));
+    }
+
 
     public function update(Request $request, $id)
     {
-        $cancellationpolicies = CancellationPolicy::all();
+        // $cancellationpolicies = CancellationPolicy::all();
         // $validatedData = $request->validate([
         //     'name' => 'required',
         //     'description' => 'required',
         // ]);
         // CancellationPolicy::whereId($id)->update($validatedData);
-            
+
             // Session::flash('success','Data berhasil di tambahkan');
 
-            $cancellation = CancellationPolicy::find($id);
-            $cancellation->name = e($request->input('name'));
-            $cancellation->description = e($request->input('description'));
-            $cancellation->save();
+            // $cancellation = CancellationPolicy::find($id);
+            // $cancellation->name = e($request->input('name'));
+            // $cancellation->description = e($request->input('description'));
+            // $cancellation->save();
+            // $this->validate($request, [
+            //     'name'     => 'required|min:5',
+            //     'description'   => 'required|min:10'
+            // ]);
+            $post->update([
+                'name'     => $request->name,
+                'description'   => $request->description
+            ]);
 
-            return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di tambah');
-
-
+            return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di ubah');
     }
 
-
-    // // public function delete($id){
-    // //     $cancellationpolicies = CancellationPolicy::find($id);
-    // //     $cancellationpolicies->delete();
-    // //     return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil dihapus']);
-    // // }
-
     // public function delete($id){
-    //     $cancellationpolicies = CancellationPolicy::find($id); 
+    //     $cancellationpolicies = CancellationPolicy::find($id);
     //     $cancellationpolicies->delete();
     //     return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil dihapus']);
     // }
