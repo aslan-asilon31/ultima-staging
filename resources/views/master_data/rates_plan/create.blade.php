@@ -6,8 +6,8 @@
 @section('content')
 @php
 $set_days = "0";
-$base_rate_val = "0";
-$extrabed_rate_val = "0";
+$base_rate = "0";
+$extrabed_rate = "0";
 @endphp
 
 
@@ -16,7 +16,7 @@ $extrabed_rate_val = "0";
             <div class="panel panel-default">
                 <div class="panel-body shadow">
                     <form enctype="multipart/form-data" method="POST"  action="{{ route('rates_plan.insert') }}">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <label for="rate_name">Rates Name</label>
@@ -35,12 +35,12 @@ $extrabed_rate_val = "0";
                                 </h5>
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="1">
+                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="0">
 
                                     <label>Include Meal</label>
                                 </div>
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="no_available" name="def_meal_available" value="0">
+                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="no_available" name="def_meal_available" value="1">
 
                                     <label>No, don’t add meal plan for this rate plan</label>
                                 </div>
@@ -63,17 +63,17 @@ $extrabed_rate_val = "0";
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="def_bookable" value="setnumber"/>
+                                    <input type="radio" id="SetNumber" name="def_bookable" value=""/>
                                     <label>Set number of days before check in </label>
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="text" class="form-control @error('def_meal_available') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" name="SetNumber"
+                                    <input type="text" class="form-control @error('def_bookable') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" name="SetNumber"
                                         class="show-hide form-control "
-                                        id="DaySet" value="{{ $set_days }}" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+                                        id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
 
-                                @error('def_meal_available')
+                                @error('def_bookable')
                                 <div class="invalid-feedback">
                                 {{$message}}
                                 </div>
@@ -88,19 +88,19 @@ $extrabed_rate_val = "0";
                                 <p class="mt mb">How many nights require for guest to book for this rate plan?</p>
 
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="NoMinimum" name="def_minimum_stay" value="1">
+                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="NoMinimum" name="def_minimum_stay" value="0">
                                     <label>No Minimum </label>
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="set_minimum" name="def_minimum_stay" value="0">
+                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="set_minimum" name="def_minimum_stay" value="">
                                     <label>Set Minimum Nights </label>
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="text"  name="Base Weekday Publish Rate"
+                                    <input type="text"  name=""
                                         class="show-hide1 form-control " onkeypress="return onlyNumberKey(event)" maxlength="11"
-                                        id="InputSet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+                                        id="InputSet" value="" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
 
                                 @error('def_minimum_stay')
@@ -148,24 +148,15 @@ $extrabed_rate_val = "0";
                             <div class="form-group">
                                 <div class="col-lg-6 col-md-4">
                                     <label for="base_rate" class="">Base Rate</label>
-                                    {{-- <div class="input-group col-lg-12">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Base Weekday Publish Rate"
-                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="{{$base_rate_val}}" />
-                                        <input type="hidden" name="base_rate_val" id="weekday_rate_input"
-                                            value="{{$base_rate_val}}" />
-                                    </div> --}}
+
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Base Weekday Publish Rate"
+                                        <input type="text" name="base_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="{{$base_rate_val}}" />
-                                        <input type="hidden" name="base_rate_val" id="weekday_rate_input"
-                                            value="{{$base_rate_val}}" />
-                                        {{-- <input type="number" name="base_rate"
-                                            class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="base_rate" value="{{ $base_rate_val }}" /> --}}
+                                            id="weekday_rate" value="{{$base_rate}}" />
+                                       {{--  <input type="hidden" name="base_rate" id="weekday_rate_input"
+                                            value="{{$base_rate}}" /> --}}
+
                                     </div>
                                     @error('base_rate')
                                     <div class="invalid-feedback">
@@ -176,16 +167,12 @@ $extrabed_rate_val = "0";
                                     <label for="extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Base Weekday Publish Rate"
+                                        <input type="text" name="extrabed_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="{{$extrabed_rate_val}}" />
-                                        <input type="hidden" name="extrabed_rate_val" id="weekday_rate_input"
-                                            value="{{$extrabed_rate_val}}" />
-                                        {{-- <input x-mask:dynamic="$money($input, ',')" type="number" name="extrabed_rate"
-                                            class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="extrabed_rate" value="{{ $extrabed_rate_val }}" /> --}}
-                                      {{--   <input type="hidden" name="extrabed_rate" id="extrabed_rate"
-                                            value="" /> --}}
+                                            id="weekday_rate" value="{{$extrabed_rate}}" />
+        {{--                                 <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
+                                            value="{{$extrabed_rate}}" /> --}}
+
                                     </div>
                                     @error('extrabed_rate')
                                     <div class="invalid-feedback">
@@ -276,10 +263,10 @@ $extrabed_rate_val = "0";
 
     </script>
 
-<script>
+{{-- <script>
     var e = document.getElementById("extrabed_rate");
     e.value = formatRupiah(e, e.value);
-</script>
+</script> --}}
 
 <script type="text/javascript">
     if ("{{$set_days}}" != "") {
@@ -287,10 +274,10 @@ $extrabed_rate_val = "0";
             e.value = formatRupiah(e, e.value);
     }
 
-    if ("{{ $extrabed_rate_val }}" != "") {
-        var e = document.getElementById("extrabed_rate");
-        e.value = formatRupiah(e, e.value);
-    }
+    // if ("{{ $extrabed_rate }}" != "") {
+    //     var e = document.getElementById("extrabed_rate");
+    //     e.value = formatRupiah(e, e.value);
+    // }
 
 
     function ambilRupiah(e) {

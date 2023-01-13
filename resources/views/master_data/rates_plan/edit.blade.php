@@ -27,11 +27,11 @@
                                 </h5>
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 1 ? 'checked' : '' }}>
+                                    <input type="radio" id="available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 0 ? 'checked' : '' }}>
                                     <label>Include Meal</label>
                                 </div>
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="no_available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 0 ? 'checked' : '' }}>
+                                    <input type="radio" id="no_available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 1 ? 'checked' : '' }}>
                                     <label>No, don’t add meal plan for this rate plan</label>
                                 </div>
                                 <br>
@@ -41,13 +41,14 @@
                                     <strong>Bookables</strong>
                                 </h5>
                                 <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
+                                @if($ratesplans->def_bookable == 0)
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="AnyDays" name="def_bookable" value="" {{ $ratesplans->def_bookable == 0 ? 'checked' : '' }}>
+                                    <input type="radio" id="AnyDays" name="def_bookable" value="" checked>
                                     <label>Any days</label>
                                 </div>
 
                                 <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="def_bookable" value="" {{ $ratesplans->def_bookable > 0 ? 'checked' : '' }}>
+                                    <input type="radio" id="SetNumber" name="def_bookable" value="" >
                                     <label>Set number of days before check in </label>
                                 </div>
 
@@ -56,6 +57,24 @@
                                         class="show-hide form-control "
                                         id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
+                                @elseif($ratesplans->def_bookable >= 1)
+                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                    <input type="radio" id="AnyDays" name="def_bookable" value="" >
+                                    <label>Any days</label>
+                                </div>
+
+                                <div class="radio radio-replace color-primary">
+                                    <input type="radio" id="SetNumber" name="def_bookable" value="" checked>
+                                    <label>Set number of days before check in </label>
+                                </div>
+
+                                <div class="input-group col-lg-12">
+                                    <input type="number" name="Base Weekday Publish Rate"
+                                        class="show-hide form-control "
+                                        id="DaySet" value="{{ $ratesplans->def_bookable }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
+                                </div>
+                                @endif
+
 
                                 <br>
 
@@ -64,12 +83,11 @@
                                     <strong>Minimum length of stay</strong>
                                 </h5>
                                 <p class="mt mb">How many nights require for guest to book for this rate plan?</p>
-
+                                @if($ratesplans->def_minimum_stay == 0)
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="NoMinimum" name="def_minimum_stay" value="1">
+                                    <input type="radio" id="NoMinimum" name="def_minimum_stay" value="1" checked>
                                     <label>No Minimum </label>
                                 </div>
-
                                 <div class="radio radio-replace color-primary">
                                     <input type="radio" id="set_minimum" name="def_minimum_stay" value="0">
                                     <label>Set Minimum Nights </label>
@@ -79,10 +97,24 @@
                                     <input type="number" name="Base Weekday Publish Rate"
                                         class="show-hide1 form-control"
                                         id="InputSet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
-
-
+                                </div>
+                                @elseif($ratesplans->def_minimum_stay >= 0)
+                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                    <input type="radio" id="NoMinimum" name="def_minimum_stay" value="0" >
+                                    <label>No Minimum </label>
+                                </div>
+                                <div class="radio radio-replace color-primary">
+                                    <input type="radio" id="set_minimum" name="def_minimum_stay" value="1" checked>
+                                    <label>Set Minimum Nights </label>
                                 </div>
 
+                                <div class="input-group col-lg-12">
+                                    <input type="number" name="Base Weekday Publish Rate"
+                                        class="show-hide1 form-control"
+                                        id="InputSet" value="{{ $ratesplans->def_minimum_stay }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
+                                </div>
+                                @endif
+                              
                                 <hr>
                                 <div class="form-group">
                                     <h5 class="mt mb">
@@ -90,7 +122,6 @@
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
                                     <select name="cancellation_id" id="" class="form-control">
-                                        <option value="">Choose Cancellation</option>
                                         @foreach($cancellations as $cancel)
                                         <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
                                         @endforeach

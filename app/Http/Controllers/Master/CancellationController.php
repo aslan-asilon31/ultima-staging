@@ -40,11 +40,6 @@ class CancellationController extends Controller
 
         $cancellationpolicies = CancellationPolicy::all();
 
-        // $this->validate($request, [
-        //         'name'     => 'required',
-        //         'description'     => 'required',
-        //     ]);
-
         $request->validate([
             'name' => 'required',
             'description' => 'required',

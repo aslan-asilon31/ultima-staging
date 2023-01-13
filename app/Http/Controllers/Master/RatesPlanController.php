@@ -39,22 +39,22 @@ class RatesPlanController extends Controller
 
     public function insert(Request $request)
     {
-        // $body = $ratesPlanInsertRequest->validated();
-        // dd($body);
-        // $rates_plans = RatesPlan::create(Arr::except($body,"room_name"));
-        // $rates_plans = RatesPlan::create();
+        dd($request->all());
+        $ratesplans=RatesPlan::all();
 
-        $this->validate($request, [
+        $request->validate([
             "cancellation_id" => "required",
-            // "cancellation_id" => "required",
             'rate_name'     => 'required',
             'def_meal_available'     => 'required|numeric',
             'def_bookable'     => 'required',
             'def_minimum_stay'     => 'required',
             'room_name'     => 'required|array',
             'base_rate'     => 'required|numeric',
-            'extrabed_rate'     => 'required|numeric',
+            'extrabed_rate' => 'required|numeric',
         ]);
+
+        
+
 
         //CREATE ID
         $bytes = openssl_random_pseudo_bytes(4, $cstrong);
@@ -67,8 +67,9 @@ class RatesPlanController extends Controller
         }
 
         //it will return single model
-        $cancellation_id = CancellationPolicy::select('id')->get(); 
+        $cancellation_id = CancellationPolicy::select('id')->get();
         $ratesplans = RatesPlan::create([
+            
             'id' => $id,
             'cancellation_id'   => $request->cancellation_id,
             'rate_name'   => $request->rate_name,
@@ -79,8 +80,7 @@ class RatesPlanController extends Controller
             'extrabed_rate'   => $request->extrabed_rate,
         ]);
 
-        dd($ratesplans);
-        return redirect()->route('rates_plan.index')->with('status', 'Cancellation Policy Berhasil di Update');
+        return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Berhasil di Update');
     }
 
     //UPDATE DATA
