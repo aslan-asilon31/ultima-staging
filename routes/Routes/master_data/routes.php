@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Master\CancellationController;
 
 Route::group(['middleware' => ['web', 'auth']], function () {
 
@@ -64,10 +65,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::post('/update/{id}', ['as' => 'cancellation_policy.update', 'uses' => 'Master\CancellationController@update']);
         Route::get('/edit/{id}', ['as' => 'cancellation_policy.edit', 'uses' => 'Master\CancellationController@edit']);
         // Delete
-        Route::post('/delete/{id}', ['as' => 'cancellation_policy.delete', 'uses' => 'Master\CancellationController@delete']);
         // AJAX
         Route::get('/setdata/{id}', ['as' => 'cancellation_policy.setdata', 'uses' => 'Master\CancellationController@setdata']);
     });
+    Route::get('/delete/{id}', [CancellationController::class, 'delete'])->name('delete');
 
     // Panel Amenities
     Route::group(['prefix' => 'master_data/amenities'], function() {

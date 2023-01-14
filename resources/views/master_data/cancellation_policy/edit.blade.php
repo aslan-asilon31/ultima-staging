@@ -74,7 +74,7 @@
                   })
                   .then((willDelete) => {
                   if (willDelete) {
-                        window.location = "{{ route('cancellation_policy.update', $cancellationpolicies->id)}}"
+                        window.location = "/delete/"+cancellation_id+""
                         swal("Data berhasil di hapus", {
                         icon: "success",
                         });
