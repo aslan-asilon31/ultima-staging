@@ -7,12 +7,12 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form id="delete_room" onsubmit="return confirm('Are you sure ?')" method="POST"
+                    {{-- <form id="delete_room" onsubmit="return confirm('Are you sure ?')" method="POST"
                         action="{{ route('cancellation_policy.delete') }}" enctype="multipart/form-data" autocomplete="off">
                         <input type="hidden" name="id" id="cancellation-id" value="{{ $cancellationpolicies->id }}">
                         {{ csrf_field() }}
-                    </form>
-                    <form method="POST" action="/update/{{$cancellationpolicies->id}}" enctype="multipart/form-data" autocomplete="off">
+                    </form> --}}
+                    <form method="POST" action="{{ route('cancellation_policy.update', $cancellationpolicies->id)}}" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         {{-- @method('PUT') --}}
                         <div class="row">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                             <div class="pull-right">
-                                <button type="submit" form="delete_room" class="btn btn-delete btn-padding">
+                                <button type="submit" form="delete_room" class="btn btn-delete btn-padding delete" data-id="{{ $cancellationpolicies->id }}" data-name="{{ $cancellationpolicies->name }}">
                                     Delete
                                 </button>
                                 <a class="btn btn-white btn-padding" href="{{ route('cancellation_policy.index') }}">
@@ -67,15 +67,14 @@
             var cancellation_id = $(this).attr('data-id');
             var cancellation = $(this).attr('data-name');
             swal({
-                  title: "Yakin?",
-                  text: "kamu akan menghapus "+cancellation+" ",
+                  title: "Are you sure ?",
                   icon: "warning",
                   buttons: true,
                   dangerMode: true,
                   })
                   .then((willDelete) => {
                   if (willDelete) {
-                        window.location = "/delete/"+cancellation+""
+                        window.location = "{{ route('cancellation_policy.update', $cancellationpolicies->id)}}"
                         swal("Data berhasil di hapus", {
                         icon: "success",
                         });

@@ -61,17 +61,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/create', ['as' => 'cancellation_policy.create', 'uses' => 'Master\CancellationController@create']);
         Route::post('/insert', ['as' => 'cancellation_policy.insert', 'uses' => 'Master\CancellationController@insert']);
         // Edit Update
-        // Route::get('/edit/{id}', ['as' => 'cancellation_policy.edit', 'uses' => 'Master\CancellationController@edit']);
+        Route::post('/update/{id}', ['as' => 'cancellation_policy.update', 'uses' => 'Master\CancellationController@update']);
         Route::get('/edit/{id}', ['as' => 'cancellation_policy.edit', 'uses' => 'Master\CancellationController@edit']);
         // Delete
+        Route::post('/delete/{id}', ['as' => 'cancellation_policy.delete', 'uses' => 'Master\CancellationController@delete']);
         // AJAX
         Route::get('/setdata/{id}', ['as' => 'cancellation_policy.setdata', 'uses' => 'Master\CancellationController@setdata']);
-        Route::post('/delete', ['as' => 'cancellation_policy.delete', 'uses' => 'Master\CancellationController@delete']);
     });
-    Route::post('/update/{id}', ['as' => 'cancellation_policy.update', 'uses' => 'Master\CancellationController@update']);
-    // Route::post('/update/{id}', [CancellationController::class, 'update'])->name('update');
-
-
 
     // Panel Amenities
     Route::group(['prefix' => 'master_data/amenities'], function() {

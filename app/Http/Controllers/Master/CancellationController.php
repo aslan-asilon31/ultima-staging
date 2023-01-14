@@ -109,12 +109,14 @@ class CancellationController extends Controller
     //     return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil dihapus']);
     // }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-        $id = Crypt::decryptString($request['id']);
-        if(CancellationPolicy::where('id', $id)->exists()){
-            return redirect()->back()->with('warning', 'Room cannot be delete because it has reservation');
-        }
+        $cancellationpolicies = CancellationPolicy::find($id);
+        $cancellationpolicies->delete();
+        // $id = Crypt::decryptString($request['id']);
+        // if(CancellationPolicy::where('id', $id)->exists()){
+        //     return redirect()->back()->with('warning', 'Room cannot be delete because it has reservation');
+        // }
 
         // $temp_photo = Photo::where('id', $id)->get();
         // Photo::where('id', $id)->forceDelete();
