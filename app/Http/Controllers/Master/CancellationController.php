@@ -128,7 +128,7 @@ class CancellationController extends Controller
         //     File::delete($this->path . '/' . $img->photo_path);
         // }
 
-        return redirect()->route('cancellation_policy.index')->with('status', 'Data Cancellation Berhasil Dihapus');
+        return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation policy Berhasil Dihapus');
     }
 
 }

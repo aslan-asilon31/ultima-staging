@@ -75,9 +75,6 @@
                   .then((willDelete) => {
                   if (willDelete) {
                         window.location = "/delete/"+cancellation_id+""
-                        swal("Data berhasil di hapus", {
-                        icon: "success",
-                        });
                   } else {
                         // swal("cancellation "+cancellation+" gagal di hapus");
                         swal(
