@@ -199,7 +199,7 @@
                                 Delete
                             </a> --}}
                            
-                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                            <a class="btn btn-horison-gold btn-padding" style="margin-right:6px;" href="{{ route('rates_plan.index') }}">
                                 Cancel
                             </a>
                             <button type="submit" class="btn btn-horison-gold btn-padding">Update</button>
@@ -208,7 +208,7 @@
                     <form method="post" class="delete_form" action="{{route('rates_plan.delete',$ratesplans->id )}}">
                         @method('DELETE')
                         @csrf
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="btn btn-horison-gold btn-padding" style="color:red;margin-left:36%;">Delete</button>
                     </form>
                 </div>
             </div>

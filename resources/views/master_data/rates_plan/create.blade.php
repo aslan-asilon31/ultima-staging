@@ -10,7 +10,6 @@ $base_rate = "0";
 $extrabed_rate = "0";
 @endphp
 
-
     <div class="col-lg-7">
         <div class="row">
             <div class="panel panel-default">

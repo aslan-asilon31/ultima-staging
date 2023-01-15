@@ -10,7 +10,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::group(['prefix' => 'master_data/package'], function() {
         Route::get('/', ['as' => 'package.index', 'uses' => 'Master\PackageController@index']);
         // Create Insert
-        Route::get('/create', ['as' => 'package.create', 'uses' => 'Master\PackageController@create']);
+        Route::get('/create/{id}', ['as' => 'package.create', 'uses' => 'Master\PackageController@create']);
         Route::post('/insert', ['as' => 'package.insert', 'uses' => 'Master\PackageController@insert']);
         // Edit Update
         Route::get('/edit/{id}', ['as' => 'package.edit', 'uses' => 'Master\PackageController@edit']);

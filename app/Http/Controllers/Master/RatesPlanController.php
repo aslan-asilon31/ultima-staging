@@ -72,7 +72,7 @@ class RatesPlanController extends Controller
         $cancellation_id = CancellationPolicy::select('id')->get();
         $ratesplans = RatesPlan::create([
 
-            // 'id' => $id,
+            'id' => $id,
             'cancellation_id'   => $request->cancellation_id,
             'rate_name'   => $request->rate_name,
             'def_meal_available'   => $request->def_meal_available,
@@ -96,12 +96,18 @@ class RatesPlanController extends Controller
         $rooms = Type::orderBy('id')->first();
         $ratesplans = RatesPlan::orderBy('id')->first();
         $cancellations = CancellationPolicy::all();
-        // $id = Crypt::decryptString($id);
+        $id = Crypt::decryptString($id);
         return view('master_data.rates_plan.edit', get_defined_vars());
     }
 
     public function update(Request $request, $id)
     {
+
+        // $requestid = $request['id'];
+        // $id = Crypt::decryptString($requestid);
+        // $id = Crypt::decryptString($id);
+
+
         $ratesplans = RatesPlan::find($id);
         $ratesplans->update($request->all());
 
