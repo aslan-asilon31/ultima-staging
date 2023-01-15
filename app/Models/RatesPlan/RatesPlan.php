@@ -10,6 +10,8 @@ class RatesPlan extends Model
 
     public $primaryKey = 'id';
 
+    protected $keyType = 'string';
+
     public $timestamps = true;
 
     protected $fillable =

@@ -68,7 +68,7 @@ $extrabed_rate = "0";
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="text" class="form-control @error('def_bookable') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" name="SetNumber"
+                                    <input type="text" class="form-control @error('def_bookable') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" 
                                         class="show-hide form-control "
                                         id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
@@ -273,12 +273,6 @@ $extrabed_rate = "0";
             var e = document.getElementById("weekday_rate");
             e.value = formatRupiah(e, e.value);
     }
-
-    // if ("{{ $extrabed_rate }}" != "") {
-    //     var e = document.getElementById("extrabed_rate");
-    //     e.value = formatRupiah(e, e.value);
-    // }
-
 
     function ambilRupiah(e) {
         var hiddenInput = document.getElementById(e.id + "_value");

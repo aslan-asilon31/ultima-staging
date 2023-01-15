@@ -5,10 +5,19 @@
 @section('content')
     <div class="col-lg-7">
         <div class="row">
+{{-- 
+        <form id="ratesplan_room" onsubmit="return confirm('Are you sure ?')" method="POST"
+        action="{{ route('rates_plan.delete') }}" enctype="multipart/form-data" autocomplete="off">
+        <input type="hidden" name="ratesplans_name" id="ratesplans_id" value="{{$id}}">
+        {{csrf_field()}}
+          </form> --}}
+
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form enctype="multipart/form-data" method="POST"  action="{{ route('rates_plan.insert') }}">
+                    <form enctype="multipart/form-data" method="POST"  action="{{ route('rates_plan.update', $ratesplans->id) }}">
                         {{ csrf_field() }}
+                        <input type="hidden" name="ratesplans_name" id="ratesplans_id" value="{{$id}}">
+
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <label for="rate_name">Rates Name</label>
@@ -53,7 +62,7 @@
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="number" name="Base Weekday Publish Rate"
+                                    <input type="number" name=""
                                         class="show-hide form-control "
                                         id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
@@ -69,7 +78,7 @@
                                 </div>
 
                                 <div class="input-group col-lg-12">
-                                    <input type="number" name="Base Weekday Publish Rate"
+                                    <input type="number" name=""
                                         class="show-hide form-control "
                                         id="DaySet" value="{{ $ratesplans->def_bookable }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
@@ -175,14 +184,31 @@
                             </div>
                         </div>
                         <div class="pull-right">
+                            {{-- <button type="submit" form="delete_ratesplan" class="btn btn-delete btn-padding">
+                                Delete
+                            </button> --}}
+                            {{-- <button type="submit" form="delete_room" class="btn btn-delete btn-padding delete" data-id="{{ $ratesplans->id }}" data-name="{{ $ratesplans->rate_name }}">
+                                Delete
+                            </button> --}}
+                            {{-- <form action="{{route('rates_plan.delete',$ratesplans->id)}}" method="post">
+                                {{csrf_field()}}
+                                {{method_field('DELETE')}}
+                                  <button type="submit" class="btn btn-danger">Delete 1</a>
+                            </form> --}}
+                            {{-- <a class="btn btn-white btn-padding" href="{{ route('rates_plan.delete',$ratesplans->id ) }}">
+                                Delete
+                            </a> --}}
+                           
                             <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
                                 Cancel
                             </a>
-                            <a class="btn btn-white btn-padding" style="border-style: solid; border-color:red;" href="">
-                                Delete
-                            </a>
-                            <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
+                            <button type="submit" class="btn btn-horison-gold btn-padding">Update</button>
                         </div>
+                    </form>
+                    <form method="post" class="delete_form" action="{{route('rates_plan.delete',$ratesplans->id )}}">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit">Delete</button>
                     </form>
                 </div>
             </div>
@@ -257,14 +283,31 @@
 
 
     </script>
-    {{-- <script>
-        
-          $("input[type='radio']").click(function () {
-            var radioValue = $("input[name='def_meal_available']:checked").val();
-            if (radioValue) {
-              alert("result: you choose " + radioValue);
-            }
-          });
-        
-    </script> --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        $('.delete').click(function(){
+            var ratesplans_id = $(this).attr('data-id');
+            var ratesplans_name = $(this).attr('data-name');
+            swal({
+                  title: "Are you sure ?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                  if (willDelete) {
+                        window.location = "delete/"+ratesplans_id+""
+                  } else {
+                        // swal("cancellation "+cancellation+" gagal di hapus");
+                        swal(
+                              'Oooops!!!',
+                              'Data gagal di hapus :)',
+                              'error'
+                        )
+                  }
+                  });
+        });
+
+    </script>
 @endsection

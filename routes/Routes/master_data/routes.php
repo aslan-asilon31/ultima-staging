@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Master\CancellationController;
+use App\Http\Controllers\Master\RatesPlanController;
+
 
 Route::group(['middleware' => ['web', 'auth']], function () {
 
@@ -29,7 +31,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::post('/insert', ['as' => 'room.insert', 'uses' => 'Master\RoomController@insert']);
         // Edit Update
         Route::get('/edit/{id}', ['as' => 'room.edit', 'uses' => 'Master\RoomController@edit']);
-        Route::post('/update', ['as' => 'room.update', 'uses' => 'Master\RoomController@update']);
+        Route::post('/update/{id}', ['as' => 'room.update', 'uses' => 'Master\RoomController@update']);
         // Delete
         Route::post('/delete', ['as' => 'room.delete', 'uses' => 'Master\RoomController@delete']);
         // AJAX
@@ -46,12 +48,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::post('/insert', ['as' => 'rates_plan.insert', 'uses' => 'Master\RatesPlanController@insert']);
         // Edit Update
         Route::get('/edit/{id}', ['as' => 'rates_plan.edit', 'uses' => 'Master\RatesPlanController@edit']);
-        Route::post('/update', ['as' => 'rates_plan.update', 'uses' => 'Master\RatesPlanController@update']);
+        Route::post('/update/{id}', ['as' => 'rates_plan.update', 'uses' => 'Master\RatesPlanController@update']);
         // Delete
-        Route::post('/delete', ['as' => 'rates_plan.delete', 'uses' => 'Master\RatesPlanController@delete']);
+        Route::delete('/delete/{id}', ['as' => 'rates_plan.delete', 'uses' => 'Master\RatesPlanController@destroy']);
         // AJAX
         Route::get('/setdata/{id}', ['as' => 'rates_plan.setdata', 'uses' => 'Master\RatesPlanController@setdata']);
     });
+    // Route::delete('/ratesplan/{id}/destroy', 'Master\RatesPlanController@destroy')->name('rates.delete');
+    // Route::get('/delete/{id}', [RatesPlanController::class, 'delete'])->name('rates.delete');
 
     // Panel Cancellation Policy
     Route::group(['prefix' => 'master_data/cancellation-policy'], function() {
@@ -80,7 +84,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/edit/{id}', ['as' => 'amenities.edit', 'uses' => 'Master\AmenitiesController@edit']);
         Route::post('/update/{id}', ['as' => 'amenities.update', 'uses' => 'Master\AmenitiesController@update']);
         // Delete
-        Route::post('/delete', ['as' => 'amenities.delete', 'uses' => 'Master\AmenitiesController@delete']);
+        Route::post('/delete/{id}', ['as' => 'amenities.delete', 'uses' => 'Master\AmenitiesController@delete']);
         // AJAX
         Route::get('/setdata/{id}', ['as' => 'amenities.setdata', 'uses' => 'Master\AmenitiesController@setdata']);
     });

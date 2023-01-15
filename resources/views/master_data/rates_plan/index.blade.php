@@ -55,6 +55,7 @@
 
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             <a href="/master_data/rates-plan/edit/{{ $rate->id }}" class="btn btn-horison pull-right">
+                            {{-- <a href="/master_data/rates-plan/edit/{{ Crypt::encryptString($rate->id) }}" class="btn btn-horison pull-right"> --}}
                                 <b>Manage Rates Plan</b>
                             </a>
                         </div>

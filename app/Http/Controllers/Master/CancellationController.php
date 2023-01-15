@@ -76,7 +76,6 @@ class CancellationController extends Controller
         return view('master_data.cancellation_policy.edit', compact('cancellationpolicies'));
     }
 
-
     public function update(Request $request, $id)
     {
         // $cancellationpolicies = CancellationPolicy::all();
@@ -106,22 +105,10 @@ class CancellationController extends Controller
 
     public function delete($id)
     {
+        // dd($id);
         $cancellationpolicies = CancellationPolicy::find($id);
         $cancellationpolicies->delete();
-        // $id = Crypt::decryptString($request['id']);
-        // if(CancellationPolicy::where('id', $id)->exists()){
-        //     return redirect()->back()->with('warning', 'Room cannot be delete because it has reservation');
-        // }
 
-        // $temp_photo = Photo::where('id', $id)->get();
-        // Photo::where('id', $id)->forceDelete();
-        // RoomAmenities::where('id', $id)->forceDelete();
-        // Type::where('id', $id)->forceDelete();
-        // Bed::where('id', $id)->forceDelete();
-
-        // foreach ($temp_photo as $img) {
-        //     File::delete($this->path . '/' . $img->photo_path);
-        // }
 
         return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation policy Berhasil Dihapus');
     }
