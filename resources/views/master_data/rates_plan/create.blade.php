@@ -99,7 +99,7 @@ $extrabed_rate = "0";
                                 <div class="input-group col-lg-12">
                                     <input type="text"  name=""
                                         class="show-hide1 form-control " onkeypress="return onlyNumberKey(event)" maxlength="11"
-                                        id="InputSet" value="" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+                                        id="InputSet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
 
                                 @error('def_minimum_stay')
@@ -153,8 +153,8 @@ $extrabed_rate = "0";
                                         <input type="text" name="base_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                             id="weekday_rate" value="{{$base_rate}}" />
-                                       {{--  <input type="hidden" name="base_rate" id="weekday_rate_input"
-                                            value="{{$base_rate}}" /> --}}
+                                        <input type="hidden" name="base_rate" id="weekday_rate_input"
+                                            value="{{$base_rate}}" />
 
                                     </div>
                                     @error('base_rate')
@@ -169,8 +169,8 @@ $extrabed_rate = "0";
                                         <input type="text" name="extrabed_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                             id="weekday_rate" value="{{$extrabed_rate}}" />
-        {{--                                 <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
-                                            value="{{$extrabed_rate}}" /> --}}
+                                           <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
+                                            value="{{$extrabed_rate}}" />
 
                                     </div>
                                     @error('extrabed_rate')

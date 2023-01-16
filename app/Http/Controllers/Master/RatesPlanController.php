@@ -89,56 +89,21 @@ class RatesPlanController extends Controller
     public function edit($id)
     {
 
-        // $id = Crypt::decryptString($id);
-
-        // dd($id);
-        $setting = $this->setting();
-        $rooms = Type::orderBy('id')->first();
-        $ratesplans = RatesPlan::orderBy('id')->first();
-        $cancellations = CancellationPolicy::all();
         $id = Crypt::decryptString($id);
+
+        $setting = $this->setting();
+        $cancellations = CancellationPolicy::all();
+        $rooms = Type::orderBy('id')->first();
+        $ratesplans = RatesPlan::find($id);
+
         return view('master_data.rates_plan.edit', get_defined_vars());
     }
 
     public function update(Request $request, $id)
     {
-
-        // $requestid = $request['id'];
-        // $id = Crypt::decryptString($requestid);
-        // $id = Crypt::decryptString($id);
-
-
         $ratesplans = RatesPlan::find($id);
         $ratesplans->update($request->all());
 
-        // print_r($request);
-        // dd($ratesplans);
-        // print_r($id);
-
-
-        // $ratesplans->cancellation_id   = $request->cancellation_id;
-        // $ratesplans->rate_name   = $request->rate_name;
-        // $ratesplans->def_meal_available   = $request->def_meal_available;
-        // $ratesplans->def_bookable   = $request->def_bookable;
-        // $ratesplans->def_minimum_stay   = $request->def_minimum_stay;
-        // $ratesplans->base_rate   = $request->base_rate;
-        // $ratesplans->extrabed_rate   = $request->extrabed_rate;
-
-        // if(!empty($request->id))
-        // {
-        //     $ratesplans->id  = bcrypt($request->id);
-        // }
-
-        // $ratesplans = RatesPlan::update([
-        //     'id' => $request->id,
-        //     'cancellation_id'   => $request->cancellation_id,
-        //     'rate_name'   => $request->rate_name,
-        //     'def_meal_available'   => $request->def_meal_available,
-        //     'def_bookable'   => $request->def_bookable,
-        //     'def_minimum_stay'   => $request->def_minimum_stay,
-        //     'base_rate'   => $request->base_rate,
-        //     'extrabed_rate'   => $request->extrabed_rate,
-        // ]);
         return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Berhasil di Update');
 
     }
@@ -169,6 +134,8 @@ class RatesPlanController extends Controller
 
     public function destroy($id)
     {
+        // $id = Crypt::decryptString($id);
+        // dd($id);
         $ratesplans = RatesPlan::find($id);
 
         $ratesplans->delete();

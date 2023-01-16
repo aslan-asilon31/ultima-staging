@@ -23,7 +23,7 @@
             <div class="panel panel-default">
                 <div class="panel-body shadow">
                     <div class="row">
-                        
+
                         <div class="col-xs-12 col-lg-12 col-md-12">
                             <h5 style="margin-bottom:-5px;">
                                 <strong>{{ $rate->rate_name }}</strong>
@@ -33,7 +33,7 @@
                                 and
                                 President Suite room</p>
                         </div>
-                        
+
 
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             <h5 style="margin-bottom:-5px;">
