@@ -214,11 +214,7 @@ $promo_rate = '0';
                                                     id="weekday_rate" value="{{$promo_rate}}" />
                                                 <input type="hidden" name="promo_rate" id="weekday_rate_input"
                                                     value="{{$promo_rate}}" />
-                                                {{-- <input type="text" name=""
-                                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                                     value="{{ $promo_rate }}" id="promo_rate" style="width: 175px;" />
-                                                <input type="hidden" name="" id=""
-                                                    value="" /> --}}
+
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -247,18 +243,6 @@ $promo_rate = '0';
                             </div>
                         </div>
 
-                        {{-- <div class="row">
-                            <div class="col-lg-6">
-                                <p style="font-weight: bold;margin-top:12px;" class>Active This Rate Plan</p>
-                            </div>
-
-                            <div class="col-lg-6 ">
-                                <label class="toggle" style="margin-left:150px;">
-                                    <input class="toggle-checkbox " type="checkbox" checked>
-                                    <div class="toggle-switch"></div>
-                                </label>
-                            </div>
-                        </div> --}}
 
                         <div class="row">
                             <div class="col-lg-4">
