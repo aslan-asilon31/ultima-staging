@@ -79,7 +79,7 @@
                         // swal("cancellation "+cancellation+" gagal di hapus");
                         swal(
                               'Oooops!!!',
-                              'Data gagal di hapus :)',
+                              'Cancellation gagal di hapus :)',
                               'error'
                         )
                   }
