@@ -25,12 +25,11 @@
                     <div class="panel-body shadow">
                         <div class="col-lg-3">
                             <h4 class="mb"><strong>{{ $cancel->name }}</strong></h4>
-                            <p class="mt">Can do cancellation before 2 days</i>
 
-                            <h4 class="mb"><strong>{{ $cancel->description }}</strong></h4>
-                            <p class="mt">Free night cancellation 4 days prior before arrival</p>
+                            <h4 class="mb"><strong>Description</strong></h4>
+                            <p class="mt">{{ $cancel->description }}</p>
 
-                            <a href="{{ route('cancellation_policy.edit', $cancel->id)}}" style="margin-top:20px;"
+                            <a href="{{ route('cancellation_policy.edit', Crypt::encryptString($cancel->id))}}" style="margin-top:20px;"
                             class="btn btn-horison manage-pkg" style=""><b>Manage Cancellation Policy</b>
                             </a>
                         </div>

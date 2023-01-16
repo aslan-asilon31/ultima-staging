@@ -68,11 +68,10 @@ class CancellationController extends Controller
 
     //Edit DATA
     public function edit($id){
+        $id = Crypt::decryptString($id);
         $setting = $this->setting();
-        //menu code
         $menu = $this->menu();
         $cancellationpolicies = CancellationPolicy::find($id);
-        // $id = Crypt::decryptString($id);
         return view('master_data.cancellation_policy.edit', compact('cancellationpolicies'));
     }
 

@@ -74,7 +74,7 @@
                   })
                   .then((willDelete) => {
                   if (willDelete) {
-                        window.location = "rates_plan.update"+cancellation_id+""
+                        window.location = "/delete/"+cancellation_id+""
                   } else {
                         // swal("cancellation "+cancellation+" gagal di hapus");
                         swal(
