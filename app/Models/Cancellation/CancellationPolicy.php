@@ -10,9 +10,11 @@ class CancellationPolicy extends Model
 
     public $primaryKey = 'id';
 
+    protected $keyType = 'string';
+
     public $timestamps = true;
 
-    protected $guarded = []; 
+    protected $guarded = [];
 
     protected $fillable =
     [

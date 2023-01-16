@@ -291,146 +291,7 @@
             </div>
 
             {{-- Box Room with breakfast --}}
-            {{-- <div class="row " >
-                @if($totalExtrabed > 0)
-                @php
-                $class="";
-                @endphp
-                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15"
-                    style="box-shadow: 8px 4px 10px -4px #888888;">
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <p class="text-oren"><strong>Room with Breakfast</strong></p>
-                        </div>
-                        <div class="col-md-8 oren-d">
-                            <p class="box-oren" style="float:right">Promo Akhir Tahun</p>
-                        </div>
-                        <div class="col-md-12 mb-12" style="margin-left: -15px; margin-top: -15px;">
-                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                            <p style="font-size:12px; margin-top: -0px;"> <s> Rp
-                                <strong>
-                                    <script>
-                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                    </script>
-                                </strong> / Night </s></p>
-                        </div>
-
-                        <div class="col-md-12" style="margin-left: -15px;">
-                            <p style="color:red; margin-top: -15px;">Rp
-                            <strong>
-                                <script>
-                                    document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                </script>
-                            </strong> / Night</p>
-                            <p class="mt-0" style="font-size:10px; color: #818285; margin-top: -10px;">*Tax Inclusive</p>
-                        </div>
-                        @else
-                        @php
-                        $class="";
-                        @endphp
-                        <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15"
-                            style="box-shadow: 8px 4px 10px -4px #888888;">
-                            <div class="col-md-12">
-                                <p class="pt-20"><strong>Room with Breakfast</strong></p>
-                            </div>
-                            <div class="col-md-12" style="margin-top:-18px;">
-                                <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                            </div>
-                            <div class="col-md-6" style="margin-left:-16px;">
-
-                                <div class="col-md-12">
-                                <p style="">Rp
-                                    <strong>
-                                        <script>
-                                            document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                            </script>
-                                    </strong> / Night</p>
-                                </div>
-                                <div class="col-md-12 col-xs-12" style="margin-top:-15px;">
-                                    <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                                </div>
-                            </div>
-                            @endif
-                            <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6" style="margin-top: -55px; margin-left: 73%;">
-                                <a id="validate_clickY" href="javascript:;" onclick="reserve({{$no}}, 0);"
-                                class="btn btn-horison btn-lg ipad-book {{$class}}"><b>BOOK NOW</b></a>
-                            </div>
-                        </div>
-                    </div>
-
-            <div class="row " >
-                @if($totalExtrabed > 0)
-                @php
-                $class="";
-                @endphp
-                <div class="col-md-12 col-xs-12 boxrs-disable ml-20 mt-15"
-                    style="box-shadow: 8px 4px 10px -4px #888888; margin-left: 6%;">
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <p class="text-oren"><strong>Room Only</strong></p>
-                        </div>
-                        <div class="col-md-8 oren-d">
-                            <p class="box-oren" style="float:right">Promo Akhir Tahun</p>
-                        </div>
-                        <div class="col-md-12 mb-12" style="margin-left: -15px; margin-top: -15px;">
-                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                            <p style="font-size:12px; margin-top: -0px;"> <s> Rp
-                                <strong>
-                                    <script>
-                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                    </script>
-                                </strong> / Night </s></p>
-                        </div>
-
-                        <div class="col-md-12" style="margin-left: -15px;">
-                            <p style="color:red; margin-top: -15px;">Rp
-                                <strong>
-                                    <script>
-                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                    </script>
-                                </strong> / Night</p>
-                                <p class="mt-0" style="font-size:10px; color: #818285; margin-top: -10px;">*Tax Inclusive</p>
-                        </div>
-                        @else
-                        @php
-                        $class="";
-                        @endphp
-                        <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15"
-                            style="box-shadow: 8px 4px 10px -4px #888888;">
-                            <div class="col-md-12">
-                                <p class="pt-20"><strong>Room Only</strong></p>
-                            </div>
-                            <div class="col-md-12" style="margin-top:-18px;">
-                                <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                            </div>
-                            <div class="col-md-6" style="margin-left:-16px;">
-
-                                <div class="col-md-12">
-                                <p style="">Rp
-                                    <strong>
-                                        <script>
-                                            document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                            </script>
-                                    </strong> / Night</p>
-                                </div>
-                                <div class="col-md-12 col-xs-12" style="margin-top:-15px;">
-                                    <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                                </div>
-                            </div>
-                            @endif
-                            <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6" style="margin-top: -55px; margin-left: 73%;">
-                                <a id="validate_clickY" href="javascript:;" onclick="reserve({{$no}}, 0);"
-                                class="btn btn-horison btn-lg ipad-book {{$class}}"><b>BOOK NOW</b></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div> --}}
-
-            {{-- Box Room with breakfast --}}
-            <div class="row"> {{-- row button --}}
+            <div class="row">
                 <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
                     <div class="col-md-12">
                         <p class="pt-20"><strong>Room with Breakfast</strong></p>
@@ -457,8 +318,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- Box Room Only - Disabled --}}
 
             <div class="row " >
                 @if($totalExtrabed > 0)
@@ -493,9 +352,10 @@
                                 </strong> / Night</p>
                                 <p class="mt-0" style="font-size:10px; color: #818285; margin-top: -10px;">*Tax Inclusive</p>
                         </div>
+                        </div>
                         @else
                         @php
-                        $class="";
+                        $class="disabled";
                         @endphp
                         <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15"
                             style="box-shadow: 8px 4px 10px -4px #888888; ">
@@ -529,14 +389,9 @@
                     </div>
                 </div>
             </div>
-            </div>
-            </div>
-
-        <br>
-
-        @if( $no < count($room_available) )
+        </div>
         <hr>
-        @endif
+        <br>
 
         @endforeach
     </div>
