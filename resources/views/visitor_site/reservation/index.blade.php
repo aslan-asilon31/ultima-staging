@@ -382,7 +382,7 @@
                             @endif
                             <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6" style="margin-top: -55px; margin-left: 73%;">
                                 <a id="validate_clickY" href="javascript:;" onclick="reserve({{$no}}, 0);"
-                                class="btn btn-horison btn-lg ipad-book {{$class}}"><b>BOOK NOW</b></a>
+                                class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
                             </div>
                         </div>
 
