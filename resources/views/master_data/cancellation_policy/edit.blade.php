@@ -7,7 +7,7 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body shadow">
-                    <form id="delete_room" onsubmit="return confirm('Are you sure ?')" method="POST"
+                    <form id="delete_cancellation" onsubmit="return confirm('Are you sure ?')" method="POST"
                         action="{{ route('cancellation_policy.delete', $cancellationpolicies->id) }}" enctype="multipart/form-data" autocomplete="off">
                         <input type="hidden" name="id" id="cancellation-id" value="{{ $cancellationpolicies->id }}">
                         {{ csrf_field() }}
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                             <div class="pull-right">
-                                <button type="submit" form="delete_room" class="btn btn-delete btn-padding">
+                                <button type="submit" form="delete_cancellation" class="btn btn-delete btn-padding">
                                     Delete
                                 </button>
                                 <a class="btn btn-white btn-padding" href="{{ route('cancellation_policy.index') }}">

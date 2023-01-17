@@ -109,7 +109,7 @@ class CancellationController extends Controller
         {
             // $id = Crypt::decryptString($request['id']);
             if(RatesPlan::where('cancellation_id', $id)->exists()){
-                return redirect()->route('cancellation_policy.index')->with('warning', 'Cancellation cannot be delete because it has RatePlane');
+                return redirect()->route('cancellation_policy.index')->with('warning', 'Cancellation cannot be delete because it has Rate Plans');
             }
             CancellationPolicy::where('id', $id)->forceDelete();
 
