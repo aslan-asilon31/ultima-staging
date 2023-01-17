@@ -8,17 +8,16 @@ class RoomRatePlan extends Model
 {
     protected $table = 'room_rate_plan';
 
-    public $primaryKey = 'id';
+    // public $primaryKey = 'id';
 
-    protected $keyType = 'string';
+    // protected $keyType = 'string';
 
-    public $timestamps = true;
+    // public $timestamps = true;
 
-    protected $guarded = []; 
+    // protected $guarded = []; 
 
     protected $fillable =
     [
-        'id',
         'room_id',
         'rate_id',
         'is_rate_plan_active',

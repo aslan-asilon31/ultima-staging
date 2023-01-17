@@ -21,13 +21,16 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <label for="rate_name">Rates Name</label>
-                                <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
+                                <div class="form-group">
+                                    <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
                                     placeholder="Free Upgrade to Super Deluxe" value="{{ $ratesplans->rate_name }}">
                                     @error('rate_name')
                                         <div class="invalid-feedback">
                                         {{$message}}
                                         </div>
                                     @enderror
+                                </div>
+
                                 <br>
 
                                 {{-- Meals --}}

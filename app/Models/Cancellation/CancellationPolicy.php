@@ -2,6 +2,7 @@
 
 namespace App\Models\Cancellation;
 
+use App\Models\RatesPlan\RatesPlan;
 use Illuminate\Database\Eloquent\Model;
 
 class CancellationPolicy extends Model
@@ -22,4 +23,10 @@ class CancellationPolicy extends Model
         'name',
         'description',
     ];
+
+    public function RatesPlan()
+    {
+        return $this->hasOne(RatesPlan::class);
+    }
+
 }

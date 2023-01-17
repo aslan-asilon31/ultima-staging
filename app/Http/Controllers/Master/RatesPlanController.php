@@ -27,11 +27,13 @@ class RatesPlanController extends Controller
         $setting = $this->setting();
         //menu code
         $menu = $this->menu();
+        $rooms = Type::all();
+        $cancellations = CancellationPolicy::all();
         $ratesplans = RatesPlan::all();
 
         return view('master_data.rates_plan.index', get_defined_vars());
     }
-
+ 
     public function create()
     {
         $setting = $this->setting();
@@ -48,16 +50,16 @@ class RatesPlanController extends Controller
         // dd($request->all());
         $ratesplans=RatesPlan::all();
 
-        // $request->validate([
-        //     "cancellation_id" => "required",
-        //     'rate_name'     => 'required',
-        //     'def_meal_available'     => 'required|numeric',
-        //     'def_bookable'     => 'required',
-        //     'def_minimum_stay'     => 'required',
-        //     'room_name'     => 'required|array',
-        //     'base_rate'     => 'required|numeric',
-        //     'extrabed_rate' => 'required|numeric',
-        // ]);
+        $request->validate([
+            "cancellation_id" => "required",
+            'rate_name'     => 'required',
+            'def_meal_available'     => 'required|numeric',
+            'def_bookable'     => 'required',
+            'def_minimum_stay'     => 'required',
+            'room_name'     => 'required',
+            'base_rate'     => 'required|numeric',
+            'extrabed_rate' => 'required|numeric',
+        ]);
 
 
         //CREATE ID Rates Plan
@@ -81,7 +83,7 @@ class RatesPlanController extends Controller
             'def_bookable'   => $request->def_bookable,
             'def_minimum_stay'   => $request->def_minimum_stay,
             'base_rate'   => $request->base_rate,
-            'extrabed_rate'   => $request->extrabed_rate,
+            'extrabed_rate'   => $request->extrabed_rate
   /*       print_r($request->base_rate),
 
         print_r($request->extrabed_rate), */
@@ -100,12 +102,11 @@ class RatesPlanController extends Controller
         $room_id = Type::select('id')->get();
         $roomrateplan = RoomRatePlan::create([
 
-            'id'                     => $id_rr,
-            'room_id'                => $room_id,
-            'rate_id'                => $request->rate_id,
-            'is_rate_plan_active'    => $request->is_rate_plan_active,
-            'promo_rate'             => $request->promo_rate,
-            'is_promo_rate_active'   => $request->is_promo_rate_active,
+            'room_id'                => NULL,
+            'rate_id'                => $id,
+            'is_rate_plan_active'    => NULL,
+            'promo_rate'             => NULL,
+            'is_promo_rate_active'   => NULL,
 
         ]);
 
@@ -129,6 +130,17 @@ class RatesPlanController extends Controller
 
     public function update(Request $request, $id)
     {
+        // $request->validate([
+        //     "cancellation_id" => "required",
+        //     'rate_name'     => 'required',
+        //     'def_meal_available'     => 'required|numeric',
+        //     'def_bookable'     => 'required',
+        //     'def_minimum_stay'     => 'required',
+        //     'room_name'     => 'required|array',
+        //     'base_rate'     => 'required|numeric',
+        //     'extrabed_rate' => 'required|numeric',
+        // ]);
+
         $ratesplans = RatesPlan::find($id);
         $ratesplans->update($request->all());
 
@@ -137,12 +149,12 @@ class RatesPlanController extends Controller
     }
 
     //SET DATA
-    public function setData($id)
-    {
-        $id = Crypt::decryptString($id);
-        $user = User::where('id', $id)->first();
-        return response()->json($user);
-    }
+    // public function setData($id)
+    // {
+    //     $id = Crypt::decryptString($id);
+    //     $user = User::where('id', $id)->first();
+    //     return response()->json($user);
+    // }
 
     // public function delete($id)
     // {

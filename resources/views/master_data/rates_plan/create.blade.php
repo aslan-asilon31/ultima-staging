@@ -6,8 +6,7 @@
 @section('content')
 @php
 $set_days = "0";
-$base_rate = "0";
-$extrabed_rate = "0";
+
 @endphp
 
     <div class="col-lg-7">
@@ -18,14 +17,32 @@ $extrabed_rate = "0";
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control @error('cancellation_id') is-invalid @enderror" id="cancellation_id" name="cancellation_id"
+                                    placeholder="Cancellation ID" hidden>
+
+                                    <!-- error message untuk title -->
+                                    @error('cancellation_id')
+                                    <div class="alert alert-danger mt-2" hidden>
+                                    {{$message}}
+                                    </div>
+                                    @enderror
+
+                                </div>
+                                
                                 <label for="rate_name">Rates Name</label>
-                                <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
-                                    placeholder="Rates Name">
+                                <div class="form-group">
+                                    <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
+                                    placeholder="Rates Name" >
+
+                                    <!-- error message untuk title -->
                                     @error('rate_name')
-                                        <div class="invalid-feedback">
+                                        <div class="alert alert-danger mt-2">
                                         {{$message}}
                                         </div>
                                     @enderror
+                                </div>
+
                                 <br>
 
                                 {{-- Meals --}}
@@ -33,22 +50,25 @@ $extrabed_rate = "0";
                                     <strong>Meals</strong>
                                 </h5>
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
-                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="0">
-
-                                    <label>Include Meal</label>
+                                <div class="form-group">
+                                    <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                        <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="0">
+    
+                                        <label>Include Meal</label>
+                                    </div>
+                                    <div class="radio radio-replace color-primary">
+                                        <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="no_available" name="def_meal_available" value="1">
+    
+                                        <label>No, don’t add meal plan for this rate plan</label>
+                                    </div>
+    
+                                    @error('def_meal_available')
+                                    <div class="alert alert-danger mt-2">
+                                    {{$message}}
+                                    </div>
+                                    @enderror
+    
                                 </div>
-                                <div class="radio radio-replace color-primary">
-                                    <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="no_available" name="def_meal_available" value="1">
-
-                                    <label>No, don’t add meal plan for this rate plan</label>
-                                </div>
-
-                                @error('def_meal_available')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
                                 <br>
 
                                 {{-- Bookables --}}
@@ -56,28 +76,31 @@ $extrabed_rate = "0";
                                     <strong>Bookables</strong>
                                 </h5>
                                 <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
-                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="AnyDays" name="def_bookable" value="0">
-                                    <label>Any days</label>
-                                </div>
+                                <div class="form-group">
 
-                                <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="def_bookable" value=""/>
-                                    <label>Set number of days before check in </label>
-                                </div>
+                                    <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                        <input type="radio" id="AnyDays" name="def_bookable" value="0">
+                                        <label>Any days</label>
+                                    </div>
 
-                                <div class="input-group col-lg-12">
-                                    <input type="text" class="form-control @error('def_bookable') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" 
-                                        class="show-hide form-control "
-                                        id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
-                                </div>
+                                    <div class="radio radio-replace color-primary">
+                                        <input type="radio" id="SetNumber" name="def_bookable" value=""/>
+                                        <label>Set number of days before check in </label>
+                                    </div>
 
-                                @error('def_bookable')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
+                                    <div class="input-group col-lg-12">
+                                        <input type="text" class="form-control @error('def_bookable') is-invalid @enderror " onkeypress="return onlyNumberKey(event)" maxlength="11" 
+                                            class="show-hide form-control "
+                                            id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+                                    </div>
 
+                                    @error('def_bookable')
+                                    <div class="alert alert-danger mt-2">
+                                    {{$message}}
+                                    </div>
+                                    @enderror
+
+                                </div>
                                 <br>
 
                                 {{-- Minimum length of stay --}}
@@ -103,7 +126,7 @@ $extrabed_rate = "0";
                                 </div>
 
                                 @error('def_minimum_stay')
-                                <div class="invalid-feedback">
+                                <div class="alert alert-danger mt-2">
                                 {{$message}}
                                 </div>
                                 @enderror
@@ -114,77 +137,91 @@ $extrabed_rate = "0";
                                         <strong>Set Cancellation Policy</strong>
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
-                                    <select name="cancellation_id" id="" class="form-control @error('cancellation_id') is-invalid @enderror">
+                                    <select name="cancellation_id" id="" class="form-control @error('cancellation_id') is-invalid @enderror" >
                                         <option value="">Choose Cancellation</option>
                                         @foreach($cancellations as $cancel)
                                         <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
                                         @endforeach
                                     </select>
 
+
+                                    @error('cancellation_id')
+                                    <div class="alert alert-danger mt-2">
+                                    {{$message}}
+                                    </div>
+                                    @enderror
+
                                 </div>
-                                @error('cancellation_id')
-                                <div class="invalid-feedback">
-                                {{$message}}
-                                </div>
-                                @enderror
+
                                 <hr>
                                 <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
-                                    <select name="" id="" class="form-control  " >
-                                        <option value="">Choose Room</option>
+                                <div class="form-group">
+                                    <select name="" id="" class="form-control  @error('room_name') is-invalid @enderror" >
+                                        {{-- <option value="">Choose Room</option> --}}
                                         @foreach($rooms as $room)
-                                        <option  value="{{ $room->id }}"><label>{{ $room->room_name }}</label></option>
+                                        <option name="room_name" value="{{ $room->id }}"><label>{{ $room->room_name }}</label></option>
                                         @endforeach
                                     </select>
 
-                                @error('room_name[]')
-                                <div class="invalid-feedback">
-                                {{$message}}
+                                    @error('room_name')
+                                    <div class="alert alert-danger mt-2">
+                                    {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
-                                @enderror
+
                                 <br>
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-6 col-md-4">
-                                    <label for="base_rate" class="">Base Rate</label>
-
+                            
+                            <div class="col-lg-6 col-md-4">
+                                <label for="" class="">Base Rate</label>
+                                <div class="form-group">
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="base_rate"
-                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="{{$base_rate}}" />
+                                            class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="weekday_rate" value="" placeholder="0"/>
                                         <input type="hidden" name="base_rate" id="weekday_rate_input"
-                                            value="{{$base_rate}}" />
+                                            value="" />
+
                                     </div>
                                     @error('base_rate')
-                                    <div class="invalid-feedback">
+                                    <div class="alert alert-danger mt-2">
                                     {{$message}}
                                     </div>
                                     @enderror
-                                    <br>
-                                    <label for="extrabed_rate" class="">Extra Bed Rate</label>
+
+                                </div>
+
+                                <br>
+
+                                <label for="" class="">Extra Bed Rate</label>
+                                <div class="form-group">
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="extrabed_rate"
-                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="{{$extrabed_rate}}" />
+                                            class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="weekday_rate" value="" placeholder="0"/>
                                         <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
-                                            value="{{$extrabed_rate}}" />
+                                            value="" />
                                     </div>
                                     @error('extrabed_rate')
-                                    <div class="invalid-feedback">
+                                    <div class="alert alert-danger mt-2">
                                     {{$message}}
                                     </div>
                                     @enderror
-                                    <br>
                                 </div>
+
+
+                                <br>
                             </div>
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}" onclick="confirmBox(this)">
                                 Cancel
                             </a>
-                            <button type="submit" class="btn btn-horison-gold btn-padding" onclick="confirmBox(this)">Save</button>
+                            <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
                         </div>
                     </form>
                 </div>

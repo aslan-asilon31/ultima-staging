@@ -44,7 +44,7 @@
                                 <a class="btn btn-white btn-padding" href="{{ route('cancellation_policy.index') }}">
                                     Cancel
                                 </a>
-                                <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
+                                <button type="submit" class="btn btn-horison-gold btn-padding" >Save</button>
                             </div>
                     </form>
 

@@ -28,10 +28,7 @@
                             <h5 style="margin-bottom:-5px;">
                                 <strong>{{ $rate->rate_name }}</strong>
                             </h5>
-                            <p class="mt">Applied for Deluxe Room, Super Deluxe Room, Executive Room, Executive
-                                Suite Room
-                                and
-                                President Suite room</p>
+                            <p class="mt">Applied for <i>DELUXE ROOM{{-- {{ $room->room_name }} --}}</i> </p>
                         </div>
 
 
@@ -40,7 +37,12 @@
                                 <strong>Rate Strategy</strong>
                             </h5>
                             <ul class="checklist-ul mt">
-                                <li class="mt text-muted">{{ $rate->def_meal_available == 1 ? 'Meal' : 'No meal'  }}</li>
+                                
+                                    @if($rate->def_meal_available == 1)
+                                    <li class="mt text-muted">No Meal</li>
+                                    @elseif($rate->def_meal_available == 0)
+                                    <li class="mt ">Meal</li>
+                                    @endif
                                 <li class="mt">Allow extra beds</li>
                             </ul>
                         </div>
@@ -48,7 +50,7 @@
                             <h5 style="margin-bottom:-5px;">
                                 <strong>Cancel Policy</strong>
                             </h5>
-                            <p class="mt"><strong>Night applied</strong> applied upon cancellation 4 days prior
+                            <p class="mt"><strong>{{-- {{ $rate->cancellation_id->name }} --}}</strong> applied upon cancellation 4 days prior
                                 before
                                 arrival</p>
                         </div>
