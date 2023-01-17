@@ -1,6 +1,6 @@
 @extends('templates/template')
 @section('header_title')
-    ADD RATES PLAN
+    EDIT RATES PLAN
 @endsection
 @section('content')
     <div class="col-lg-7">
@@ -141,6 +141,12 @@
                                 <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                 <div class="row">
+                                    <select name="cancellation_id" id="" class="form-control">
+                                        @foreach($rooms as $room)
+                                        <option value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                        @endforeach
+                                        {{-- <option value="{{ $ratesplans->name }}">{{ $$ratesplans->name}}</option> --}}
+                                    </select>
                                     {{-- @foreach ($rooms as $room)
                                         <div class="col-lg-4">
                                             <div class="checkbox checkbox-replace color-primary">

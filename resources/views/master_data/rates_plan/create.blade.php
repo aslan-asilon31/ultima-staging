@@ -155,7 +155,6 @@ $extrabed_rate = "0";
                                             id="weekday_rate" value="{{$base_rate}}" />
                                         <input type="hidden" name="base_rate" id="weekday_rate_input"
                                             value="{{$base_rate}}" />
-
                                     </div>
                                     @error('base_rate')
                                     <div class="invalid-feedback">
@@ -169,9 +168,8 @@ $extrabed_rate = "0";
                                         <input type="text" name="extrabed_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                             id="weekday_rate" value="{{$extrabed_rate}}" />
-                                           <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
+                                        <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
                                             value="{{$extrabed_rate}}" />
-
                                     </div>
                                     @error('extrabed_rate')
                                     <div class="invalid-feedback">
@@ -262,10 +260,7 @@ $extrabed_rate = "0";
 
     </script>
 
-{{-- <script>
-    var e = document.getElementById("extrabed_rate");
-    e.value = formatRupiah(e, e.value);
-</script> --}}
+
 
 <script type="text/javascript">
     if ("{{$set_days}}" != "") {

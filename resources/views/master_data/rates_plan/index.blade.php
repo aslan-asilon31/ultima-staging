@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12">
                 <p>Create and review different types of rate plans for your customers. You can manage availability and
-                    pricing in Allotment. You have 3 rates plan.</p>
+                    pricing in Allotment. You have {{ $ratesplans->count() }} rates plan.</p>
             </div>
             <div class="col-lg-6 col-sm-12">
                 <a href="/master_data/rates-plan/create" class="btn btn-horison btn-lg pull-right">

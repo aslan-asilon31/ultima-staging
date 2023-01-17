@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 // use App\Http\Requests\RatesPlanInsertRequest;
 use App\Models\RatesPlan\RatesPlan;
+use App\Models\Room\RoomRatePlan;
+
 use App\Models\Admin\User;
 
 use App\Models\Room\Type;
@@ -58,7 +60,7 @@ class RatesPlanController extends Controller
         // ]);
 
 
-        //CREATE ID
+        //CREATE ID Rates Plan
         $bytes = openssl_random_pseudo_bytes(4, $cstrong);
         $hex = bin2hex($bytes);
         $id = $hex;
@@ -80,6 +82,31 @@ class RatesPlanController extends Controller
             'def_minimum_stay'   => $request->def_minimum_stay,
             'base_rate'   => $request->base_rate,
             'extrabed_rate'   => $request->extrabed_rate,
+  /*       print_r($request->base_rate),
+
+        print_r($request->extrabed_rate), */
+        ]);
+
+        //CREATE ID Room Rates
+        $bytes = openssl_random_pseudo_bytes(4, $cstrong);
+        $hex = bin2hex($bytes);
+        $id_rr = $hex;
+        while (RatesPlan::where('id', $id_rr)->exists()) {
+            $bytes = openssl_random_pseudo_bytes(4, $cstrong);
+            $hex = bin2hex($bytes);
+            $id_rr = $hex;
+        }
+
+        $room_id = Type::select('id')->get();
+        $roomrateplan = RoomRatePlan::create([
+
+            'id'                     => $id_rr,
+            'room_id'                => $room_id,
+            'rate_id'                => $request->rate_id,
+            'is_rate_plan_active'    => $request->is_rate_plan_active,
+            'promo_rate'             => $request->promo_rate,
+            'is_promo_rate_active'   => $request->is_promo_rate_active,
+
         ]);
 
         return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Berhasil di Update');
@@ -92,8 +119,9 @@ class RatesPlanController extends Controller
         $id = Crypt::decryptString($id);
 
         $setting = $this->setting();
+        $cancel = CancellationPolicy::find($id);
         $cancellations = CancellationPolicy::all();
-        $rooms = Type::orderBy('id')->first();
+        $rooms = Type::all();
         $ratesplans = RatesPlan::find($id);
 
         return view('master_data.rates_plan.edit', get_defined_vars());
