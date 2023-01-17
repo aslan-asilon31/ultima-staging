@@ -22,4 +22,9 @@ class CancellationPolicy extends Model
         'name',
         'description',
     ];
+
+    public function rateplans()
+    {
+        return $this->hasMany('App\Models\RatesOlan\RatesOlan', 'cancellation_id', 'id');
+    }
 }

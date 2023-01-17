@@ -67,23 +67,23 @@
             var cancellation_id = $(this).attr('data-id');
             var cancellation = $(this).attr('data-name');
             swal({
-                  title: "Are you sure ?",
-                  icon: "warning",
-                  buttons: true,
-                  dangerMode: true,
-                  })
-                  .then((willDelete) => {
-                  if (willDelete) {
-                        window.location = "/delete/"+cancellation_id+""
-                  } else {
-                        // swal("cancellation "+cancellation+" gagal di hapus");
-                        swal(
-                              'Oooops!!!',
-                              'Cancellation gagal di hapus :)',
-                              'error'
-                        )
-                  }
-                  });
+                title: "Are you sure ?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    window.location = "/delete/"+cancellation_id+""
+                } else {
+                    // swal("cancellation "+cancellation+" gagal di hapus");
+                    swal(
+                            'Oooops!!!',
+                            'Cancellation gagal di hapus :)',
+                            'error'
+                    )
+                }
+                });
         });
 
     </script>
