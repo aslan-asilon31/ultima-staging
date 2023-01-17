@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Cancellation;
+namespace App\Models\Room;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CancellationPolicy extends Model
+class RoomRatePlan extends Model
 {
-    protected $table = 'cancellation_policy';
+    protected $table = 'room_rate_plan';
 
     public $primaryKey = 'id';
 
@@ -19,7 +19,10 @@ class CancellationPolicy extends Model
     protected $fillable =
     [
         'id',
-        'name',
-        'description',
+        'room_id',
+        'rate_id',
+        'is_rate_plan_active',
+        'promo_rate',
+        'is_promo_rate_active',
     ];
 }
