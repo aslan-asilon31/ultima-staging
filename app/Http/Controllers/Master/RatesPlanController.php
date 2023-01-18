@@ -88,7 +88,7 @@ class RatesPlanController extends Controller
             'def_meal_available'   => $request->def_meal_available,
             'def_bookable'   => $request->def_bookable,
             'def_minimum_stay'   => $request->def_minimum_stay,
-            'room_id'     => $request->room_id,
+            // 'room_id'     => $request->room_id,
             'base_rate'   => $request->base_rate,
             'extrabed_rate'   => $request->extrabed_rate
 
