@@ -27,16 +27,16 @@ class RatesPlan extends Model
         'base_rate',
         'extrabed_rate',
 
-
     ];
 
-    // public function CancellationPolicy()
+    // public function type(){
+    //     return $this->belongsTo('App\Models\Room\Type');
+    // }
+    // public function room_rate_plan()
     // {
-    //     return $this->belongsTo(CancellationPolicy::class);
+    //     return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
     // }
 
-    public function room_type(){
-    	return $this->hasOne('App\Models\Room\Type');
-    }
+
 
 }

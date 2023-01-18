@@ -135,16 +135,18 @@ class RatesPlanController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request);
         // $request->validate([
         //     "cancellation_id" => "required",
         //     'rate_name'     => 'required',
         //     'def_meal_available'     => 'required|numeric',
         //     'def_bookable'     => 'required',
         //     'def_minimum_stay'     => 'required',
-        //     'room_name'     => 'required|array',
+        //     'room_id'     => 'required',
         //     'base_rate'     => 'required|numeric',
         //     'extrabed_rate' => 'required|numeric',
         // ]);
+
 
         $ratesplans = RatesPlan::find($id);
         $ratesplans->update($request->all());
@@ -161,21 +163,6 @@ class RatesPlanController extends Controller
     //     return response()->json($user);
     // }
 
-    // public function delete($id)
-    // {
-    //     $ratesplans = RatesPlan::where('id', $id)->first();
-    //     // $ratesplans = RatesPlan::find($id);
-    //     // dd($ratesplans);
-
-    //     $ratesplans->delete();
-
-    //     // $ratesplans = RatesPlan::find($id);
-    //     // $ratesplans->delete();
-    //     // if ($ratesplans != null) {
-    //     //     return redirect()->route('rates_plan.index')->with(['message'=> 'Successfully deleted!!']);
-    //     // }
-    //     return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Deleted');
-    // }
 
     public function destroy($id)
     {

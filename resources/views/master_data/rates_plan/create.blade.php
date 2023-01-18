@@ -17,18 +17,6 @@ $set_days = "0";
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
-                                {{-- <div class="form-group">
-                                    <input type="text" class="form-control @error('cancellation_id') is-invalid @enderror" id="cancellation_id" name="cancellation_id"
-                                    placeholder="Cancellation ID" hidden>
-
-                                    <!-- error message untuk title -->
-                                    @error('cancellation_id')
-                                    <div class="alert alert-danger mt-2" hidden>
-                                    {{$message}}
-                                    </div>
-                                    @enderror
-
-                                </div> --}}
                                 
                                 <label for="rate_name">Rates Name</label>
                                 <div class="form-group">
@@ -77,7 +65,6 @@ $set_days = "0";
                                 </h5>
                                 <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
                                 <div class="form-group">
-
                                     <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
                                         <input type="radio" id="AnyDays" name="def_bookable" value="0" >
                                         <label>Any days</label>

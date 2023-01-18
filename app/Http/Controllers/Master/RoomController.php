@@ -9,6 +9,7 @@ use App\Models\Room\RoomAmenities;
 use App\Models\Room\Type;
 use App\Models\Room\Rsvp;
 use App\Models\Room\Bed;
+use App\Models\Room\RoomRatePlan;
 use Carbon\Carbon;
 use DB;
 
@@ -36,6 +37,7 @@ class RoomController extends Controller
         );
         $setting = $this->setting();
 
+        $room_rate_plans = RoomRatePlan::all();
         $room_id = Type::orderBy('room_order', 'ASC')->pluck('id')->toArray();
         $rooms = Type::orderBy('room_order', 'ASC')->with('bed')->with('amenities')->with('photo')->get();
         if (count($rooms) > 0) {
