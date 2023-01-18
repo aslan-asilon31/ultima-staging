@@ -46,25 +46,25 @@ class CancellationController extends Controller
             'description' => 'required',
         ]);
 
-            //CREATE ID
+        //CREATE ID
+        $bytes = openssl_random_pseudo_bytes(4, $cstrong);
+        $hex = bin2hex($bytes);
+        $id = $hex;
+        while (CancellationPolicy::where('id', $id)->exists()) {
             $bytes = openssl_random_pseudo_bytes(4, $cstrong);
             $hex = bin2hex($bytes);
             $id = $hex;
-            while (CancellationPolicy::where('id', $id)->exists()) {
-                $bytes = openssl_random_pseudo_bytes(4, $cstrong);
-                $hex = bin2hex($bytes);
-                $id = $hex;
-            }
+        }
 
-            $cancellationpolicies = CancellationPolicy::create([
-                'id'     => $id,
-                'name'     => $request->name,
-                'description'   => $request->description
-            ]);
+        $cancellationpolicies = CancellationPolicy::create([
+            'id'     => $id,
+            'name'     => $request->name,
+            'description'   => $request->description
+        ]);
 
-            // Session::flash('success','Data berhasil di tambahkan');
+        // Session::flash('success','Data berhasil di tambahkan');
 
-            return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di tambah');
+        return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation Policy Berhasil di tambah');
     }
 
     //Edit DATA
@@ -78,41 +78,20 @@ class CancellationController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $cancellationpolicies = CancellationPolicy::all();
-        // $validatedData = $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        // ]);
-        // CancellationPolicy::whereId($id)->update($validatedData);
+        $cancellationpolicies = CancellationPolicy::find($id);
+        $cancellationpolicies->update($request->all());
 
-            // Session::flash('success','Data berhasil di tambahkan');
+        return redirect()->route('cancellation_policy.index')->with('status', 'Update cancellation Policy Berhasil');
+    }
 
-            // $cancellation = CancellationPolicy::find($id);
-            // $cancellation->name = e($request->input('name'));
-            // $cancellation->description = e($request->input('description'));
-            // $cancellation->save();
-            $cancellationpolicies = CancellationPolicy::find($id);
-            $cancellationpolicies->update($request->all());
-
-            return redirect()->route('cancellation_policy.index')->with('status', 'Update cancellation Policy Berhasil');
+    public function delete(Request $request, $id)
+    {
+        // $id = Crypt::decryptString($request['id']);
+        if(RatesPlan::where('cancellation_id', $id)->exists()){
+            return redirect()->route('cancellation_policy.index')->with('warning', 'Cancellation cannot be delete because it has Rate Plans');
         }
+        CancellationPolicy::where('id', $id)->forceDelete();
 
-        // public function delete($id)
-        // {
-        //     $cancellationpolicies = CancellationPolicy::find($id);
-        //     $cancellationpolicies->delete();
-
-        //     return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation policy Berhasil Dihapus');
-        // }
-
-        public function delete(Request $request, $id)
-        {
-            // $id = Crypt::decryptString($request['id']);
-            if(RatesPlan::where('cancellation_id', $id)->exists()){
-                return redirect()->route('cancellation_policy.index')->with('warning', 'Cancellation cannot be delete because it has Rate Plans');
-            }
-            CancellationPolicy::where('id', $id)->forceDelete();
-
-            return redirect()->route('cancellation_policy.index')->with('status', 'Data Cancellation Berhasil Dihapus');
-        }
+        return redirect()->route('cancellation_policy.index')->with('status', 'Data Cancellation Berhasil Dihapus');
+    }
 }
