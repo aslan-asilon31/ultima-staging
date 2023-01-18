@@ -24,7 +24,7 @@ class CreateSlashPrice extends Migration
         Schema::create('room_rate_plans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('room_id');
-            $table->integer('rates_plan_id');
+            // $table->integer('rates_plan_id');
             $table->integer('room_future_availability');
             $table->integer('def_plans_rate');
             $table->integer('def_week_plans_rate');
@@ -42,7 +42,7 @@ class CreateSlashPrice extends Migration
         Schema::create('allotment_plans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('availability_id');
-            $table->integer('rates_plan_id');
+            // $table->integer('rates_plan_id');
             $table->integer('plan_status');
             $table->integer('publish_rate');
             $table->integer('slash_rate');

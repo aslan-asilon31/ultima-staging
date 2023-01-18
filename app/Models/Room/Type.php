@@ -68,6 +68,11 @@ class Type extends Model
         return $this->hasMany('App\Models\Room\Rsvp', 'room_id', 'id')->where('rsvp_status', 'Payment received');
     }
 
+    // public function rate_plans()
+    // {
+    //     return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+    // }
+
     public function remaining_allotment()
     {
         $query = "SELECT allotment.id, allotment.allotment_room, allotment.allotment_date,

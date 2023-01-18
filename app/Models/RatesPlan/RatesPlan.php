@@ -19,6 +19,7 @@ class RatesPlan extends Model
     [
         'id',
         'cancellation_id',
+        'room_id',
         'rate_name',
         'def_meal_available',
         'def_bookable',
@@ -33,5 +34,9 @@ class RatesPlan extends Model
     // {
     //     return $this->belongsTo(CancellationPolicy::class);
     // }
+
+    public function room_type(){
+    	return $this->hasOne('App\Models\Room\Type');
+    }
 
 }

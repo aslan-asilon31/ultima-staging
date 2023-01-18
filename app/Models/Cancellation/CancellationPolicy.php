@@ -15,7 +15,7 @@ class CancellationPolicy extends Model
 
     public $timestamps = true;
 
-    protected $guarded = []; 
+    protected $guarded = [];
 
     protected $fillable =
     [
@@ -24,9 +24,13 @@ class CancellationPolicy extends Model
         'description',
     ];
 
-    public function RatesPlan()
-    {
-        return $this->hasOne(RatesPlan::class);
-    }
+    // public function RatesPlan()
+    // {
+    //     return $this->hasOne(RatesPlan::class);
+    // }
 
+    public function rate_plans()
+    {
+        return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'cancellation_id', 'id');
+    }
 }

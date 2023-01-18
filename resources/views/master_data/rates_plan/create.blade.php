@@ -17,7 +17,7 @@ $set_days = "0";
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <input type="text" class="form-control @error('cancellation_id') is-invalid @enderror" id="cancellation_id" name="cancellation_id"
                                     placeholder="Cancellation ID" hidden>
 
@@ -28,7 +28,7 @@ $set_days = "0";
                                     </div>
                                     @enderror
 
-                                </div>
+                                </div> --}}
                                 
                                 <label for="rate_name">Rates Name</label>
                                 <div class="form-group">
@@ -52,7 +52,7 @@ $set_days = "0";
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
                                 <div class="form-group">
                                     <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                        <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="0">
+                                        <input type="radio" class="form-control @error('def_meal_available') is-invalid @enderror" id="available" name="def_meal_available" value="0" >
     
                                         <label>Include Meal</label>
                                     </div>
@@ -79,7 +79,7 @@ $set_days = "0";
                                 <div class="form-group">
 
                                     <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                        <input type="radio" id="AnyDays" name="def_bookable" value="0">
+                                        <input type="radio" id="AnyDays" name="def_bookable" value="0" >
                                         <label>Any days</label>
                                     </div>
 
@@ -110,7 +110,7 @@ $set_days = "0";
                                 <p class="mt mb">How many nights require for guest to book for this rate plan?</p>
 
                                 <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="NoMinimum" name="def_minimum_stay" value="0">
+                                    <input type="radio" class="form-control @error('def_minimum_stay') is-invalid @enderror" id="NoMinimum" name="def_minimum_stay" value="0" >
                                     <label>No Minimum </label>
                                 </div>
 
@@ -140,7 +140,7 @@ $set_days = "0";
                                     <select name="cancellation_id" id="" class="form-control @error('cancellation_id') is-invalid @enderror" >
                                         <option value="">Choose Cancellation</option>
                                         @foreach($cancellations as $cancel)
-                                        <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
+                                        <option  value="{{ $cancel->id }}">{{ $cancel->name}}</option>
                                         @endforeach
                                     </select>
 
@@ -157,14 +157,14 @@ $set_days = "0";
                                 <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                 <div class="form-group">
-                                    <select name="" id="" class="form-control  @error('room_name') is-invalid @enderror" >
-                                        {{-- <option value="">Choose Room</option> --}}
+                                    <select name="room_id" id="" class="form-control  @error('room_name') is-invalid @enderror" >
+                                        <option value="">Choose Room</option>
                                         @foreach($rooms as $room)
-                                        <option name="room_name" value="{{ $room->id }}"><label>{{ $room->room_name }}</label></option>
+                                        <option   value="{{ $room->id }}"><label>{{ $room->room_name }}</label></option>
                                         @endforeach
                                     </select>
 
-                                    @error('room_name')
+                                    @error('room_id')
                                     <div class="alert alert-danger mt-2">
                                     {{$message}}
                                     </div>
@@ -180,10 +180,10 @@ $set_days = "0";
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="base_rate"
-                                            class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="" placeholder="0"/>
+                                            class="form-control @error('base_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);" 
+                                            id="weekday_rate" value="1000000" placeholder="0" />
                                         <input type="hidden" name="base_rate" id="weekday_rate_input"
-                                            value="" />
+                                            value="1000000" />
 
                                     </div>
                                     @error('base_rate')
@@ -201,11 +201,13 @@ $set_days = "0";
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="extrabed_rate"
-                                            class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="weekday_rate" value="" placeholder="0"/>
-                                        <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
-                                            value="" />
+                                            class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);" 
+                                            id="weekday_rate" value="1000000" placeholder="0" />
+
+                                           <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
+                                            value="1000000" />
                                     </div>
+                                    
                                     @error('extrabed_rate')
                                     <div class="alert alert-danger mt-2">
                                     {{$message}}
@@ -213,6 +215,7 @@ $set_days = "0";
                                     @enderror
                                 </div>
 
+                                <input type="hidden" value="1000000" name="extrabed_rate">
 
                                 <br>
                             </div>

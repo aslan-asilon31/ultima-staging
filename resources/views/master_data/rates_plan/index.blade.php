@@ -50,9 +50,14 @@
                             <h5 style="margin-bottom:-5px;">
                                 <strong>Cancel Policy</strong>
                             </h5>
-                            <p class="mt"><strong>{{-- {{ $rate->cancellation_id->name }} --}}</strong> applied upon cancellation 4 days prior
+
+
+                            {{-- @foreach($rate->room_type as $r) --}}
+                            <p class="mt"><strong>Cancel Name</strong> applied upon cancellation 4 days prior
                                 before
                                 arrival</p>
+                            {{-- @endforeach --}}
+
                         </div>
 
                         <div class="col-xs-12 col-lg-6 col-md-6">

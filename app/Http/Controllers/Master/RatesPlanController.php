@@ -22,14 +22,17 @@ use Illuminate\Support\Facades\Crypt;
 
 class RatesPlanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $setting = $this->setting();
         //menu code
         $menu = $this->menu();
-        $rooms = Type::all();
+        // $rooms = Type::all();
         $cancellations = CancellationPolicy::all();
         $ratesplans = RatesPlan::all();
+
+        $id = RatesPlan::where('id','=',$request->id)->first();
+        $rooms = Type::where('id','=',$id)->first();
 
         return view('master_data.rates_plan.index', get_defined_vars());
     }
@@ -49,6 +52,7 @@ class RatesPlanController extends Controller
     {
         // dd($request->all());
         $ratesplans=RatesPlan::all();
+        
 
         $request->validate([
             "cancellation_id" => "required",
@@ -56,7 +60,7 @@ class RatesPlanController extends Controller
             'def_meal_available'     => 'required|numeric',
             'def_bookable'     => 'required',
             'def_minimum_stay'     => 'required',
-            'room_name'     => 'required',
+            'room_id'     => 'required',
             'base_rate'     => 'required|numeric',
             'extrabed_rate' => 'required|numeric',
         ]);
@@ -74,6 +78,8 @@ class RatesPlanController extends Controller
 
         //it will return single model
         $cancellation_id = CancellationPolicy::select('id')->get();
+        $room_id = Type::select('id')->get();
+
         $ratesplans = RatesPlan::create([
 
             'id' => $id,
@@ -82,11 +88,10 @@ class RatesPlanController extends Controller
             'def_meal_available'   => $request->def_meal_available,
             'def_bookable'   => $request->def_bookable,
             'def_minimum_stay'   => $request->def_minimum_stay,
+            'room_id'     => $request->room_id,
             'base_rate'   => $request->base_rate,
             'extrabed_rate'   => $request->extrabed_rate
-  /*       print_r($request->base_rate),
 
-        print_r($request->extrabed_rate), */
         ]);
 
         //CREATE ID Room Rates
@@ -99,10 +104,10 @@ class RatesPlanController extends Controller
             $id_rr = $hex;
         }
 
-        $room_id = Type::select('id')->get();
+        // $room_id = Type::select('id')->get();
         $roomrateplan = RoomRatePlan::create([
 
-            'room_id'                => NULL,
+            'room_id'                => $request->room_id,
             'rate_id'                => $id,
             'is_rate_plan_active'    => NULL,
             'promo_rate'             => NULL,

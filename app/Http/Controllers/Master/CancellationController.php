@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cancellation\CancellationPolicy;
+use App\Models\RatesPlan\RatesPlan;
 use Carbon;
 use Session;
 use Alert;
@@ -94,22 +95,24 @@ class CancellationController extends Controller
             $cancellationpolicies->update($request->all());
 
             return redirect()->route('cancellation_policy.index')->with('status', 'Update cancellation Policy Berhasil');
-    }
+        }
 
-    // public function delete($id){
-    //     $cancellationpolicies = CancellationPolicy::find($id);
-    //     $cancellationpolicies->delete();
-    //     return redirect()->route('master_data.cancellation_policy.index')->with(['success', 'data berhasil dihapus']);
-    // }
+        // public function delete($id)
+        // {
+        //     $cancellationpolicies = CancellationPolicy::find($id);
+        //     $cancellationpolicies->delete();
 
-    public function delete($id)
-    {
-        // dd($id);
-        $cancellationpolicies = CancellationPolicy::find($id);
-        $cancellationpolicies->delete();
+        //     return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation policy Berhasil Dihapus');
+        // }
 
+        public function delete(Request $request, $id)
+        {
+            // $id = Crypt::decryptString($request['id']);
+            if(RatesPlan::where('cancellation_id', $id)->exists()){
+                return redirect()->route('cancellation_policy.index')->with('warning', 'Cancellation cannot be delete because it has Rate Plans');
+            }
+            CancellationPolicy::where('id', $id)->forceDelete();
 
-        return redirect()->route('cancellation_policy.index')->with('status', 'Cancellation policy Berhasil Dihapus');
-    }
-
+            return redirect()->route('cancellation_policy.index')->with('status', 'Data Cancellation Berhasil Dihapus');
+        }
 }
