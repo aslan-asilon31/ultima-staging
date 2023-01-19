@@ -40,9 +40,6 @@ $extrabed_rate = "0";
                                         </div>
                                     @enderror
                                 </div>
-
-                                <br>
-
                                 {{-- Meals --}}
                                 <h5 class="mt mb">
                                     <strong>Meals</strong>
@@ -67,8 +64,6 @@ $extrabed_rate = "0";
                                     @enderror
 
                                 </div>
-                                <br>
-
                                 {{-- Bookables --}}
                                 <h5 class="mt mb">
                                     <strong>Bookables</strong>
@@ -98,8 +93,6 @@ $extrabed_rate = "0";
                                     @enderror
 
                                 </div>
-                                <br>
-
                                 {{-- Minimum length of stay --}}
                                 <h5 class="mt mb">
                                     <strong>Minimum length of stay</strong>
@@ -127,8 +120,6 @@ $extrabed_rate = "0";
                                 {{$message}}
                                 </div>
                                 @enderror
-
-                                <hr>
                                 <div class="form-group">
                                     <h5 class="mt mb">
                                         <strong>Set Cancellation Policy</strong>
@@ -149,8 +140,6 @@ $extrabed_rate = "0";
                                     @enderror
 
                                 </div>
-
-                                <hr>
                                 <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                 <div class="form-group">
@@ -167,8 +156,6 @@ $extrabed_rate = "0";
                                     </div>
                                     @enderror
                                 </div>
-
-                                <br>
                             </div>
 
                             <div class="col-lg-6">

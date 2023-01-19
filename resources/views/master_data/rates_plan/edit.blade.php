@@ -141,8 +141,6 @@ $extrabed_rate = "0";
                                         id="InputSet" value="{{ $ratesplans->def_minimum_stay }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
                                 @endif
-
-                                <hr>
                                 <div class="form-group">
                                     <h5 class="mt mb">
                                         <strong>Set Cancellation Policy</strong>
@@ -165,7 +163,6 @@ $extrabed_rate = "0";
                                         @endforeach
                                     </select>
                                 </div>
-                                <hr>
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-6 col-md-4">
@@ -183,7 +180,6 @@ $extrabed_rate = "0";
                                             {{$message}}
                                             </div>
                                         @enderror
-                                    <br>
                                     <label for="weekday_extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
@@ -199,7 +195,6 @@ $extrabed_rate = "0";
                                             </div>
                                         @enderror
                                     </div>
-                                    <br>
                                 </div>
                             </div>
                             <br>
