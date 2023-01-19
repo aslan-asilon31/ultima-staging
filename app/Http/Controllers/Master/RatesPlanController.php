@@ -37,7 +37,7 @@ class RatesPlanController extends Controller
 
         return view('master_data.rates_plan.index', get_defined_vars());
     }
- 
+
     public function create()
     {
         $setting = $this->setting();
@@ -53,7 +53,7 @@ class RatesPlanController extends Controller
     {
         // dd($request->all());
         $ratesplans=RatesPlan::all();
-        
+
 
         $request->validate([
             "cancellation_id" => "required",
@@ -63,7 +63,7 @@ class RatesPlanController extends Controller
             'def_minimum_stay'     => 'required',
             'room_id'     => 'required',
             'base_rate'     => 'required|numeric',
-            'extrabed_rate' => 'required|numeric',
+            // 'extrabed_rate' => 'NULL',
         ]);
 
 
