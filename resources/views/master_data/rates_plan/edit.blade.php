@@ -240,13 +240,13 @@ $extrabed_rate = "";
                                 </div>
                             </div>
                             <br>
+                            <div class="pull-right">
+                                <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                                    Cancel
+                                </a>
+                                <button type="submit" class="btn btn-horison-gold btn-padding">Update</button>
+                            </div>
                         </form>
-                        <div class="pull-right">
-                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
-                                Cancel
-                            </a>
-                            <button type="submit" class="btn btn-horison-gold btn-padding">Update</button>
-                        </div>
                         <div class="pull-right">
                             <form method="post" class="delete_form" action="{{route('rates_plan.delete',$ratesplans->id )}}">
                                 @method('DELETE')
