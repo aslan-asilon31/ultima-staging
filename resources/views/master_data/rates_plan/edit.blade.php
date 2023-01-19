@@ -38,14 +38,28 @@
                                     <strong>Meals</strong>
                                 </h5>
                                 <p class="mt mb">Applied meals plan for this rate plan ?</p>
-                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 0 ? 'checked' : '' }}>
-                                    <label>Include Meal</label>
+                                <div class="form-group">
+                                    @if($ratesplans->def_meal_available == 1)
+                                    <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                        <input type="radio" id="available" name="def_meal_available" value="1" checked>
+                                        <label>Include Meal</label>
+                                    </div>
+                                    <div class="radio radio-replace color-primary">
+                                        <input type="radio" id="no_available" name="def_meal_available" value="0" >
+                                        <label>No, don’t add meal plan for this rate plan</label>
+                                    </div>
+                                    @elseif($ratesplans->def_meal_available == 0)
+                                    <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                        <input type="radio" id="available" name="def_meal_available" value="1" >
+                                        <label>Include Meal</label>
+                                    </div>
+                                    <div class="radio radio-replace color-primary">
+                                        <input type="radio" id="no_available" name="def_meal_available" value="0" checked>
+                                        <label>No, don’t add meal plan for this rate plan</label>
+                                    </div>
+                                    @endif
                                 </div>
-                                <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="no_available" name="def_meal_available" value="" {{ $ratesplans->def_meal_available == 1 ? 'checked' : '' }}>
-                                    <label>No, don’t add meal plan for this rate plan</label>
-                                </div>
+
                                 <br>
 
                                 {{-- Bookables --}}
@@ -53,39 +67,41 @@
                                     <strong>Bookables</strong>
                                 </h5>
                                 <p class="mt mb">How many days before check-in can guest book this rate plan?</p>
-                                @if($ratesplans->def_bookable == 0)
-                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="AnyDays" name="def_bookable" value="" checked>
-                                    <label>Any days</label>
-                                </div>
+                                <div class="form-group">
+                                    @if($ratesplans->def_bookable == 0)
+                                    <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                        <input type="radio" id="AnyDays" name="def_bookable" value="0" checked>
+                                        <label>Any days</label>
+                                    </div>
 
-                                <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="def_bookable" value="" >
-                                    <label>Set number of days before check in </label>
-                                </div>
+                                    <div class="radio radio-replace color-primary">
+                                        <input type="radio" id="SetNumber" name="def_bookable" value="" >
+                                        <label>Set number of days before check in </label>
+                                    </div>
 
-                                <div class="input-group col-lg-12">
-                                    <input type="number" name=""
-                                        class="show-hide form-control "
-                                        id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
-                                </div>
-                                @elseif($ratesplans->def_bookable >= 1)
-                                <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
-                                    <input type="radio" id="AnyDays" name="def_bookable" value="" >
-                                    <label>Any days</label>
-                                </div>
+                                    <div class="input-group col-lg-12">
+                                        <input type="number" name=""
+                                            class="show-hide form-control "
+                                            id="DaySet" value="0" style="display: none; width:200px;margin-bottom:1px;margin-left:27px;" />
+                                    </div>
+                                    @elseif($ratesplans->def_bookable >= 1)
+                                    <div class="radio radio-replace color-primary" style="margin-bottom: 5px;">
+                                        <input type="radio" id="AnyDays" name="def_bookable" value="0" >
+                                        <label>Any days</label>
+                                    </div>
 
-                                <div class="radio radio-replace color-primary">
-                                    <input type="radio" id="SetNumber" name="def_bookable" value="" checked>
-                                    <label>Set number of days before check in </label>
-                                </div>
+                                    <div class="radio radio-replace color-primary">
+                                        <input type="radio" id="SetNumber" name="def_bookable" value="" checked>
+                                        <label>Set number of days before check in </label>
+                                    </div>
 
-                                <div class="input-group col-lg-12">
-                                    <input type="number" name=""
-                                        class="show-hide form-control "
-                                        id="DaySet" value="{{ $ratesplans->def_bookable }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
+                                    <div class="input-group col-lg-12">
+                                        <input type="number" name=""
+                                            class="show-hide form-control "
+                                            id="DaySet" value="{{ $ratesplans->def_bookable }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
+                                    </div>
+                                    @endif
                                 </div>
-                                @endif
 
 
                                 <br>
@@ -182,9 +198,16 @@
                                     <label for="extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
+                                        @if($ratesplans->extrabed_rate == null  )
                                         <input type="number" name="extrabed_rate"
-                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="extrabed_rate" value="{{ $ratesplans->extrabed_rate }}" />
+                                        class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                        id="extrabed_rate" value="0" />
+                                        @elseif($ratesplans->extrabed_rate != null)
+                                        <input type="number" name="extrabed_rate"
+                                        class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                        id="extrabed_rate" value="{{ $ratesplans->extrabed_rate }}" />
+                                        @endif
+
                                       {{--   <input type="hidden" name="extrabed_rate" id="extrabed_rate"
                                             value="" /> --}}
                                     </div>

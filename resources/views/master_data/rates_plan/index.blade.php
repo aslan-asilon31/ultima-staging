@@ -38,12 +38,17 @@
                             </h5>
                             <ul class="checklist-ul mt">
                                 
-                                    @if($rate->def_meal_available == 1)
+                                    @if($rate->def_meal_available == 0 || $rate->def_meal_available == NULL)
                                     <li class="mt text-muted">No Meal</li>
-                                    @elseif($rate->def_meal_available == 0)
+                                    @elseif($rate->def_meal_available == 1 )
                                     <li class="mt ">Meal</li>
                                     @endif
-                                <li class="mt">Allow extra beds</li>
+
+                                    @if($rate->extrabed_rate == 0 || $rate->extrabed_rate == NULL)
+                                    <li class="mt text-muted">No extra bed</li>
+                                    @elseif($rate->extrabed_rate >= 1)
+                                    <li class="mt">Allow extra bed</li>
+                                    @endif
                             </ul>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
@@ -51,9 +56,8 @@
                                 <strong>Cancel Policy</strong>
                             </h5>
 
-
                             {{-- @foreach($rate->room_type as $r) --}}
-                            <p class="mt"><strong>Cancel Name</strong> applied upon cancellation 4 days prior
+                            {{-- <p class="mt"><strong>Cancel Name</strong> applied upon cancellation 4 days prior --}}
                                 before
                                 arrival</p>
                             {{-- @endforeach --}}

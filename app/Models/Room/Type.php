@@ -16,6 +16,9 @@ class Type extends Model
 
     public $primaryKey = 'id';
 
+    // protected $primaryKey = 'id';
+    
+
     protected $fillable = [
         'id',
         'room_name',
@@ -68,10 +71,17 @@ class Type extends Model
         return $this->hasMany('App\Models\Room\Rsvp', 'room_id', 'id')->where('rsvp_status', 'Payment received');
     }
 
-    // public function rate_plans()
+    // public function room_rate_plans()
     // {
-    //     return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+    //     return $this->hasMany('App\Models\Room\RoomRatePlan', 'room_id', 'id');
     // }
+
+    public function room_rate_plan()
+    {
+        return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+    }
+
+
 
     public function remaining_allotment()
     {
