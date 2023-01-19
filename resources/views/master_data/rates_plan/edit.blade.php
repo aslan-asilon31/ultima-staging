@@ -217,7 +217,6 @@ $extrabed_rate = "0";
                 </div>
             </div>
         </div>
-    </div>
 
     <script src="{{ asset('js/ratesplancreate.js') }}"></script>
 
