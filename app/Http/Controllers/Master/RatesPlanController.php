@@ -63,7 +63,7 @@ class RatesPlanController extends Controller
             'def_minimum_stay'     => 'required',
             'room_id'     => 'required',
             'base_rate'     => 'required|numeric',
-            // 'extrabed_rate' => 'NULL',
+            'extrabed_rate' => 'required|numeric',
         ]);
 
 
@@ -122,7 +122,6 @@ class RatesPlanController extends Controller
     //UPDATE DATA
     public function edit($id)
     {
-
         $id = Crypt::decryptString($id);
 
         $setting = $this->setting();
@@ -136,17 +135,6 @@ class RatesPlanController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // $request->validate([
-        //     "cancellation_id" => "required",
-        //     'rate_name'     => 'required',
-        //     'def_meal_available'     => 'required|numeric',
-        //     'def_bookable'     => 'required',
-        //     'def_minimum_stay'     => 'required',
-        //     'room_id'     => 'required',
-        //     'base_rate'     => 'required|numeric',
-        //     'extrabed_rate' => 'required|numeric',
-        // ]);
 
 
         $ratesplans = RatesPlan::find($id);

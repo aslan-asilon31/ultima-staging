@@ -78,6 +78,11 @@ class CancellationController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
         $cancellationpolicies = CancellationPolicy::find($id);
         $cancellationpolicies->update($request->all());
 

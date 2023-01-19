@@ -6,31 +6,6 @@
 @section('content')
 @if(isset($room))
 @php
-$room_amenitites = $room['amenitites'];
-$id = Crypt::encryptString($room->id);
-$room_name = $room->room_name;
-$room_desc = $room->room_desc;
-$room_publish_status = $room->room_publish_status == 1 ? "checked" : "";
-$bed1 = "";
-$bed2 = "";
-$bed3 = "";
-foreach($room['bed'] as $bed_type){
-switch($bed_type->bed_id){
-case "0":
-$bed1 = "checked";
-break;
-case "1":
-$bed3 = "checked";
-break;
-case "2":
-$bed2 = "checked";
-break;
-}
-}
-
-if(!isset($amenities)){
-$checked="";
-}
 $base_rate = $room->base_rate;
 $extrabed_rate = $room->extrabed_rate;
 @endphp
@@ -38,8 +13,8 @@ $extrabed_rate = $room->extrabed_rate;
 @else
 
 @php
-$base_rate = "";
-$extrabed_rate = "";
+$base_rate = "0";
+$extrabed_rate = "0";
 @endphp
 
 @endif
@@ -197,13 +172,13 @@ $extrabed_rate = "";
                             </div>
 
                             <div class="col-lg-6">
-                                <label for="weekday_rate" class="">Base Rate</label>
+                                <label for="weekday_base_rate" class="">Base Rate</label>
                                 <div class="input-group col-lg-12">
                                     <span class="input-group-addon">Rp.</span>
                                     <input type="text" name="Base Weekday Publish Rate"
                                         class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="weekday_rate" value="{{$base_rate}}" placeholder="0"/>
-                                    <input type="hidden" name="base_rate" id="weekday_rate_input"
+                                        id="weekday_base_rate" value="{{$base_rate}}" placeholder="0"/>
+                                    <input type="hidden" name="base_rate" id="weekday_base_rate_input"
                                         value="{{$base_rate}}" />
                                 </div>
                                     @error('base_rate')
@@ -212,15 +187,20 @@ $extrabed_rate = "";
                                         </div>
                                     @enderror
                                 <br>
-                                <label for="weekday_room_rate" class="">Extrabed Rate</label>
+                                <label for="weekday_extrabed_rate" class="">Extrabed Rate</label>
                                 <div class="input-group col-lg-12">
                                     <span class="input-group-addon">Rp.</span>
                                     <input type="text" name="Base Weekday Room Only Rate"
                                         class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="weekday_room_rate" value="{{$extrabed_rate}}" placeholder="0"/>
-                                    <input type="hidden" name="extrabed_rate" id="weekday_room_rate_input"
+                                        id="weekday_extrabed_rate" value="{{$extrabed_rate}}" placeholder="0"/>
+                                    <input type="hidden" name="extrabed_rate" id="weekday_extrabed_rate_input"
                                         value="{{$extrabed_rate}}" />
                                     </div>
+                                    @error('extrabed_rate')
+                                        <div class="alert alert-danger mt-2">
+                                        {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         <div class="pull-right">
@@ -239,11 +219,11 @@ $extrabed_rate = "";
 
     <script type="text/javascript">
         if ("{{$base_rate}}" != "") {
-                var e = document.getElementById("weekday_rate");
+                var e = document.getElementById("weekday_base_rate");
                 e.value = formatRupiah(e, e.value);
         }
         if ("{{$extrabed_rate}}" != "") {
-                var e = document.getElementById("weekday_room_rate");
+                var e = document.getElementById("weekday_extrabed_rate");
                 e.value = formatRupiah(e, e.value);
         }
 
