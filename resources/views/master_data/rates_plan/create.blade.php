@@ -189,10 +189,10 @@ $set_days = "0";
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="text" name="extrabed_rate"
                                             class="form-control @error('extrabed_rate') is-invalid @enderror room_price thousandSeperator" oninput="ambilRupiah(this);" 
-                                            id="weekday_rate" value="1000000" placeholder="0" />
+                                            id="weekday_rate" value="1.000.000" placeholder="0" />
 
                                            <input type="hidden" name="extrabed_rate" id="weekday_rate_input"
-                                            value="1000000" />
+                                            value="1.000.000" />
                                     </div>
                                     
                                     @error('extrabed_rate')
