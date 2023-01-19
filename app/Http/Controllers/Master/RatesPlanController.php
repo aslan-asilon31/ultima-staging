@@ -61,7 +61,7 @@ class RatesPlanController extends Controller
             'def_meal_available'     => 'required|numeric',
             'def_bookable'     => 'required',
             'def_minimum_stay'     => 'required',
-            'room_id'     => 'required',
+            // 'room_id'     => 'required',
             'base_rate'     => 'required|numeric',
             'extrabed_rate' => 'required|numeric',
         ]);
@@ -79,7 +79,7 @@ class RatesPlanController extends Controller
 
         //it will return single model
         $cancellation_id = CancellationPolicy::select('id')->get();
-        $room_id = Type::select('id')->get();
+        // $room_id = Type::select('id')->get();
 
         $ratesplans = RatesPlan::create([
 
@@ -95,15 +95,6 @@ class RatesPlanController extends Controller
 
         ]);
 
-        //CREATE ID Room Rates
-        $bytes = openssl_random_pseudo_bytes(4, $cstrong);
-        $hex = bin2hex($bytes);
-        $id_rr = $hex;
-        while (RatesPlan::where('id', $id_rr)->exists()) {
-            $bytes = openssl_random_pseudo_bytes(4, $cstrong);
-            $hex = bin2hex($bytes);
-            $id_rr = $hex;
-        }
 
         // $room_id = Type::select('id')->get();
         $roomrateplan = RoomRatePlan::create([
@@ -138,7 +129,34 @@ class RatesPlanController extends Controller
 
 
         $ratesplans = RatesPlan::find($id);
+        // $roomrateplan = RoomRatePlan::find($id);
+
         $ratesplans->update($request->all());
+        // $roomrateplan->update($request->all());
+
+        // $ratesplans ->update([
+        //     'cancellation_id'   => $request->cancellation_id,
+        //     'rate_name'   => $request->rate_name,
+        //     'def_meal_available'   => $request->def_meal_available,
+        //     'def_bookable'   => $request->def_bookable,
+        //     'def_minimum_stay'   => $request->def_minimum_stay,
+        //     'base_rate'   => $request->base_rate,
+        //     'extrabed_rate'   => $request->extrabed_rate
+
+        // ]);
+
+        // $roomrateplan ->update([
+
+        //     'room_id'                => $request->room_id,
+        //     // 'rate_id'                => $id,
+        //     'is_rate_plan_active'    => NULL,
+        //     'promo_rate'             => NULL,
+        //     'is_promo_rate_active'   => NULL,
+
+        // ]);
+
+
+
 
         return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Berhasil di Update');
 
