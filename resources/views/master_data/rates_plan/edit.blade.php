@@ -180,6 +180,7 @@ $extrabed_rate = "0";
                                             {{$message}}
                                             </div>
                                         @enderror
+                                        <br>
                                     <label for="weekday_extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>

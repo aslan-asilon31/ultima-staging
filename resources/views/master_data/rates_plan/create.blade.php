@@ -191,7 +191,7 @@ $extrabed_rate = "0";
                                 </div>
                             </div>
                         <div class="pull-right">
-                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}" onclick="confirmBox(this)">
+                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
                                 Cancel
                             </a>
                             <button type="submit" class="btn btn-horison-gold btn-padding">Save</button>
