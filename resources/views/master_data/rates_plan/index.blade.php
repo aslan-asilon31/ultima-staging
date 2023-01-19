@@ -19,6 +19,19 @@
         <br>
 
         <div class="row">
+{{-- 
+            @foreach ($roomrateplans as $rrt)
+             {{ $rrt->room_id }} 
+             <br>
+             {{ $rrt->rate_id }} 
+                @foreach($rrt->rate_plans() as $rp)
+                    {{ $rp->rate_name }}
+                @endforeach
+            @endforeach --}}
+
+
+
+
             @foreach ($ratesplans as $rate)
             <div class="panel panel-default">
                 <div class="panel-body shadow">

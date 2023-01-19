@@ -23,7 +23,7 @@
                                 <label for="rate_name">Rates Name</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control @error('rate_name') is-invalid @enderror" id="rate_name" name="rate_name"
-                                    placeholder="Free Upgrade to Super Deluxe" value="{{ $ratesplans->rate_name }}">
+                                    placeholder="Free Upgrade to Super Deluxe" value="{{ $ratesplans->rate_name }}" required>
                                     @error('rate_name')
                                         <div class="invalid-feedback">
                                         {{$message}}
@@ -190,7 +190,7 @@
                                         <span class="input-group-addon">Rp.</span>
                                         <input type="number" name="base_rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="base_rate" value="{{ $ratesplans->base_rate }}" />
+                                            id="base_rate" value="{{ $ratesplans->base_rate }}" required/>
                                       {{--   <input type="hidden" name="base_rate" id="base_rate"
                                             value="" /> --}}
                                     </div>
@@ -201,7 +201,7 @@
                                         @if($ratesplans->extrabed_rate == null  )
                                         <input type="number" name="extrabed_rate"
                                         class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="extrabed_rate" value="0" />
+                                        id="extrabed_rate" value="0" required />
                                         @elseif($ratesplans->extrabed_rate != null)
                                         <input type="number" name="extrabed_rate"
                                         class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"

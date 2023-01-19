@@ -30,6 +30,7 @@ class RatesPlanController extends Controller
         // $rooms = Type::all();
         $cancellations = CancellationPolicy::all();
         $ratesplans = RatesPlan::all();
+        $roomrateplans = RoomRatePlan::all();
 
         $id = RatesPlan::where('id','=',$request->id)->first();
         $rooms = Type::where('id','=',$id)->first();
