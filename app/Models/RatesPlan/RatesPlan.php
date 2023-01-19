@@ -19,7 +19,6 @@ class RatesPlan extends Model
     [
         'id',
         'cancellation_id',
-        'room_id',
         'rate_name',
         'def_meal_available',
         'def_bookable',
@@ -32,10 +31,26 @@ class RatesPlan extends Model
     // public function type(){
     //     return $this->belongsTo('App\Models\Room\Type');
     // }
-    public function room_rate_plan()
+    // public function room_rate_plan()
+    // {
+    //     return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'rate_id', 'id');
+    // }
+
+    public function room_rate_plans()
     {
-        return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+        return $this->hasMany('App\Models\Room\RoomRatePlan','rate_id' ,'id' );
     }
+
+    public function cancellations()
+    {
+        return $this->hasMany('App\Models\Cancellation\CancellationPolicy', 'id', 'cancellation_id');
+    }
+
+    public function types()
+    {
+        return $this->hasMany('App\Models\Room\Type', 'id', 'cancellation_id');
+    }
+
 
 
 

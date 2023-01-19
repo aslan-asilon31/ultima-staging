@@ -29,8 +29,8 @@ class CancellationPolicy extends Model
     //     return $this->hasOne(RatesPlan::class);
     // }
 
-    public function rate_plans()
+    public function rate_plan()
     {
-        return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'cancellation_id', 'id');
+        return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'id', 'cancellation_id');
     }
 }
