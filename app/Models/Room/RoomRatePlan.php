@@ -25,10 +25,10 @@ class RoomRatePlan extends Model
         'is_promo_rate_active',
     ];
 
-    // public function rate_plans()
-    // {
-    //     return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'id', 'rate_id');
-    // }
+    public function rate_plans()
+    {
+        return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'id', 'rate_id');
+    }
 
     public function types()
     {

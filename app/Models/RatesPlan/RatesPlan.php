@@ -51,6 +51,11 @@ class RatesPlan extends Model
         return $this->hasMany('App\Models\Room\Type', 'id', 'cancellation_id');
     }
 
+    public function room_type()
+    {
+        return $this->belongsTo('App\Models\Room\Type', 'id','room_id');
+    }
+
 
 
 

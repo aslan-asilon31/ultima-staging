@@ -121,41 +121,21 @@ class RatesPlanController extends Controller
         $rooms = Type::all();
         $ratesplans = RatesPlan::find($id);
 
+
         return view('master_data.rates_plan.edit', get_defined_vars());
     }
 
     public function update(Request $request, $id)
     {
-
+        // $id = Crypt::decryptString($id);
 
         $ratesplans = RatesPlan::find($id);
-        // $roomrateplan = RoomRatePlan::find($id);
+        
+
+        $roomrateplans = RoomRatePlan::find($id);
 
         $ratesplans->update($request->all());
-        // $roomrateplan->update($request->all());
-
-        // $ratesplans ->update([
-        //     'cancellation_id'   => $request->cancellation_id,
-        //     'rate_name'   => $request->rate_name,
-        //     'def_meal_available'   => $request->def_meal_available,
-        //     'def_bookable'   => $request->def_bookable,
-        //     'def_minimum_stay'   => $request->def_minimum_stay,
-        //     'base_rate'   => $request->base_rate,
-        //     'extrabed_rate'   => $request->extrabed_rate
-
-        // ]);
-
-        // $roomrateplan ->update([
-
-        //     'room_id'                => $request->room_id,
-        //     // 'rate_id'                => $id,
-        //     'is_rate_plan_active'    => NULL,
-        //     'promo_rate'             => NULL,
-        //     'is_promo_rate_active'   => NULL,
-
-        // ]);
-
-
+        // $roomerateplanss->update($request->all());
 
 
         return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Berhasil di Update');

@@ -32,7 +32,7 @@
                             <p class="mt">Applied for 
                                 @foreach($rate->room_rate_plans as $tp)
                                     @foreach($tp->types as $typ)
-                                        {{ $typ->room_name }}
+                                        <i>{{ $typ->room_name }}</i>
                                     @endforeach
                                 @endforeach
                             </p>

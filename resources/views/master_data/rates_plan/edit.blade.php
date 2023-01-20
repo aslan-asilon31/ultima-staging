@@ -158,9 +158,15 @@ $extrabed_rate = "0";
                                     </h5>
                                     <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                     <select name="cancellation_id" id="" class="form-control">
-                                        @foreach($rooms as $room)
-                                        <option value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                        @foreach($ratesplans->room_rate_plans as $rrp )
+                                            @foreach ($rrp->types as $typ)
+                                            <option id="beforeSet" value="">{{ $typ->room_name }}</option>
+                                            @endforeach
                                         @endforeach
+                                        @foreach($rooms as $room)
+                                            <option id="afterSet" onclick="myFunction()" value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                        @endforeach
+                                        {{-- {{ dd($type->id) }} --}}
                                     </select>
                                 </div>
                             </div>

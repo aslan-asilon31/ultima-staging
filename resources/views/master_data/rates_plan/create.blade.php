@@ -342,6 +342,10 @@ $extrabed_rate = "0";
             $("#set_minimum").val(this.value);
         });
 
+        function myFunction() {
+            document.getElementById("beforeSet").value = "{{ $room->id }}";
+        }
+
 
         $(function () {
             $("input[name='def_meal_available']").click(function () {
