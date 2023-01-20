@@ -118,57 +118,47 @@
 
 
                         <div class="col-lg-12 flex-container" style="margin-top:-0px; ">
-
-                                <h4 class="mb" style="margin-left:26%;"><strong>Rate Plan(s)</strong></h4>
-
-                                <div class="col-lg-8 flex-container wrap" style="margin-left:21%;" >
-                                    @foreach ($room->room_rate_plans as $rpr)
-                                    <div class="panel panel-default" style="width: 40%;height:9%;margin-left:5%;margin-top:1%;" >
-                                            <div class="panel-body shadow" >
-                                                <div class="row ">
-                                                    @foreach($rpr->rate_plans as $rps)
-                                                    <div class="col-xs-12 col-lg-12 col-md-12">
-                                                        <h5 style="margin-bottom:-5px;"> 
-                                                            
-                                                                <strong>{{ $rps->rate_name }}</strong>
-                                                           
-                                                        </h5>
-
-                                                        <br>
-
-                                                    </div>
-                                                    <div class="col-xs-12 col-lg-6 col-md-6" style="">
-                                                        <h6 style="margin-bottom:-5px;">
-                                                            <strong>Rate Strategy</strong>
-                                                        </h6>
-                                                        <ul class="checklist-ul mt">
-                                                            @if($rps->def_meal_available == 0 || $rps->def_meal_available == NULL)
-                                                            <li class="mt text-muted">No Meal</li>
-                                                            @elseif($rps->def_meal_available == 1 )
-                                                            <li class="mt ">Meal</li>
-                                                            @endif
-                        
-                                                            @if($rps->extrabed_rate == 0 || $rps->extrabed_rate == NULL)
-                                                            <li class="mt text-muted">No extra bed</li>
-                                                            @elseif($rps->extrabed_rate >= 1)
-                                                            <li class="mt">Allow extra bed</li>
-                                                            @endif 
-
-                                                        </ul>
-                                                    </div>
-                                                    @endforeach
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            {{-- @endforeach --}}
-
+                            <h4 class="mb flex-container" style="margin-left:26%; "><strong>Rate Plan(s)</strong></h4>
                         </div>
+                        {{-- <div class="col-lg-8 col-3 flex-container wrap" style="margin-left:21%;" > --}}
+                            @foreach ($room->room_rate_plans as $rpr)
+                            <div class="col-sm-3 col-3" style="margin-left: 25%; margin-bottom: 20px;" >
+                                    <div class="panel-body shadow" >
+                                        <div class="row ">
+                                            @foreach($rpr->rate_plans as $rps)
+                                            <div class="col-xs-12 col-lg-12 col-md-12">
+                                                <h5 style="margin-bottom:-5px;">
+                                                    <strong>{{ $rps->rate_name }}</strong>
+                                                </h5>
+                                                <br>
+                                            </div>
+                                            <div class="col-xs-12 col-lg-6 col-md-6" style="">
+                                                <h6 style="margin-bottom:-5px;">
+                                                    <strong>Rate Strategy</strong>
+                                                </h6>
+                                                <ul class="checklist-ul mt">
+                                                    @if($rps->def_meal_available == 0 || $rps->def_meal_available == NULL)
+                                                    <li class="mt text-muted">No Meal</li>
+                                                    @elseif($rps->def_meal_available == 1 )
+                                                    <li class="mt ">Meal</li>
+                                                    @endif
 
-                        <div class="">
+                                                    @if($rps->extrabed_rate == 0 || $rps->extrabed_rate == NULL)
+                                                    <li class="mt text-muted">No extra bed</li>
+                                                    @elseif($rps->extrabed_rate >= 1)
+                                                    <li class="mt">Allow extra bed</li>
+                                                    @endif
+
+                                                </ul>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        {{-- </div> --}}
+                        <br>
+                        <div class="pull-right">
                             <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"
                                 class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
                             </a>
