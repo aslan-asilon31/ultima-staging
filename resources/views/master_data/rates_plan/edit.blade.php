@@ -160,13 +160,12 @@ $extrabed_rate = "0";
                                     <select name="cancellation_id" id="" class="form-control">
                                         @foreach($ratesplans->room_rate_plans as $rrp )
                                             @foreach ($rrp->types as $typ)
-                                            <option id="beforeSet" value="">{{ $typ->room_name }}</option>
+                                            <option id="beforeSet" name="" value="">{{ $typ->room_name }}</option>
                                             @endforeach
                                         @endforeach
                                         @foreach($rooms as $room)
-                                            <option id="afterSet" onclick="myFunction()" value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                            <option id="afterSet" name="" value="{{ $room->id }}">{{ $room->room_name }}</option>
                                         @endforeach
-                                        {{-- {{ dd($type->id) }} --}}
                                     </select>
                                 </div>
                             </div>
