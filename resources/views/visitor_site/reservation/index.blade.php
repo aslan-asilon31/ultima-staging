@@ -296,7 +296,7 @@
             {{-- <div class="row">
                 <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
                     <div class="col-md-12">
-                        <p class="pt-20"><strong>{{$rp->rate_name}}</strong></p>
+                        <p class="pt-x20"><strong>{{$rp->rate_name}}</strong></p>
                     </div>
                     <div class="col-md-12" style="margin-top:-18px;">
                         @if($rp->def_meal_available == 0 || $rp->def_meal_available == NULL)

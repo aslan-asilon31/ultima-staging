@@ -146,25 +146,29 @@ $extrabed_rate = "0";
                                         <strong>Set Cancellation Policy</strong>
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
-                                    <select name="cancellation_id" id="" class="form-control">
+                                    <select name="cancel_id" id="" class="form-control">
+                                        @foreach($ratesplans->cancellations as $cancel)
+                                            <option  value="{{ $cancel->id}}">{{ $cancel->name}}</option>
+                                        @endforeach
                                         @foreach($cancellations as $cancel)
-                                        <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
+                                            <option  value="{{ $cancel->id}}">{{ $cancel->name}}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                                 <div class="form-group">
                                     <h5 class="mt mb">
                                         <strong>Apply rates to room types</strong>
                                     </h5>
                                     <p class="mt mb">Which room type will be bookable with this rate plans?</p>
-                                    <select name="cancellation_id" id="" class="form-control">
+                                    <select name="room_id" id="" class="form-control">
                                         @foreach($ratesplans->room_rate_plans as $rrp )
-                                            @foreach ($rrp->types as $typ)
-                                            <option id="beforeSet" name="" value="">{{ $typ->room_name }}</option>
+                                            @foreach ($rrp->types as $room)
+                                                <option  value="{{ $room->id }}">{{ $room->room_name }}</option>
                                             @endforeach
                                         @endforeach
                                         @foreach($rooms as $room)
-                                            <option id="afterSet" name="" value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                            <option value="{{ $room->id }}">{{ $room->room_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -308,7 +312,6 @@ $extrabed_rate = "0";
         $("#InputSet").on("input",function(){
             $("#set_minimum").val(this.value);
         });
-
 
 
         $(function () {

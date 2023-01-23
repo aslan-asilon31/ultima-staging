@@ -10,13 +10,14 @@ use App\Models\Allotment\Allotment;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
-
+use App\Models\RatesPlan\RatesPlan;
 use Carbon\Carbon;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Input;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates;
 
 class ReserveController extends Controller
 {
@@ -311,6 +312,7 @@ class ReserveController extends Controller
     public function reservation()
     {
         $room_available = [];
+        $rate_plans = RatesPlan::all();
         $totalDays = Input::get('stay_total', null);
         $totalRoom = Input::get('room_total', null);
         $totalExtrabed = Input::get('extra_bed', null);

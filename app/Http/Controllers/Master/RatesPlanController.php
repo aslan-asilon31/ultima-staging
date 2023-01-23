@@ -54,7 +54,6 @@ class RatesPlanController extends Controller
         // dd($request->all());
         $ratesplans=RatesPlan::all();
 
-
         $request->validate([
             "cancellation_id" => "required",
             'rate_name'     => 'required',
@@ -92,7 +91,6 @@ class RatesPlanController extends Controller
             // 'room_id'     => $request->room_id,
             'base_rate'   => $request->base_rate,
             'extrabed_rate'   => $request->extrabed_rate
-
         ]);
 
 
@@ -113,10 +111,12 @@ class RatesPlanController extends Controller
     //UPDATE DATA
     public function edit($id)
     {
+        // dd($id);
         $id = Crypt::decryptString($id);
 
         $setting = $this->setting();
         $cancel = CancellationPolicy::find($id);
+        // $cancel = CancellationPolicy::where('rate_id',$id);
         $cancellations = CancellationPolicy::all();
         $rooms = Type::all();
         $ratesplans = RatesPlan::find($id);
@@ -127,16 +127,22 @@ class RatesPlanController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $id = Crypt::decryptString($id);
 
-        $ratesplans = RatesPlan::find($id);
-        
+        RoomRatePlan::where('rate_id',$id)->update([
+            'room_id'     => $request->room_id,
+        ]);
 
-        $roomrateplans = RoomRatePlan::find($id);
 
-        $ratesplans->update($request->all());
-        // $roomerateplanss->update($request->all());
-
+        RatesPlan::whereId($id)->update([
+            'id' => $id,
+            'cancellation_id'   => $request->cancel_id,
+            'rate_name'   => $request->rate_name,
+            'def_meal_available'   => $request->def_meal_available,
+            'def_bookable'   => $request->def_bookable,
+            'def_minimum_stay'   => $request->def_minimum_stay,
+            'base_rate'   => $request->base_rate,
+            'extrabed_rate'   => $request->extrabed_rate
+        ]);
 
         return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Berhasil di Update');
 

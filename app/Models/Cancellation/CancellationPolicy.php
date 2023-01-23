@@ -33,4 +33,9 @@ class CancellationPolicy extends Model
     {
         return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'id', 'cancellation_id');
     }
+
+    public function room_rate_plans()
+    {
+        return $this->hasMany('App\Models\Room\RoomRatesPlan', 'id', 'cancellation_id');
+    }
 }
