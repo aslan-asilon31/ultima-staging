@@ -9,7 +9,7 @@ use App\Models\RatesPlan\RatesPlan;
 use App\Models\Room\RoomRatePlan;
 
 use App\Models\Admin\User;
-
+use App\Models\Allotment\Allotment;
 use App\Models\Room\Type;
 use Carbon\Carbon;
 use DB;
@@ -159,13 +159,23 @@ class RatesPlanController extends Controller
 
     public function destroy($id)
     {
-        // $id = Crypt::decryptString($id);
-        // dd($id);
-        $ratesplans = RatesPlan::find($id);
 
-        $ratesplans->delete();
+        if(Allotment::where('room_rate_plan_id', $id)->exists()){
+            return redirect()->route('rates_plan.index')->with('warning', 'Cancellation cannot be delete because it has Allotment');
+        }
+        else{
+            $ratesplans = RatesPlan::find($id);
+            $roomrateplan = RoomRatePlan::where('rate_id',$id);
+    
+            $ratesplans->delete();
+            $roomrateplan->delete();
+            return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Deleted');
 
-        return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Deleted');
+        }
+        
+
+
+
 
     }
 

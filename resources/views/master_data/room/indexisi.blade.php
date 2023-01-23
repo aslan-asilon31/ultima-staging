@@ -122,7 +122,7 @@
                         </div>
                         {{-- <div class="col-lg-8 col-3 flex-container wrap" style="margin-left:21%;" > --}}
                             @foreach ($room->room_rate_plans as $rpr)
-                            <div class="col-sm-3 col-3" style="margin-left: 25%; margin-bottom: 20px;" >
+                            <div class="col-lg-3 col-3" style="margin-left: 25%; margin-bottom: 20px;" >
                                     <div class="panel-body shadow" >
                                         <div class="row ">
                                             @foreach($rpr->rate_plans as $rps)

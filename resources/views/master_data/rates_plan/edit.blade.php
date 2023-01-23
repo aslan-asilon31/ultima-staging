@@ -216,7 +216,7 @@ $extrabed_rate = "0";
                             </div>
                         </form>
                         <div class="pull-right">
-                            <form method="post" class="delete_form" action="{{route('rates_plan.delete',$ratesplans->id )}}">
+                            <form method="post" class="delete_form" onsubmit="return confirm('Are you sure ?')" action="{{route('rates_plan.delete',$ratesplans->id )}}">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-delete btn-padding" style="">Delete</button>
