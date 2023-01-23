@@ -147,11 +147,11 @@ $extrabed_rate = "0";
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
                                     <select name="cancel_id" id="" class="form-control">
-                                        @foreach($ratesplans->cancellations as $cancel)
-                                            <option  value="{{ $cancel->id}}">{{ $cancel->name}}</option>
+                                        @foreach($ratesplans->cancellations as $cancel1)
+                                            {{-- <option  value="{{ $cancel->id}}">{{ $cancel->name}}</option> --}}
                                         @endforeach
                                         @foreach($cancellations as $cancel)
-                                            <option  value="{{ $cancel->id}}">{{ $cancel->name}}</option>
+                                            <option  value="{{ $cancel->id}}" {{ $cancel1->id == $cancel->id  ? 'selected' : '' }}>{{ $cancel->name}}</option>
                                         @endforeach
                                     </select>
 
@@ -163,12 +163,12 @@ $extrabed_rate = "0";
                                     <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                     <select name="room_id" id="" class="form-control">
                                         @foreach($ratesplans->room_rate_plans as $rrp )
-                                            @foreach ($rrp->types as $room)
-                                                <option  value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                            @foreach ($rrp->types as $room1)
+                                                {{-- <option  value="{{ $room1->id }}">{{ $room1->room_name }}</option> --}}
                                             @endforeach
                                         @endforeach
                                         @foreach($rooms as $room)
-                                            <option value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                            <option value="{{ $room->id }}"  {{ $room1->id == $room->id  ? 'selected' : '' }}>{{ $room->room_name  }}</option>
                                         @endforeach
                                     </select>
                                 </div>
