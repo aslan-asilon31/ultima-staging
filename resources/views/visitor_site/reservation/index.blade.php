@@ -301,9 +301,9 @@
                             <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
                         </div>
                         <div class="col-md-12" style="margin-top:-18px;">
-                            @if($room->def_meal_available == 0 || $room->def_meal_available == NULL)
+                            @if($rp->def_meal_available == 0)
                             <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                            @elseif($room->def_meal_available == 1 )
+                            @else
                             <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
                             @endif
                         </div>
@@ -326,15 +326,21 @@
                             <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
                         </div>
                         <div class="col-md-12" style="margin-top:-23px;">
-                            @if($room->def_meal_available == 0 || $room->def_meal_available == NULL)
+                            @if($rp->def_meal_available == 0)
                             <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                            @elseif($room->def_meal_available == 1 )
+                            @else
                             <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
                             @endif
                         </div>
                         <div class="col-md-6" style="margin-left:-16px;">
                             <div class="col-md-12">
-                                <p style="color:red; margin-top: -5px;">Rp
+                                <p style="font-size: 13px; margin-top: -5px;"><s>Rp
+                                    <strong>
+                                        {{$rp->base_rate}}
+                                    </strong> / Night</s></p>
+                            </div>
+                            <div class="col-md-12">
+                                <p style="color:red; margin-top: -14px;">Rp
                                     <strong>
                                         {{$rrp->promo_rate}}
                                     </strong> / Night</p>
