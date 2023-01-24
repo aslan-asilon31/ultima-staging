@@ -29,7 +29,7 @@ class Allotment extends Model
         'updated_at',
     ];
 
-    
+
     public function room_rate_plans()
     {
         return $this->hasMany('App\Models\Room\RoomRatePlan','id','room_rate_plan_id' );

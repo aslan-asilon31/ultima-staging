@@ -98,9 +98,14 @@ $promo_rate = '0';
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Available Rate Plan</label>
                                     <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Room Only</option>
-                                        <option value="">Room With Breakfast</option>
+                                    <select name="room_id" id="" class="form-control">
+                                        <option  value="">SELECT RATE PLAN</option>
+                                        @foreach($rooms as $room )
+                                            <option  value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                        @endforeach
+                                        {{-- @foreach($rooms as $room)
+                                            <option value="{{ $room->id }}"  {{ $room1->id == $room->id  ? 'selected' : '' }}>{{ $room->room_name  }}</option>
+                                        {{-- @endforeach --}}
                                     </select>
                                 </div>
                             </div>
@@ -141,6 +146,9 @@ $promo_rate = '0';
                                     <label for="field-1" class="control-label ">Net Booked
                                         <i class="fa fa-fw fa-info-circle net-booked"  title="Amount of allotment data has been booked"></i>
                                     </label>
+                                        {{-- @foreach($ratesplans->room_rate_plans as $rrp )
+                                        {{  }}
+                                        @endforeach --}}
                                     <p class="mb mt">4</p>
                                 </div>
                             </div>
@@ -188,10 +196,19 @@ $promo_rate = '0';
                                     </label>
                                     <div class="input-group col-lg-6">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Base Weekday Publish Rate"
-                                            class="form-control "
-                                            id="weekday_rate" value="1" disabled  style="width: 175px;"/>
-                                        <input type="hidden" name="room_publish_rate" id="weekday_rate_input" value="1" />
+                                        @foreach ($allotments as $allot)
+                                            @foreach ($allot->room_rate_plans as $arrp)
+                                                @foreach ($arrp->rate_plans as $rp)
+                                                    <input type="text" name="Base Weekday Publish Rate"
+                                                    class="form-control "
+                                                    id="weekday_rate" value="{{ $rp->base_rate }}" disabled  style="width: 175px;"/>
+                                                    <input type="hidden" name="room_publish_rate" id="weekday_rate_input" value="" />
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
+
+                                        {{-- {{ dd($rrp) }} --}}
+
                                     </div>
                                     <br>
                                     <label for="bed_price">Extra Bed Rate
