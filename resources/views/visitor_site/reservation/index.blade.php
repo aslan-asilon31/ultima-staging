@@ -336,7 +336,7 @@
                             <div class="col-md-12">
                                 <p style="color:red; margin-top: -5px;">Rp
                                     <strong>
-                                        {{$rp->promo_rate}}
+                                        {{$rrp->promo_rate}}
                                     </strong> / Night</p>
                             </div>
                             <div class="col-md-12" style="margin-top:-10px;">
