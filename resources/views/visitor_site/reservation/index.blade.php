@@ -291,39 +291,72 @@
                 </div>
             </div>
 
-            {{-- Box Room with breakfast --}}
-
-            {{-- <div class="row">
-                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
-                    <div class="col-md-12">
-                        <p class="pt-x20"><strong>{{$rp->rate_name}}</strong></p>
-                    </div>
-                    <div class="col-md-12" style="margin-top:-18px;">
-                        @if($rp->def_meal_available == 0 || $rp->def_meal_available == NULL)
-                        <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                        @elseif($rp->def_meal_available == 1 )
-                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
-                        @endif
-                    </div>
-                    <div class="col-md-6" style="margin-left:-16px;">
-                        <div class="col-md-12">
-                            <p>Rp
-                                <strong>
-                                    {{$rp->base_rate}}
-                                </strong> / Night</p>
-                        </div>
-                        <div class="col-md-12" style="margin-top:-10px;">
-                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
-                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
-                            class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
-                    </div>
-                </div>
-            </div> --}}
             @foreach ($room->room_rate_plans as $rrp)
-                @foreach ($rrp->rate_plans as $rp)
+            @foreach ($rrp->rate_plans as $rp)
+            @if ($rrp->is_rate_plan_active == 1)
+            <div class="row">
+                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                    @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
+                        <div class="col-md-12" style="margin-top: 2%;">
+                            <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:-18px;">
+                            @if($room->def_meal_available == 0 || $room->def_meal_available == NULL)
+                            <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                            @elseif($room->def_meal_available == 1 )
+                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                            @endif
+                        </div>
+                        <div class="col-md-6" style="margin-left:-16px;">
+                            <div class="col-md-12">
+                                <p>Rp
+                                    <strong>
+                                        {{$rp->base_rate}}
+                                    </strong> / Night</p>
+                            </div>
+                            <div class="col-md-12" style="margin-top:-10px;">
+                                <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-12" style="margin-top: 2%;">
+                            <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                        </div>
+                        <div class="col-md-8 oren-d" style="margin-left: 31%; margin-top: -8%;">
+                            <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:-23px;">
+                            @if($room->def_meal_available == 0 || $room->def_meal_available == NULL)
+                            <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                            @elseif($room->def_meal_available == 1 )
+                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                            @endif
+                        </div>
+                        <div class="col-md-6" style="margin-left:-16px;">
+                            <div class="col-md-12">
+                                <p style="color:red; margin-top: -5px;">Rp
+                                    <strong>
+                                        {{$rp->promo_rate}}
+                                    </strong> / Night</p>
+                            </div>
+                            <div class="col-md-12" style="margin-top:-10px;">
+                                <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                            </div>
+                        </div>
+                    @endif
+                        <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
+                            <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                                class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
+                        </div>
+                </div>
+            </div>
+            @endif
+            @endforeach
+            @endforeach
+
+            {{-- @foreach ($room->room_rate_plans as $rrp)
+            @foreach ($rrp->rate_plans as $rp)
+            @if ($rrp->is_rate_plan_active == 1)
                 <div class="row " >
                     @if($totalExtrabed > 0)
                     @php
@@ -374,13 +407,27 @@
                                     <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
                                     @endif
                                 </div>
-                                <div class="col-md-6" style="margin-left:-16px;">
+                                <div class="col-md-6" style="margin-left:-16px; margin-top: 2%;">
 
                                     <div class="col-md-12">
-                                    <p style="">Rp
-                                        <strong>
-                                            {{$rp->base_rate}}
-                                        </strong> / Night</p>
+                                        @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
+                                        <div class="col-md-12" style="margin-left: -15px;">
+                                            <p style="margin-top: -15px;">Rp
+                                                <strong>
+                                                    {{$rp->base_rate}}
+                                                </strong> / Night</p>
+                                        </div>
+                                        @elseif($rrp->is_promo_rate_active == 1 )
+                                        <div class="col-md-12 oren-d " style=" margin-left: 140%; margin-top: -30%;">
+                                            <p class="box-oren" style="float:right; ">{{$rp->rate_name}}</p>
+                                        </div>
+                                        <div class="col-md-12" style="margin-left: -15px;">
+                                            <p style="color:red; margin-top: -15px;">Rp
+                                                <strong>
+                                                    {{$rp->promo_rate}}
+                                                </strong> / Night</p>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="col-md-12 col-xs-12" style="margin-top:-15px;">
                                         <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
@@ -394,12 +441,15 @@
                             </div>
 
                         </div>
-                @endforeach
-            @endforeach
+
+                        @else
+                        <h2>Not available</h2>
+                        @endif
+                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
-
-        </div>
+                    </div>
         <hr>
         <br>
 
