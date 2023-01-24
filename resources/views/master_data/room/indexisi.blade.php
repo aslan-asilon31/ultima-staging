@@ -17,7 +17,7 @@
                 @endphp
                 <div class="panel panel-default">
                     <div class="panel-body shadow">
-                        <div class="col-lg-3 col-sm-12 mb text-center">
+                        <div class="col-lg-3 col-sm-12 mb text-center" style="">
                             <img src="{{ asset('/user/' . $img) }}" alt="" class="containerBox shadow" loading="lazy">
                         </div>
                         <div class="col-lg-3">
@@ -117,14 +117,14 @@
                         </div> --}}
 
 
-                        <div class="col-lg-12 flex-container" style="margin-top:-0px; ">
+                        <div class="col-lg-12 flex-container" style="margin-top:-0px;margin-left:0px;">
                             <h4 class="mb flex-container" style="margin-left:26%; "><strong>Rate Plan(s)</strong></h4>
                         </div>
-                        {{-- <div class="col-lg-8 col-3 flex-container wrap" style="margin-left:21%;" > --}}
+                        <div class="col-lg-12 " style="margin-left:18%;" >
                             @foreach ($room->room_rate_plans as $rpr)
-                            <div class="col-lg-3 col-3" style="margin-left: 25%; margin-bottom: 20px;" >
-                                    <div class="panel-body shadow" >
-                                        <div class="row ">
+                            <div class="col-lg-4 col-sm-3" style="margin-left:5%; margin-bottom: 10px; " >
+                                    <div class="panel-body shadow" style="margin-left: 0%;">
+                                        <div class="row " >
                                             @foreach($rpr->rate_plans as $rps)
                                             <div class="col-xs-12 col-lg-12 col-md-12">
                                                 <h5 style="margin-bottom:-5px;">
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        {{-- </div> --}}
+                        </div>
                         <br>
                         <div class="pull-right">
                             <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"

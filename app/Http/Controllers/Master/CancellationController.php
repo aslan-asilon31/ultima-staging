@@ -89,9 +89,8 @@ class CancellationController extends Controller
         return redirect()->route('cancellation_policy.index')->with('status', 'Update cancellation Policy Berhasil');
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        // $id = Crypt::decryptString($request['id']);
         if(RatesPlan::where('cancellation_id', $id)->exists()){
             return redirect()->route('cancellation_policy.index')->with('warning', 'Cancellation cannot be delete because it has Rate Plans');
         }

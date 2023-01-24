@@ -7,6 +7,9 @@ use App\Models\Allotment\Allotment;
 use App\Models\Room\Type;
 use Auth;
 use Carbon\Carbon;
+use App\Models\RatesPlan\RatesPlan;
+use App\Models\Room\RoomRatePlan;
+use App\Models\Cancellation\CancellationPolicy;
 
 use DateTime;
 use File;
@@ -17,7 +20,6 @@ use DB;
 
 class AllotmentController extends Controller
 {
-
     public function __construct()
     {
         //DEFINISIKAN PATH
@@ -26,6 +28,10 @@ class AllotmentController extends Controller
 
     public function index()
     {
+        $cancellations = CancellationPolicy::all();
+        $ratesplans = RatesPlan::all();
+        $roomrateplans = RoomRatePlan::all();
+        $allotments = Allotment::all();
         $setting = $this->setting();
         $rooms = Type::orderBy('room_name')->with('photo')->get();
         $mytime = date('d/m/Y');
