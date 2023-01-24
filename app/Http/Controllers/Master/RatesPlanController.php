@@ -160,18 +160,22 @@ class RatesPlanController extends Controller
     public function destroy(Request $request, $id)
     {
         $ratesplans = RatesPlan::find($id);
-        $roomrateplan = RoomRatePlan::select('rate_id')->where('rate_id',$id);
-        // $roomratesplans = RoomRatePlan::select('id')->where('id');
-        $allotments = Allotment::where('room_rate_plan_id',$id);
-        
-        // dd($allotments);
-        if($allotments->exists()){
+
+        $roomrateplan = RoomRatePlan::where('rate_id',$id)->first();
+        // die($id);
+
+        $allotments = Allotment::where('room_rate_plan_id',$roomrateplan->id)->first();
+        // dd($roomrateplan->id);
+
+        if(Allotment::where('room_rate_plan_id',$roomrateplan->id)->exists()){
             return redirect()->route('rates_plan.index')->with('warning', 'Rates plan cannot be delete because it has Allotment');
         }
 
-        $roomrateplan->delete();
-        $ratesplans->delete();
-        return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Deleted');
+            $roomrateplan->delete();
+            $ratesplans->delete();
+            return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Deleted');
+        
+
 
     }
 
