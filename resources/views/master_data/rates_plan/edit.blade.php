@@ -164,7 +164,7 @@ $extrabed_rate = "0";
                                     <select name="room_id" id="" class="form-control">
                                         @foreach($ratesplans->room_rate_plans as $rrp )
                                             @foreach ($rrp->types as $room1)
-                                                {{-- <option  value="{{ $room1->id }}">{{ $room1->room_name }}</option> --}}
+                                                <option  value="{{ $room1->id }}">{{ $room1->room_name }}</option>
                                             @endforeach
                                         @endforeach
                                         @foreach($rooms as $room)
