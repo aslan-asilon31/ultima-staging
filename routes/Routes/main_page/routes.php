@@ -39,7 +39,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     });
 
     // Panel Allotment
-    Route::group(['prefix' => 'main_page/reservation'], function() {
+    Route::group(['prefix' => 'main_page/reservation'] , function() {
         Route::get('/', ['as' => 'reservation.index', 'uses' => 'Reservation\ReservationController@index']);
 
         // Get Room Reservation Data

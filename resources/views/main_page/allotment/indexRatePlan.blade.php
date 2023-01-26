@@ -38,6 +38,7 @@ $promo_rate = '0';
                         <div class="col-lg-3 col-sm-6 col-xs-12">
                             <div class="category contain" id="{{ $first_room }}" value="room_{{ $room->id }}"
                                 onClick="setAllotment(this, '{{ $room->id }}');">
+                                
                                 <a>
                                     <img src="{{ asset('/user/' . $img) }}" alt="" class="shadow"
                                         style="width:100%; height:100%;">
@@ -63,7 +64,7 @@ $promo_rate = '0';
                 <div class="panel panel-horison">
                     <div class="panel-heading">
                         <div class="panel-title white text-center" style="float:none">
-                            <h2 class="white"><strong><span class="">Calendar</span></strong>
+                            <h2 class="white"><strong><span class="">Calendar </span></strong>
                             </h2>
                         </div>
                     </div>
@@ -90,23 +91,27 @@ $promo_rate = '0';
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Room Type</label>
-                                    <input type="text" class="form-control" id="room_type" disabled>
+                                    <input type="text"  class="form-control" id="room_type" disabled>
                                 </div>
                             </div>
+
 
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Available Rate Plan</label>
                                     <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
-                                    <select name="room_id" id="" class="form-control">
+                                    <select  name="ratesplan_name" id="ratesplan_id" onchange="myFunction(this)" class="form-control">
                                         <option  value="">SELECT RATE PLAN</option>
-                                        @foreach($rooms as $room )
-                                            <option  value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                        @foreach ($rooms as $room)
+                                            @foreach ($room->room_rate_plans as $rrrp)
+                                                @foreach ($rrrp->rate_plans as $rtp)
+                                                  <option class="rts" data-extrabedrate="{{ $rtp->extrabed_rate }}" data-baserate="{{ $rtp->base_rate }}" value="{{ $rtp->id }}" >{{ $rtp->rate_name }}</option>
+                                                @endforeach
+                                            @endforeach
                                         @endforeach
-                                        {{-- @foreach($rooms as $room)
-                                            <option value="{{ $room->id }}"  {{ $room1->id == $room->id  ? 'selected' : '' }}>{{ $room->room_name  }}</option>
-                                        {{-- @endforeach --}}
                                     </select>
+
+
                                 </div>
                             </div>
 
@@ -146,10 +151,7 @@ $promo_rate = '0';
                                     <label for="field-1" class="control-label ">Net Booked
                                         <i class="fa fa-fw fa-info-circle net-booked"  title="Amount of allotment data has been booked"></i>
                                     </label>
-                                        {{-- @foreach($ratesplans->room_rate_plans as $rrp )
-                                        {{  }}
-                                        @endforeach --}}
-                                    <p class="mb mt">4</p>
+                                    <p class="mb mt" placeholder="0">0</p>
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -157,7 +159,7 @@ $promo_rate = '0';
                                     <label for="field-1" class="control-label">Pending
                                         <i class="fa fa-fw fa-info-circle pending" title="Amount of allotment data waiting for payment"></i>
                                     </label>
-                                    <p class="mb mt">4</p>
+                                    <p class="mb mt" placeholder="0">0</p>
                                 </div>
                             </div>
 
@@ -183,12 +185,11 @@ $promo_rate = '0';
                                 </div>
                             </div> --}}
                         </div>
-                        <div class="row">
+                        <div class="row" >
                             {{-- NOTE --}}
                             <div class="col-lg-12">
-                                <div class="col-lg-12" style="border-left-style: solid; border-color: blue; margin-bottom: 50px;">
-                                    <label for="weekday_rate">Room Only
-                                    </label>
+                                <div class="col-lg-12 rates_card" style="display:none; border-left-style: solid; border-color: blue; margin-bottom: 50px;">
+                                    <label id="demo"></label>
 
                                     <br>
 
@@ -196,28 +197,15 @@ $promo_rate = '0';
                                     </label>
                                     <div class="input-group col-lg-6">
                                         <span class="input-group-addon">Rp.</span>
-                                        @foreach ($allotments as $allot)
-                                            @foreach ($allot->room_rate_plans as $arrp)
-                                                @foreach ($arrp->rate_plans as $rp)
-                                                    <input type="text" name="Base Weekday Publish Rate"
-                                                    class="form-control "
-                                                    id="weekday_rate" value="{{ $rp->base_rate }}" disabled  style="width: 175px;"/>
-                                                    <input type="hidden" name="room_publish_rate" id="weekday_rate_input" value="" />
-                                                @endforeach
-                                            @endforeach
-                                        @endforeach
-
-                                        {{-- {{ dd($rrp) }} --}}
-
+                                        <span class="room_price thousandSeperator input-group-addon" id="baserate" value="0" style="width: 175px;text-align:left;" ></span>
                                     </div>
                                     <br>
                                     <label for="bed_price">Extra Bed Rate
                                     </label>
                                     <div class="input-group col-lg-6" >
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" name="Extra Bed Rate"
-                                            class="form-control room_price thousandSeperator" id="bed_price" value="2" style="width: 175px;" disabled />
-                                        <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" />
+                                        <span class="room_price thousandSeperator input-group-addon" id="extrabedrate" value="0" style="width: 175px;text-align:left;" ></span>
+                                        {{-- <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" /> --}}
                                     </div>
 
                                     <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
@@ -226,11 +214,6 @@ $promo_rate = '0';
                                             {{-- <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required> --}}
                                             <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" name="Base Weekday Publish Rate"
-                                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                                    id="weekday_rate" value="{{$promo_rate}}" />
-                                                <input type="hidden" name="promo_rate" id="weekday_rate_input"
-                                                    value="{{$promo_rate}}" />
 
                                             </div>
                                         </div>
@@ -800,6 +783,41 @@ $promo_rate = '0';
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
         }
+    </script>
+
+    
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // $("#hide").click(function(){
+            //     $("p").hide();
+            // });
+            $("#ratesplan_id").click(function(){
+                $(".rates_card").show();
+            });
+        });
+        // function myFunction123() {
+        // var x = document.getElementById("room_type").value;
+        // document.getElementById("demo123").innerHTML = "You selected: " + x;
+        // }
+
+        
+
+        function myFunction(element) {
+            var text = element.options[element.selectedIndex].text;
+            const article = document.getElementById("ratesplan_id");
+            var base_rate = element.options[element.selectedIndex].dataset.baserate;
+            var extrabed_rate = element.options[element.selectedIndex].dataset.extrabedrate;
+
+            document.getElementById("demo").innerHTML = text;
+            document.getElementById("baserate").innerHTML = base_rate;
+            document.getElementById("extrabedrate").innerHTML = extrabed_rate;
+
+        }
+    </script>
+
+    <script type="text/javascript">
+
     </script>
 
 @endsection
