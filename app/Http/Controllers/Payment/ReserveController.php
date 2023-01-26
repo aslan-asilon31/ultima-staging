@@ -399,9 +399,9 @@ class ReserveController extends Controller
         }
 
         if ($totalExtrabed == 0) {
-            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
+            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'DESC')->get();
         } else {
-            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
+            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'DESC')->get();
             // $rooms = Type::where('room_publish_status', 1)->where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
         }
         foreach ($rooms as $key => $value) {
