@@ -291,86 +291,8 @@
                 </div>
             </div>
 
-            {{-- @foreach ($room->room_rate_plans as $rrp)
-            @foreach ($rrp->rate_plans as $rp)
-            @if ($rp->def_minimum_stay < $totalDays)
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
-                        @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
-                            <div class="col-md-12" style="margin-top: 2%;">
-                                <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
-                            </div>
-                            <div class="col-md-12" style="margin-top:-18px;">
-                                @if($rp->def_meal_available == 0)
-                                <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                                @else
-                                <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
-                                @endif
-                            </div>
-                            <div class="col-md-6" style="margin-left:-16px;">
-                                <div class="col-md-12">
-                                    <p>Rp
-                                        <strong>
-                                            <script>
-                                                document.write(formatRupiah(
-                                                    "{{$rp->base_rate}}"));
-                                            </script>
-                                        </strong> / Night</p>
-                                </div>
-                                <div class="col-md-12" style="margin-top:-10px;">
-                                    <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-md-12" style="margin-top: 2%;">
-                                <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
-                            </div>
-                            <div class="col-md-8 oren-d" style="margin-left: 31%; margin-top: -8%;">
-                                <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
-                            </div>
-                            <div class="col-md-12" style="margin-top:-23px;">
-                                @if($rp->def_meal_available == 0)
-                                <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                                @else
-                                <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
-                                @endif
-                            </div>
-                            <div class="col-md-6" style="margin-left:-16px;">
-                                <div class="col-md-12">
-                                    <p style="font-size: 13px; margin-top: -5px;"><s>Rp
-                                        <strong>
-                                            <script>
-                                                document.write(formatRupiah(
-                                                    "{{$rp->base_rate}}"));
-                                            </script>
-                                        </strong> / Night</s></p>
-                                </div>
-                                <div class="col-md-12">
-                                    <p style="color:red; margin-top: -14px;">Rp
-                                        <strong>
-                                            <script>
-                                                document.write(formatRupiah(
-                                                    "{{$rrp->promo_rate}}"));
-                                            </script>
-                                        </strong> / Night</p>
-                                </div>
-                                <div class="col-md-12" style="margin-top:-10px;">
-                                    <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                                </div>
-                            </div>
-                        @endif
-                        <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
-                            <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
-                            class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
-                        </div>
-                    </div>
-                </div>
-                @endif
-                @endforeach
-                @endforeach --}}
-
             {{-- @foreach ($room['room_rate_plans'] as $room_rate_plans)
-            @if ($room->is_rate_plan_active == 0)
+            @if ($room->is_rate_plan_active == NULL)
             <div style="margin-left: 20px;">
                 <h2>Rate Not Available</h2>
             </div>
@@ -381,14 +303,162 @@
             @endif
             @endforeach --}}
 
+            {{-- @if ($rp->extrabed_rate < $totalExtrabed)
             @foreach ($room->room_rate_plans as $rrp)
             @foreach ($rrp->rate_plans as $rp)
-            @if ($rrp->is_rate_plan_active == 0)
-                {{-- <div style="margin-left: 20px;">
-                    <h2>Rate Not Available</h2>
-                </div> --}}
+            <div class="row">
+                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                    @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
+                        <div class="col-md-12" style="margin-top: 2%;">
+                            <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:-18px;">
+                            @if($rp->def_meal_available == 0)
+                            <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                            @else
+                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                            @endif
+                        </div>
+                        <div class="col-md-6" style="margin-left:-16px;">
+                            <div class="col-md-12">
+                                <p>Rp
+                                    <strong>
+                                        <script>
+                                            document.write(formatRupiah(
+                                                "{{$rp->base_rate}}"));
+                                        </script>
+                                    </strong> / Night</p>
+                            </div>
+                            <div class="col-md-12" style="margin-top:-10px;">
+                                <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-12" style="margin-top: 2%;">
+                            <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                        </div>
+                        <div class="col-md-8 oren-d" style="margin-left: 31%; margin-top: -8%;">
+                            <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
+                        </div>
+                        <div class="col-md-12" style="margin-top:-23px;">
+                            @if($rp->def_meal_available == 0)
+                            <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                            @else
+                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                            @endif
+                        </div>
+                        <div class="col-md-6" style="margin-left:-16px;">
+                            <div class="col-md-12">
+                                <p style="font-size: 13px; margin-top: -5px;"><s>Rp
+                                    <strong>
+                                        <script>
+                                            document.write(formatRupiah(
+                                                "{{$rp->base_rate}}"));
+                                        </script>
+                                    </strong> / Night</s></p>
+                            </div>
+                            <div class="col-md-12">
+                                <p style="color:red; margin-top: -14px;">Rp
+                                    <strong>
+                                        <script>
+                                            document.write(formatRupiah(
+                                                "{{$rrp->promo_rate}}"));
+                                        </script>
+                                    </strong> / Night</p>
+                            </div>
+                            <div class="col-md-12" style="margin-top:-10px;">
+                                <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
+                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                        class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            @endforeach
+            @endif --}}
 
-                @elseif ($rp->def_minimum_stay <= $totalDays) {{-- validasi minimum stay --}}
+            @foreach ($room->room_rate_plans as $rrp)
+            @foreach ($rrp->rate_plans as $rp)
+            @if ($rrp->is_rate_plan_active == 1)
+
+                @if ($rp->def_minimum_stay <= $totalDays && $totalExtrabed <= $rp->extrabed_rate) {{-- validasi minimum stay --}}
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                                @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
+                                    <div class="col-md-12" style="margin-top: 2%;">
+                                        <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:-18px;">
+                                        @if($rp->def_meal_available == 0)
+                                        <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                                        @else
+                                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6" style="margin-left:-16px;">
+                                        <div class="col-md-12">
+                                            <p>Rp
+                                                <strong>
+                                                    <script>
+                                                        document.write(formatRupiah(
+                                                            "{{$rp->base_rate}}"));
+                                                    </script>
+                                                </strong> / Night</p>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:-10px;">
+                                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-md-12" style="margin-top: 2%;">
+                                        <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                                    </div>
+                                    <div class="col-md-8 oren-d" style="margin-left: 31%; margin-top: -8%;">
+                                        <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:-23px;">
+                                        @if($rp->def_meal_available == 0)
+                                        <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                                        @else
+                                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6" style="margin-left:-16px;">
+                                        <div class="col-md-12">
+                                            <p style="font-size: 13px; margin-top: -5px;"><s>Rp
+                                                <strong>
+                                                    <script>
+                                                        document.write(formatRupiah(
+                                                            "{{$rp->base_rate}}"));
+                                                    </script>
+                                                </strong> / Night</s></p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p style="color:red; margin-top: -14px;">Rp
+                                                <strong>
+                                                    <script>
+                                                        document.write(formatRupiah(
+                                                            "{{$rrp->promo_rate}}"));
+                                                    </script>
+                                                </strong> / Night</p>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:-10px;">
+                                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
+                                    <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                                    class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
+                                </div>
+                            </div>
+                        </div>
+                @endif
+                {{-- @if ($totalExtrabed < $rp->extrabed_rate )
                     <div class="row">
                         <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
                             @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
@@ -460,6 +530,80 @@
                             </div>
                         </div>
                     </div>
+                @else
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                            @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
+                                <div class="col-md-12" style="margin-top: 2%;">
+                                    <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                                </div>
+                                <div class="col-md-12" style="margin-top:-18px;">
+                                    @if($rp->def_meal_available == 0)
+                                    <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                                    @else
+                                    <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6" style="margin-left:-16px;">
+                                    <div class="col-md-12">
+                                        <p>Rp
+                                            <strong>
+                                                <script>
+                                                    document.write(formatRupiah(
+                                                        "{{$rp->base_rate}}"));
+                                                </script>
+                                            </strong> / Night</p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:-10px;">
+                                        <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-md-12" style="margin-top: 2%;">
+                                    <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                                </div>
+                                <div class="col-md-8 oren-d" style="margin-left: 31%; margin-top: -8%;">
+                                    <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
+                                </div>
+                                <div class="col-md-12" style="margin-top:-23px;">
+                                    @if($rp->def_meal_available == 0)
+                                    <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                                    @else
+                                    <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6" style="margin-left:-16px;">
+                                    <div class="col-md-12">
+                                        <p style="font-size: 13px; margin-top: -5px;"><s>Rp
+                                            <strong>
+                                                <script>
+                                                    document.write(formatRupiah(
+                                                        "{{$rp->base_rate}}"));
+                                                </script>
+                                            </strong> / Night</s></p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p style="color:red; margin-top: -14px;">Rp
+                                            <strong>
+                                                <script>
+                                                    document.write(formatRupiah(
+                                                        "{{$rrp->promo_rate}}"));
+                                                </script>
+                                            </strong> / Night</p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:-10px;">
+                                        <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
+                                <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                                class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif --}}
+
             @endif
             @endforeach
             @endforeach
