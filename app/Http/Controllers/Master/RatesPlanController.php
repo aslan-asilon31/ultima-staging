@@ -169,8 +169,11 @@ class RatesPlanController extends Controller
         // $id = Crypt::decryptString($id);
         // dd($id);
         $ratesplans = RatesPlan::find($id);
+        $roomratesplan = RoomRatePlan::where('rate_id',$id);
 
         $ratesplans->delete();
+
+        $roomratesplan->delete();
 
         return redirect()->route('rates_plan.index')->with('status', 'Rates Plan Deleted');
 

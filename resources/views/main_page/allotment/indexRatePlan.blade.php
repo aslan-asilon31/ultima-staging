@@ -209,11 +209,11 @@ $promo_rate = '0';
                                             {{-- <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required> --}}
                                             <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" name="Base Weekday Publish Rate"
+                                                <input type="text" name="Base Weekday Publish Rate" style="background-color:red;"
                                                     class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                                    id="weekday_rate" value="{{$promo_rate}}" />
+                                                    id="weekday_rate" value="" />
                                                 <input type="hidden" name="promo_rate" id="weekday_rate_input"
-                                                    value="{{$promo_rate}}" />
+                                                    value="" />
 
                                             </div>
                                         </div>
