@@ -11,6 +11,7 @@ use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\RatesPlan\RatesPlan;
+use App\Models\Room\RoomRatePlan;
 use Carbon\Carbon;
 use DB;
 use Session;
@@ -21,6 +22,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates;
 
 class ReserveController extends Controller
 {
+
+    // public function ratesplan()
+    // {
+    //     $rate = RatesPlan::all();
+    // }
+
     public function availableDate($date, $totalDays, $totalRooms, $id)
     {
         $room_total_temp = array();
@@ -392,9 +399,10 @@ class ReserveController extends Controller
         }
 
         if ($totalExtrabed == 0) {
-            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
+            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'DESC')->get();
         } else {
-            $rooms = Type::where('room_publish_status', 1)->where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
+            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'DESC')->get();
+            // $rooms = Type::where('room_publish_status', 1)->where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
         }
         foreach ($rooms as $key => $value) {
             $cek = $this->availableDate($checkIn, $totalDays, $totalRoom, $value->id);
