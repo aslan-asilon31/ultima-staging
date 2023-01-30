@@ -25,6 +25,10 @@ class RoomRatePlan extends Model
     {
         return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'id', 'rate_id');
     }
+    public function rate_plan()
+    {
+        return $this->hasOne('App\Models\RatesPlan\RatesPlan', 'id', 'rate_id');
+    }
 
     public function types()
     {

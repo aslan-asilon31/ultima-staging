@@ -1,694 +1,891 @@
-============ foreach pertama index rate plans
-
-=== reservation
-
-@extends('templates/visitor_rsv_template')
+@extends('templates/template')
+@section('header_title')
+    ALLOTMENT
+@endsection
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/visitor_site.css') }}">
-<script>
-    /* Fungsi formatRupiah */
-    function formatRupiah(angka) {
+<link rel="stylesheet" href="{{ asset('css/allotment_backend.css') }}">
 
-        var number_string = angka.replace(/[^0-9]*/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-        // tambahkan titik jika yang di input sudah menjadi angka ribuan
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return rupiah;
-    }
+{{-- <script src="{{ asset('js/allotment_backend') }}"></script> --}}
+@php
+$promo_rate = '0';
+@endphp
+    <script>
+        var dateStart = 0;
+        var diffDay = 0;
+    </script>
 
-</script>
+    <div class="col-lg-12">
+        <h4>
+            <strong>Room Type</strong>
+        </h4>
 
-{{-- ENHANCEMENT --}}
-<div class="row p-20 resp mt-15 col-12 bg-secondary">
-    <div style="width: 74vw; margin: auto;">
-        <input type="hidden" id="child_temp" value='@json($childTemp)'>
-        <input type="hidden" id="child_list" value='@json($childAge)'>
-        <input type="hidden" id="rooms_data" value='@json($room_available)'>
-        <form id="room_reserve" method="GET" action="{{ route('visitor.reservation') }}"></form>
-        <form id="reserve" method="POST" action="{{ route('visitor.room_reservation') }}">
-            {{csrf_field()}}
-            <input type="hidden" name="reserve_data" id="reserve_data">
-        </form>
+        <div class="row" style="margin-bottom:15px">
+            <input type="hidden" id="active_allotment" value="">
+            <div class="responsive">
+                @if (isset($rooms))
+                    @php $no = 0; @endphp
+                    @foreach ($rooms as $room)
+                        @php $no++; @endphp
+                        @php
+                            if ($no == 1) {
+                                $first_room = 'first_room';
+                            } else {
+                                $first_room = '';
+                            }
+                            $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : 'coming-soon.png';
+                            $id = count($room['allotment']) > 0 ? Crypt::encryptString($room->id) : '';
+                        @endphp
+                        <div class="col-lg-3 col-sm-6 col-xs-12">
+                            <div class="category contain" id="{{ $first_room }}" value="room_{{ $room->id }}"
+                                onClick="setAllotment(this, '{{ $room->id }}');">
+                                {{-- onlick="imageClick()"> --}}
 
-        <div class="row mt-15">
-            <div class="col-xs-12 col-lg-10 mt-23" style="margin: auto; padding-bottom: 10px;">
-                <p class="text-horison" style="font-size:12px;">Result for <strong> {{$totalRoom}} Rooms, {{$totalGuest}} Guest,</strong> staying for <strong> {{$totalDays}} Nights </strong> from <strong> {{$checkIn}} to {{$checkOut}} </strong>
-                @if($totalExtrabed > 0)
-                    with <strong>{{$totalExtrabed}} Additional Extra Bed</strong>
-                @endif
-                </p>
-            </div>
-
-            <div class="col-xs-8 col-lg-2" style="padding-bottom: 10px;">
-                <a type="button" style="font-size:12px;text-decoration: none;" class="text-horison" data-toggle="collapse"
-                    data-target="#look"><strong>Change Search</strong>
-                    <i style="padding-left:10px;" class="fa fa-angle-down"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="row collapse" id="look">
-
-            <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                <label for="date_check" class="label-modal-reserve">Check In</label>
-                <div class="input-group col-xs-12">
-                    <input form="room_reserve" type="text" id="datePickerReserveForm"
-                        class="form-control modal-form-control datepicker visitor-input h-32"
-                        data-start-date="today" data-format="dd MM yyyy" name="checkin"
-                        value="{{$checkIn}}" placeholder="" required>
-                    <span class="input-group-addon addon-modal-reserve"><i
-                            class="entypo-calendar font-primary"></i></span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                <label for="date_check" class="label-modal-reserve">Duration Of Stay</label>
-                <div class="input-group col-xs-12">
-                    <select name="stay_total" form="room_reserve"
-                        class="select form-control modal-form-control visitor-input h-32">
-                        @for($i = 1; $i <= 15; $i++) @if($i==$totalDays) <option value="{{$i}}"
-                            selected>{{$i}} Night</option>
-                            @else
-                            <option value="{{$i}}">{{$i}} Night</option>
-                            @endif
-                            @endfor
-                    </select>
-                    <span class="input-group-addon addon-modal-reserve"><i class="fa fa-moon-o font-primary"></i></span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                <label for="date_check" class="label-modal-reserve">Rooms</label>
-                <div class="input-group col-xs-12">
-                    <div class="ri input-spinner">
-                        <button type="button" onclick="addRoomTotal(-1);"
-                            class="btn btn-horison h-32" data-step="-1">-</button>
-                        <input type="number" name="room_total" form="room_reserve"
-                            id="room_total" class="form-control size-3-1 dd-horison h-32 moz-view-number"
-                            value="{{$totalRoom}}" data-min="1" data-max="5">
-                        <button type="button" onclick="addRoomTotal(1);"
-                            class="btn btn-horison h-32" data-step="1">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                <label for="date_check" class="label-modal-reserve" style="text-align:center;">Adult</label>
-                <div class="input-group col-xs-12">
-                    <div class="ri input-spinner">
-                        <button type="button" class="btn btn-horison h-32"
-                            data-step="-1">-</button>
-                        <input type="number" form="room_reserve" id="adult_total"
-                            name="adult_total" class="form-control size-3-1 dd-horison h-32 moz-view-number"
-                            value="{{$adultTotal}}" data-min="1" data-max="10" required>
-                        <button type="button" class="btn btn-horison h-32"
-                            data-step="1">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                <label for="date_check" class="label-modal-reserve" style="text-align:center;">Children</label>
-                <div class="input-group col-xs-12">
-                    <div class="ri input-spinner">
-                        <button type="button" class="btn btn-horison h-32" data-step="-1"
-                            onclick="addChildReservation(-1);">-</button>
-                        <input type="number" form="room_reserve" id="child_total" name="child_total"
-                            name="child_total" class="form-control size-3-1 dd-horison h-32 moz-view-number"
-                            value="{{$childTotal}}" data-min="0" data-max="10">
-                        <button type="button" class="btn btn-horison h-32" data-step="1"
-                            onclick="addChildReservation(1);">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                <label for="date_check" class="label-modal-reserve" style="text-align:center;">Extra Bed</label>
-                <div class="input-group col-xs-12">
-                    <div class="ri input-spinner">
-                        <button type="button" class="btn btn-horison h-32"
-                            data-step="-1">-</button>
-                        <input type="number" form="room_reserve" id="extra_bed" name="extra_bed"
-                            value="{{$totalExtrabed}}"
-                            class="form-control size-3-1 dd-horison h-32 moz-view-number" value="0" data-min="0"
-                            data-max="5">
-                        <button type="button" class="btn btn-horison h-32"
-                            data-step="1">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-12 col-xs-12">
-                <div id="children">
-                    <input form="room_reserve" type="hidden" id="child_age" name="child_age">
-                </div>
-            </div>
-
-
-            <div class="col-lg-1 col-xs-12" style="text-align: center;">
-                <input type="button" onclick="submit('room_reserve');" class="btn btn-horison btn-md" style="padding: 8px 50.5px;margin-bottom: 12px; margin-top: 21px;" value="APPLY">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Room  -->
-@if(count($room_available) > 0)
-<div class="container">
-
-    {{-- Room Only display --}}
-    <div class="row" style="margin-top:15px;">
-        <?php $no = 0;?>
-        @foreach($room_available as $room) <?php $no++ ;?>
-         <div class="container">
-
-
-            <div class="row" style="margin-top:50px; margin-bottom:40px; margi-left:0px;">
-                <div class="col-md-6">
-                    @php $i = 0; $total = count($room['photo']) > 3 ? 3 : count($room['photo']); @endphp
-                    @foreach($room['photo'] as $photo)@php $i++;@endphp
-                        @if($i > 0)
-                        <div class="mySlides1 id_{{$no}}">
-                            <div class="numbertext">{{$i.'/'.$total}}</div>
-                            <img src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}" class="uwaw img-rooms-mobile">
+                                <a>
+                                    <img src="{{ asset('/user/' . $img) }}" alt="" class="shadow"
+                                        style="width:100%; height:100%;">
+                                    <div class="centered">
+                                        <h2 class="white-shadow" style="margin-top:75px;">
+                                            <strong>{{ $room->room_name }}</strong>
+                                        </h2>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        @endif
                     @endforeach
+                @else
+                    <p style="text-align: center">
+                    <h2>No Room !</h2>
+                    </p>
+                @endif
+            </div>
+        </div>
 
-                    <div class="bbaris">
-                        @php $i = 0; $total = count($room['photo']);
-                        if($total == 1)
-                        {
-                        $class = "hidden";
-                        }else{
-                        $class="";
-                        }@endphp
-                        @foreach($room['photo'] as $photo)@php $i++;@endphp
-                            @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
-                                <img class="demo1 id_{{$no}}" src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}"
-                                    style="width:100% ; heigth:80px!important;" onclick="currentSlide({{$no}}, {{$i}})"
-                                    alt="Room">
-                                @if($i == 3)
-                                <a href="javascript:;" onclick="seeAll({{$no}});" class="seal2"><b>+ See All</b></a>
-                                <img class="bblack2" src="{{asset('/images/blck.jpg')}}"
-                                    style="width:100% ; heigth:80px!important;">
-                                @endif
+        <div class="row">
+            <div class="col-lg-7 ">
+                <div class="panel panel-horison">
+                    <div class="panel-heading">
+                        <div class="panel-title white text-center" style="float:none">
+                            <h2 class="white"><strong><span class="">Calendar </span></strong>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="panel-body shadow" style="display: block;">
+                        <div class="calendar-env">
+                            <!-- Calendar Body -->
+                            <div class="calendar-body" style="width:100%">
+                                <div id="calendar" class="fc fc-ltr fc-unthemed"></div>
                             </div>
-                            @endif
-                        @endforeach
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
-            <div class="col-md-6 box-desc-rsvp"> {{-- room type desc --}}
-
-                <div class="row"> {{-- title & description room --}}
-                    <div class="row">
-                        <h2 style="margin-left:45px;"><strong>{{$room->room_name}}</strong></h2>
-                    </div>
-
-                    <div class="row">
-                        {{-- Jumlah Orang --}}
-                        <div class="col-md-2 col-xs-4" style="margin-left:31px; margin-top:0">
-                            <p> 2 Person</p>
-                        </div>
-                        {{-- Pilihan Tipe Kamar --}}
-                        <div class="col-md-3 col-xs-6" style="margin-top:0;">
-                            <p>@php $i =1; @endphp
-                                @foreach($room['bed'] as $bed)
-                                    @php
-                                    switch($bed->bed_id){
-                                    case "0":
-                                    $bed_type = "King";
-                                    break;
-                                    case "1":
-                                    $bed_type = "Queen";
-                                    break;
-                                    case "2":
-                                    $bed_type = "Double";
-                                    break;
-                                    default:
-                                    $bed_type = "No Bed";
-                                    break;
-                                    }
-                                    @endphp
-                                    {{$bed_type}}
-                                    @if($i < count($room['bed'])) {{' / '}}@endif @php $i++; @endphp
-                                @endforeach </p> </div>
-                                    <div class="col-md-9 col-xs-7" style="margin-left: 31px; margin-top: 0px">
-                                    {{-- <p>{{$room->room_desc}}</p> --}}
+            <div class="col-lg-5 ">
+                <div class="panel panel-horison">
+                    <div class="panel-heading">
+                        <div class="panel-title white text-center" style="float:none">
+                            <h2 class="white"><strong>Set Allotment</strong></h2>
                         </div>
                     </div>
-                    <div class="row">
-                        {{-- popover amenities --}}
-                        <div class="col-md-9" style="margin-left:31px;">
-                            @if(count($room['amenities']) > 0)
-                            @php
-                            $path = asset('/icon-pack/').'/';
-                            $n = 0;
-                            $exp = 1;
-                            $other_amenitites ='<ul
-                                style="width: 100%;padding: 0;display: inline-block;list-style: none;">
-                                ';
-                                @endphp
-                                <div>
-                                    <ul style="
-                                        width: 100%;
-                                        padding: 0;
-                                        display: inline-block;
-                                        list-style: none;">
-                                        @foreach($room['amenities'] as $amenities)@php $n++; @endphp
-                                            @php
-                                            if($n == $exp){
-                                            $other_amenitites.='<li class="col-xs-6 col-md-4" style="display: flex; padding-bottom: 10px">
-                                                ';
-                                                $exp+= 3;
-                                                }
-                                                else{
-                                                $other_amenitites.='
-                                            <li class="col-xs-6 col-md-4" style="display: flex; padding-bottom: 10px;">';
-                                                }
-                                                $other_amenitites.='<img
-                                                    src="'.$path.$amenities->amenities_name[0]->amenities_icon.'"
-                                                    style="display: flex;height:17px;width:17px;margin-right:10px;">'.$amenities->amenities_name[0]->amenities_name.'
-                                            </li>';
-                                            @endphp
+                    <div class="panel-body shadow" style="display: block;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Room Type</label>
+                                    {{-- <input type="text"  class="form-control" name="room_type" id="room_type" disabled> --}}
+                                    <select  name="ratesplan_name"  id="ratesplan_id"  class="form-control">
+                                    {{-- @foreach ($allotments as $allotment) --}}
+                                        {{-- @foreach ($allotment->room_rate_plans as $rrps) --}}
+                                            {{-- @foreach ($rrps->types as $typ) --}}
+                                                {{-- @foreach ($typ as $t) --}}
+                                                @foreach ($rooms as $room)
+                                                    <option class="" value="{{ $room->id }}" >{{ $room->room_name }}</option>
+                                                @endforeach
+                                                {{-- @endforeach --}}
+                                            {{-- @endforeach --}}
+                                        {{-- @endforeach --}}
+                                    {{-- @endforeach --}}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Available Rate Plan</label>
+                                    <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
+                                    <select  name="ratesplan_name"  id="ratesplan_id" onchange="myFunction(this)" class="form-control">
+                                        <option hidden> Select Rate Plan</option>
+                                        @foreach ($rooms as $room)
+                                            @foreach ($room->room_rate_plans as $rrrp)
+                                                <option hidden class="" data-israteplanactive="{{ $rrrp->is_rate_plan_active  }}" value="" ></option>
+                                                @foreach ($rrrp->rate_plans as $rtp)
+                                                  <option class="rts"
+                                                            data-extrabedrate="{{ $rtp->extrabed_rate }}" 
+                                                            data-baserate="{{ $rtp->base_rate }}" 
+                                                            value="{{ $rtp->id }}" >{{ $rtp->rate_name }}</option>
+                                                @endforeach
+                                            @endforeach
                                         @endforeach
-                                        @php $other_amenitites.='
-                                    </ul>'; @endphp
+                                    </select>
 
-                                    <li class="col-xs-4 col-md-4" style=" display: flex; padding-left: 0px;">
-                                        <button class="btn text-horison hovertools" style="background-color: #fff0; margin-left: -15px; margin-top: -20px;" data-toggle="popover" data-html="true" data-placement="bottom" data-content='{{$other_amenitites}}' data-original-title="Other amenities"> + Show Amenities
-                                        </button>
-                                    </li>
-                            </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Date Period</label>
+                                    <p style="margin:0px;font-weight:normal;">select date period for selected rate plan</p>
+                                    <div class="input-group">
+                                        <div class="daterange daterange-inline" id="date-range" data-format="MMMM D, YYYY">
+                                            <input type="hidden" name="date_start" id="date_start">
+                                            <input type="hidden" name="date_end" id="date_end">
+                                            <span id="date-show">START DATE - END DATE</span>
+                                            <i class="entypo-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" >
+                                <input type="hidden" id="room_id" name="room_id">
+                                <input type="hidden" id="room_extrabed_rate">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Opened Allotment</label>
+                                    <input type="text" class="form-control thousandSeperator" id="room_allotment" style="width: 230px;" required>
+                                    <input type="hidden" class="form-control" id="room_allotment_input" >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label ">Net Booked
+                                        <i class="fa fa-fw fa-info-circle net-booked"  title="Amount of allotment data has been booked"></i>
+                                    </label>
+                                    <p class="mb mt" placeholder="0">0</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Pending
+                                        <i class="fa fa-fw fa-info-circle pending" title="Amount of allotment data waiting for payment"></i>
+                                    </label>
+                                    <p class="mb mt" placeholder="0">0</p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-12">
+                                <hr>
+                            </div>
+
+                            {{-- <div class="col-lg-6">
+                                <label for="field-1" class="control-label">Publish Rate (Rp)</label>
+                                <div class="form-group">
+                                    <input type="text" id="room_publish_rate" class="form-control thousandSeperator"
+                                        required>
+                                    <input type="hidden" id="room_publish_rate_input" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="field-1" class="control-label">Room Only Rate (Rp)</label>
+                                <div class="form-group">
+                                    <input type="text" id="room_ro_rate" class="form-control thousandSeperator" required>
+                                    <input type="hidden" id="room_ro_rate_input" class="form-control">
+                                </div>
+                            </div> --}}
                         </div>
-                        @endif
+                        <div class="row" >
+                            {{-- NOTE --}}
+                            <div class="col-lg-12">
+                                <div class="col-lg-12 rates_card" style="display:none; border-left-style: solid; border-color: blue; margin-bottom: 50px;">
+                                    <label id="demo"></label>
+
+                                    <br>
+
+                                    <label for="weekday_rate">Base Rate
+                                    </label>
+                                    <div class="input-group col-lg-6" style="background-color:rgb(241, 239, 239);">
+                                        <span class="input-group-addon">Rp.</span>
+                                        <span class="room_price thousandSeperator" oninput="ambilRupiah(this);" id="baserate" style="width: 175px;" >0</span>
+                                        <input type="hidden" name="room_extrabed_rate" id="baserate" value="2" />
+                                    </div>
+                                    <br>
+                                    <label for="bed_price">Extra Bed Rate
+                                    </label>
+                                    <div class="input-group col-lg-6" style="background-color:rgb(241, 239, 239);" >
+                                        <span class="input-group-addon" style="width: 10px;">Rp.</span>
+                                        <span class="room_price thousandSeperator" id="extrabedrate"  style="width: 175px; padding-top:5px;" >0</span>
+                                        <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" />
+                                    </div>
+
+                                    <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
+                                        <div class="col-lg-6" style="margin-left: -15px;">
+                                            <label for="bed_price" style="margin-top:0px;width:200px;padding-right:21px;font-size:11px;">Enable/Disable Promo Rate</label>
+                                            <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                                            <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
+                                                <span class="input-group-addon">Rp.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="toggle" style="margin-left:150px;">
+                                                <input class="toggle-checkbox show-textbox" type="checkbox">
+                                                <div class="toggle-switch"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="rates_card input-group col-lg-12" style="display: none;margin-top:20px;padding-right:0px;" >
+                            <div class="col-lg-6" style="margin-left: -10px; margin-right;">
+                                <label for="bed_price" style="margin-top:0px;padding-right:20px;">Activate this rate plan</label>
+                                <input type="text" id="enable-promo" style="display: none;width:50px;" class="form-control thousandSeperator" id="room_allotment" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="toggle" style="margin-left:150px;">
+                                    <input class="toggle-checkbox " type="checkbox" >
+                                    <div class="toggle-switch"></div>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group" style="margin-top:13px;" align="left">
+                                    <a onClick="submitAllotment();"
+                                        class="btn btn-horison2 btn-lg"><strong>Save</strong></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            {{-- Box Room with breakfast --}}
-
-            {{-- <div class="row">
-                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
-                    <div class="col-md-12">
-                        <p class="pt-x20"><strong>{{$rp->rate_name}}</strong></p>
-                    </div>
-                    <div class="col-md-12" style="margin-top:-18px;">
-                        @if($rp->def_meal_available == 0 || $rp->def_meal_available == NULL)
-                        <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                        @elseif($rp->def_meal_available == 1 )
-                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
-                        @endif
-                    </div>
-                    <div class="col-md-6" style="margin-left:-16px;">
-                        <div class="col-md-12">
-                            <p>Rp
-                                <strong>
-                                    {{$rp->base_rate}}
-                                </strong> / Night</p>
-                        </div>
-                        <div class="col-md-12" style="margin-top:-10px;">
-                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
-                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
-                            class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
-                    </div>
-                </div>
-            </div> --}}
-            @foreach ($room->room_rate_plans as $rrp)
-                @foreach ($rrp->rate_plans as $rp)
-                <div class="row " >
-                    @if($totalExtrabed > 0)
-                    @php
-                    $class="";
-                    @endphp
-                    <div class="col-md-12 col-xs-12 boxrs-disable ml-20 mt-15"
-                        style="box-shadow: 8px 4px 10px -4px #888888; margin-left: 4%;">
-                        <div class="col-md-12">
-                            <div class="col-md-4">
-                                <p class="text-oren"><strong>{{$rp->rate_name}}</strong></p>
-                            </div>
-                            <div class="col-md-8 oren-d">
-                                <p class="box-oren" style="float:right">{{$rp->rate_name}}</p>
-                            </div>
-                            <div class="col-md-12 mb-12" style="margin-left: -15px; margin-top: -15px;">
-                                @if($rp->def_meal_available == 0 || $rp->def_meal_available == NULL)
-                                <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                                @elseif($rp->def_meal_available == 1 )
-                                <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
-                                @endif
-                                <p style="font-size:12px; margin-top: -0px;"> <s> Rp
-                                    <strong>
-                                        {{$rp->base_rate}}
-                                    </strong> / Night </s></p>
-                            </div>
-
-                            <div class="col-md-12" style="margin-left: -15px;">
-                                <p style="color:red; margin-top: -15px;">Rp
-                                    <strong>
-                                        {{$rrp->promo_rate}}
-                                    </strong> / Night</p>
-                                    <p class="mt-0" style="font-size:10px; color: #818285; margin-top: -10px;">*Tax Inclusive</p>
-                            </div>
-                            </div>
-                            @else
-                            @php
-                            $class="disabled";
-                            @endphp
-                            <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15"
-                                style="box-shadow: 8px 4px 10px -4px #888888; ">
-                                <div class="col-md-12">
-                                    <p class="pt-20"><strong>{{$rp->rate_name}}</strong></p>
-                                </div>
-                                <div class="col-md-12" style="margin-top:-18px;">
-                                    @if($rp->def_meal_available == 0 || $rp->def_meal_available == NULL)
-                                    <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
-                                    @elseif($rp->def_meal_available == 1 )
-                                    <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
-                                    @endif
-                                </div>
-                                <div class="col-md-6" style="margin-left:-16px;">
-
-                                    <div class="col-md-12">
-                                    <p style="">Rp
-                                        <strong>
-                                            {{$rp->base_rate}}
-                                        </strong> / Night</p>
-                                    </div>
-                                    <div class="col-md-12 col-xs-12" style="margin-top:-15px;">
-                                        <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6" style="margin-top: -55px; margin-left: 73%;">
-                                    <a id="validate_clickY" href="javascript:;" onclick="reserve({{$no}}, 0);"
-                                    class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
-                                </div>
-                            </div>
-
-                        </div>
-                @endforeach
-            @endforeach
-                    </div>
-                </div>
-
         </div>
-        <hr>
-        <br>
-
-        @endforeach
     </div>
-</div>
-@else
 
-<div class="container">
-    <div class="row">
-        <div class="center-img-2" style="width: 50%; margin: auto;">
-            <img src="{{ asset('/images/rooms/room_empty.svg') }}" alt="No rooms available on this date" class="center-img" style="padding: 35px;">
-        </div>
+    <script>
+        const months = ["January", "February", "March", "April", "May",
+            "June", "July", "August", "September", "October", "November", "December"
+        ];
 
-        <center style="margin-bottom: 50px;">
-            <h3>No rooms available on this date</h3>
-        </center>
-    </div>
-</div>
+        var rooms = "";
 
-{{-- <br><br> --}}
-
-@endif
-<!-- End Room  -->
-
-
-@include('visitor_site.modal_product')
-<script>
-    // Script room atas
-
-    var slideIndex = 1;
-    var path = "{{asset('/user/')}}";
-    var slideIndex3 = 1;
-    var first = true;
-
-    var rooms = JSON.parse($('#rooms_data').val());
-    var child_list = JSON.parse($('#child_temp').val());
-    var totalChild = 0;
-    var total_room = {{$totalRoom}};
-
-
-
-
-    for (let n = 1; n <= rooms.length; n++) {
-        if (rooms[n - 1]['photo'].length > 0) {
-            showSlides(n, 1);
-        }
-    }
-
-    function currentSlide(id, n) {
-        showSlides(id, slideIndex = n);
-    }
-
-    function showSlides(id, n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides1 id_" + String(id));
-        var dots = document.getElementsByClassName("demo1 id_" + String(id));
-        // console.log(slides.length);
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-    }
-
-    function seeAll(id) {
-        var room = rooms[id - 1];
-        var galery_html = "";
-        var roww_html = "";
-
-        var slider_for = "";
-        var slider_nav = "";
-
-        $('#modal_title').text(room.room_name);
-
-        room['photo'].forEach(function (data, index) {
-            index++;
-                slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.photo_path +'"></div>';
-                slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
-                              '</div>';
-
-
-            });
-
-
-            $('#seeAllModal').modal('show');
-            $('.slider-for').empty();
-            $('.slider-nav').empty();
-
-            $('.slider-for').append(slider_for);
-            $('.slider-nav').append(slider_nav);
-            if(first){
-            first = false;
-            }else{
-                $('.slider-for').slick('unslick');
-                $('.slider-nav').slick('unslick');
+        $(document).ready(function() {
+            if ($('#first_room').val() != null) {
+                $('#first_room').click();
             }
-            do_slider();
-    }
+        });
 
+        $(document).ready(function() {
+            //set initial state.
+            $('#room_only').change(function() {
+                if (this.checked) {
+                    // var returnVal = confirm("Are you sure?");
+                    console.log('ok');
+                    // $(this).prop("checked", returnVal);
+                    $("#enable-discount-rate").click(function() {
+                        $("#pre-discount-rate").toggle();
 
-    if (child_list != null) {
-        for (let i = 0; i < child_list.length; i++) {
-            const element = child_list[i];
-            addChildReservation(1);
-            $('#child_' + (i + 1)).val(element);
-        }
-    }
+                        if ($(this).hasClass("roomWithBreakfast")) {
+                            $(this).find("p").text("Enable discounted rate").css("color", "blue");
 
+                        } else {
+                            $(this).find("p").text("Remove discounted rate").css("color", "red");
+                        }
 
-    function addChildReservation(n) {
-
-        var html = "";
-        var next = totalChild + n;
-
-        if (totalChild == 0 && n == -1) {
-
-        } else if ((totalChild + n) > 10) {
-            alert('Maximal 10 Child!');
-        } else if (totalChild > next) {
-
-            $('#age_' + String(totalChild)).fadeOut(300, function () {
-                $(this).remove();
-            });
-            totalChild += n;
-        } else {
-            totalChild += n;
-
-            var html =
-                '<div class="col-xs-6 col-lg-2 col-md-3 col-sm-3 mt-10" id="age_' + totalChild + '" style="padding-left: 0px;">' +
-                    '<label for="date_check" class="label-modal-reserve">Age</label>' +
-                    '<select id="child_' + totalChild +
-                    '" class="form-control modal-form-control visitor-input child_age">' +
-                        '@for ($i = 0; $i <= 6; $i++)' +
-                            '@if ($i == 0)' +
-                                '<option value="{{$i}}"> < 1 </option>' +
-                            '@else' +
-                                '<option value="{{$i}}"> {{$i}} </option>' +
-                            '@endif' +
-                        '@endfor' +
-                    '</select>' +
-                '</div>';
-            $(html).hide().appendTo('#children').fadeIn(300);
-        }
-    }
-
-    function addRoomTotal(n = 0) {
-        total_room += n;
-
-        if (total_room <= 0) {
-            total_room = 1;
-        } else if (total_room > 5) {
-            total_room = 5;
-        }
-
-        if (n == 0) {
-            total_room = parseInt($('#room_total').val());
-        }
-
-    }
-
-    function submit(form) {
-        var cek = true;
-
-        if (form == 'room_reserve') {
-            var extra_bed = parseInt($('#extra_bed').val());
-            var adult_total = parseInt($('#adult_total').val());
-            var child_total = parseInt(totalChild);
-
-            var adult_child_total = adult_total + child_total;
-
-            var max_adult_child = total_room * 5 + extra_bed;
-            var need_extrabed = total_room * 2 + 1;
-
-            //validation adult
-            var max_adult = total_room * 2 + total_room;
-            var min_adult = total_room;
-
-            //validation child
-            var min_child = 0;
-            var max_child = total_room * 2;
-
-            //validation extra bed
-            var min_extrabed = Math.floor(adult_total / (total_room + 1));
-            var max_extrabed = total_room;
-            var check_extrabed = false;
-            var max_child = total_room;
-            var msg = [];
-
-            if (extra_bed > max_extrabed) {
-                msg.push("Extrabed capacity exceeded, each room only allow 1 extra bed");
-                check_extrabed = true;
-                cek = false;
-            }
-
-            if (adult_total < min_adult) {
-                msg.push("Minimal adult is not reached, each room must have minimal 1 adult");
-                cek = false;
-            }
-            if (adult_total > max_adult) {
-                msg.push("Room capacity exceeded, add more room or extrabed");
-                cek = false;
-            }
-            if (adult_total == need_extrabed && extra_bed < min_extrabed) {
-                msg.push("Room capacity exceeded, add more room or extrabed");
-                cek = false;
-            }
-            if (adult_child_total > (max_adult_child)) {
-                if (check_extrabed) {
-                    msg.push("Room capacity exceeded, room have maximal of 2 child(s) ");
-                } else {
-                    msg.push("Room capacity exceeded, room have maximal of 2 child(s) ");
+                        $(this).toggleClass("roomWithBreakfast");
+                    });
                 }
-                cek = false;
-            }
+            });
+        });
 
-            if (cek) {
-                var child_age = [];
-                var childs = document.getElementsByClassName('child_age');
-                for (let i = 0; i < childs.length; i++) {
-                    const element = childs[i];
-                    child_age.push(element.value);
+        function load_data() {
+            rooms = $.ajax({
+                type: 'GET',
+                url: "{{ route('allotment.data') }}",
+                async: false,
+                dataType: 'json',
+                done: function(results) {
+                    // Uhm, maybe I don't even need this?
+                    JSON.parse(results);
+                    return results;
+                },
+                fail: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Could not get posts, server response: ' + textStatus + ': ' + errorThrown);
                 }
-                $('#child_age').val(child_age.toString());
-                $('#' + form).submit();
+            }).responseJSON;
+        }
 
+        function setAllotmentRate() {
+            load_data();
+            var id = $('#active_allotment').val();
+            rooms.some(function(data, index) {
+                if (data.id == id) {
+                    today = new Date();
+
+                    startDate = new Date();
+
+                    endDate = today.setMonth(today.getMonth() + parseInt(data.room_future_availability));
+                    endDate = new Date(endDate);
+
+                    // To calculate the time difference of two dates
+                    var Difference_In_Time = endDate - startDate;
+                    // To calculate the no. of days between two dates
+                    var days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
+                    dayOne = startDate;
+                    var oneDay = 1000 * 60 * 60 * 24;
+
+                    for (i = 0; i <= days; i++) {
+                        var nowDay = oneDay * i;
+                        var day = new Date(dayOne.getTime() + nowDay);
+                        day = day.getDay();
+                        var dayDate = new Date(dayOne.getTime() + nowDay).toISOString().slice(0, 10);
+                        $('.allotment_' + dayDate).text(data.room_allotment);
+                        $('.allotment_' + dayDate).attr('old_allotment', data.room_allotment);
+                    }
+
+                    if (data['allotment'].length > 0) {
+                        data['allotment'].forEach(function(allotment, index) {
+                            var id = String(allotment.allotment_date);
+                            $('.allotment_' + id).text(allotment.remaining_allotment);
+                            $('.allotment_' + id).attr('old_allotment', allotment.allotment_room);
+                        });
+                        return true;
+                    }
+                }
+            });
+        }
+
+        function submitAllotment() {
+            setAllotmentRate();
+            var no = $('#active_allotment').val();
+            var id = $('#id_' + no).val();
+            var room_id = $('#room_id').val();
+            var room_allotment = $('#room_allotment_input').val();
+            var old_allotment = $('#old_room_allotment').val();
+
+            var room_publish_rate = $('#room_publish_rate_input').val();
+            var room_ro_rate = $('#room_ro_rate_input').val();
+            var room_extrabed_rate = $('#room_extrabed_rate').val();
+            var dateStart = $('#date_start').val();
+            var dateEnd = $('#date_end').val();
+
+            if (no == "") {
+                alert('Room belum di pilih!')
+            } else if (dateStart == "1970-01-01" || dateEnd == "1970-01-01") {
+                alert('Please Choose Date on the left calendar first');
             } else {
-                var message = '';
-                var first = true;
-                msg.forEach(element => {
-                    if (first) {
-                        message += "<li align='left'>" + element + "</li>";
-                        first = false;
+                var check = true;
+                var startDate = new Date(dateStart);
+                var endDate = new Date(dateEnd);
+
+                var dayOne = startDate;
+                // To calculate the time difference of two dates
+                var Difference_In_Time = endDate - startDate;
+                // To calculate the no. of days between two dates
+                var days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
+                var oneDay = 1000 * 60 * 60 * 24;
+                var old_allotment = 0;
+                for (i = 0; i <= days; i++) {
+                    var nowDay = oneDay * i;
+                    var dayDate = new Date(dayOne.getTime() + nowDay).toISOString().slice(0, 10);
+                    var remaining_allotment = $('.allotment_' + dayDate).text();
+                    old_allotment = $('.allotment_' + dayDate).attr('old_allotment');
+
+                    var total_reservation = parseInt(old_allotment - remaining_allotment);
+                    var startDate = moment(new Date(dayDate)).format('DD MMMM YYYY');
+                    var today = moment(new Date()).format('DD MMMM YYYY');
+
+                    if (new Date(startDate) < new Date(today)) {
+                        var msg = "Sorry you cannot set allotment for date less than " + today;
+                        alert(msg);
+                        check = false;
+                        break;
+                    } else if (old_allotment != remaining_allotment && room_allotment < total_reservation) {
+                        dayDate = new Date(dayDate);
+                        var msg = "Sorry for allotment in Date: " + moment(dayDate).format('DD MMMM YYYY') +
+                            " cannot be less than " + total_reservation;
+                        alert(msg);
+                        check = false;
+                        break;
+                    }
+                }
+
+                if (check) {
+                    if (days == 0) {
+                        var remaining_allotment = parseInt(room_allotment - total_reservation);
+                        $('#remaining_allotment').val(formatRibuan(remaining_allotment));
+                    }
+                    var opened_allotment = $('#room_allotment');
+                    var publish_rate = $('#room_publish_rate');
+                    var ro_rate = $('#room_ro_rate');
+
+                    if (opened_allotment.val() == "") {
+                        alert("Field Opened Allotment Required!");
+                        opened_allotment.focus();
+                    } else if (publish_rate.val() == "") {
+                        alert("Field Publish Rate Required!");
+                        publish_rate.focus();
+                    } else if (ro_rate.val() == "") {
+                        alert("Field Room Only Rate Required!");
+                        ro_rate.focus();
                     } else {
-                        message += "<li align='left'>" + element + "</li>";
+                        if (ro_rate.val() == "0" || publish_rate.val() == "0") {
+                            Swal.fire({
+                                title: 'Are you sure ?',
+                                text: 'To set the price 0 ?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No'
+                            }).then((result) => {
+                                if (result.value) {
+                                    $.ajax({
+                                        type: "POST",
+                                        data: {
+                                            "_token": "{{ csrf_token() }}",
+                                            "id": id,
+                                            "room_id": room_id,
+                                            "room_allotment": room_allotment,
+                                            "room_publish_rate": room_publish_rate,
+                                            "room_ro_rate": room_ro_rate,
+                                            "room_extrabed_rate": room_extrabed_rate,
+                                            "dateStart": dateStart,
+                                            "dateEnd": dateEnd
+                                        },
+                                        url: "{{ route('allotment.insert') }}",
+                                        success: function(msg) {
+                                            alert("Sukses!");
+                                            setAllotmentRate();
+                                        }
+                                    });
+                                    // For more information about handling dismissals please visit
+                                    // https://sweetalert2.github.io/#handling-dismissals
+                                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                    Swal.fire(
+                                        'Cancelled',
+                                        'Operation Cancel !',
+                                        'error'
+                                    )
+                                }
+                            })
+                        } else {
+                            $.ajax({
+                                type: "POST",
+                                data: {
+                                    "_token": "{{ csrf_token() }}",
+                                    "id": id,
+                                    "room_id": room_id,
+                                    "room_allotment": room_allotment,
+                                    "room_publish_rate": room_publish_rate,
+                                    "room_ro_rate": room_ro_rate,
+                                    "room_extrabed_rate": room_extrabed_rate,
+                                    "dateStart": dateStart,
+                                    "dateEnd": dateEnd
+                                },
+                                url: "{{ route('allotment.insert') }}",
+                                success: function(msg) {
+                                    alert("Sukses!");
+                                    setAllotmentRate();
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        };
+
+        function setBackgroundDefault(cek = false) {
+            var days = new Date().getFullYear() % 4 == 0 ? 366 : 365;
+            var dayOne = new Date(new Date().getFullYear(), 0, 0);
+            var oneDay = 1000 * 60 * 60 * 24;
+            for (i = 0; i <= days; i++) {
+                var nowDay = oneDay * i;
+                var dayDate = new Date(dayOne.getTime() + nowDay).toISOString().slice(0, 10);
+                $('#' + dayDate).removeAttr('style');
+                if (cek) {
+                    $('.allotment_' + dayDate).text(0);
+                }
+            }
+        }
+
+        function setDateBackground(startDate, diffday) {
+            setBackgroundDefault();
+            startDate = new Date(startDate);
+
+            var start = new Date(startDate.getFullYear(), 0, 0);
+            var oneDay = 1000 * 60 * 60 * 24;
+            for (i = 0; i <= diffday; i++) {
+                var nowDay = oneDay * i;
+                var dayDate = new Date(startDate.getTime() + nowDay).toISOString().slice(0, 10);
+                $('#' + dayDate).attr('style', 'background:var(--quaternary-font-color);');
+            }
+            var id = $('#active_allotment').val();
+            var setStart = $('#date_start');
+            var setEnd = $('#date_end');
+
+            startDate = new Date(startDate.getTime()).toISOString().slice(0, 10);
+            setStart.val(startDate);
+            setEnd.val(dayDate);
+            setAllotmentRate();
+        }
+
+        var dateBefore = "";
+
+        function thisDate(e) {
+            if ($('#active_allotment').val() == "") {
+                alert('Select Room First!')
+            } else {
+                setBackgroundDefault();
+                var id = $('#active_allotment').val();
+                var setStart = $('#date_start');
+                var setEnd = $('#date_end');
+
+                if (dateBefore != "") {
+                    dateBefore.removeAttribute('style');
+                }
+                dateBefore = e;
+                var date = new Date(e.id);
+
+                dateStart = date.toISOString().slice(0, 10);
+                diffDay = 0;
+                var startDate = date.toISOString().slice(0, 10);
+                e.setAttribute('style', 'background:var(--quaternary-font-color);');
+                setStart.val(String(startDate));
+                setEnd.val(String(startDate));
+
+                let current_datetime = new Date(startDate);
+                let formatted_date = months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " +
+                    current_datetime.getFullYear() + ' - ' +
+                    months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " + current_datetime
+                    .getFullYear();
+                $('#date-show').text(formatted_date);
+
+                rooms.some(function(data, index) {
+                    if (data.id == id) {
+                        $('#room_extrabed_rate').val(data.room_extrabed_rate);
+                        $('#room_allotment').val(formatRibuan(data.room_allotment));
+                        $('#room_allotment_input').val(data.room_allotment);
+
+                        $('#remaining_allotment').val(formatRibuan(data.room_allotment));
+                        var day = current_datetime.getDay();
+                        if (day == 0 || day > 4) {
+                            $('#room_publish_rate').val(formatRibuan(data.room_weekend_rate));
+                            $('#room_publish_rate_input').val(data.room_weekend_rate);
+                            $('#room_ro_rate').val(formatRibuan(data.room_weekend_ro_rate));
+                            $('#room_ro_rate_input').val(data.room_weekend_ro_rate);
+
+                        } else {
+                            $('#room_publish_rate').val(formatRibuan(data.room_publish_rate));
+                            $('#room_publish_rate_input').val(data.room_publish_rate);
+                            $('#room_ro_rate').val(formatRibuan(data.room_ro_rate));
+                            $('#room_ro_rate_input').val(data.room_ro_rate);
+                        }
+
+                        if (data['allotment'].length > 0) {
+                            data['allotment'].some(function(allotment, index) {
+                                if (allotment.allotment_date == startDate) {
+                                    $('#room_extrabed_rate').val(allotment.allotment_extrabed_rate);
+                                    $('#room_allotment').val(formatRibuan(allotment.allotment_room));
+                                    $('#room_allotment_input').val(allotment.allotment_room);
+                                    $('#remaining_allotment').val(formatRibuan(allotment
+                                        .remaining_allotment));
+                                    $('#room_publish_rate').val(formatRibuan(allotment
+                                        .allotment_publish_rate));
+                                    $('#room_publish_rate_input').val(allotment.allotment_publish_rate);
+                                    $('#room_ro_rate').val(formatRibuan(allotment.allotment_ro_rate));
+                                    $('#room_ro_rate_input').val(allotment.allotment_ro_rate);
+                                    return true;
+                                }
+                            });
+                        }
+                        return true;
                     }
                 });
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Your Request below not following our policy :',
-                    html: message
-                });
             }
-        } else {
-            $('#' + form).submit();
         }
 
-    }
+        var allotmentBefore = "";
 
-    function reserve(index, type) {
-        $('#validate_click').css("pointer-events", "none");
-        $('#validate_clickY').css("pointer-events", "none");
+        function setAllotment(e, id) {
+            if (allotmentBefore != "") {
+                allotmentBefore.classList.remove('active');
+            }
 
-        if ({{$childTotal}} > 0) {
-            var child_list = $('#child_list').val();
-            child_list = child_list.replace("\"", "").replace("\"", "");
+            allotmentBefore = e;
 
-        } else {
-            var child_list = '';
+            e.classList.add('active');
+            $('#active_allotment').val(id);
+            setBackgroundDefault(true);
+            setAllotmentRate();
+
+            var setStart = $('#date_start');
+            var setEnd = $('#date_end');
+
+            let current_datetime = new Date();
+            let formatted_date = months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " +
+                current_datetime.getFullYear() + ' - ' +
+                months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " + current_datetime
+                .getFullYear();
+            $('#date-show').text(formatted_date);
+
+            var startDate = current_datetime.toISOString().slice(0, 10);
+
+            rooms.some(function(data, index) {
+                if (data.id == id) {
+                    $('#room_id').val(data.id);
+                    $('#room_type').val(data.room_name);
+                    $('#room_extrabed_rate').val(data.room_extrabed_rate);
+                    $('#room_allotment').val(formatRibuan(data.room_allotment));
+                    $('#room_allotment_input').val(data.room_allotment);
+
+                    $('#remaining_allotment').val(formatRibuan(data.room_allotment));
+                    var day = current_datetime.getDay();
+                    if (day == 0 || day > 4) {
+                        $('#room_publish_rate').val(formatRibuan(data.room_weekend_rate));
+                        $('#room_publish_rate_input').val(data.room_weekend_rate);
+                        $('#room_ro_rate').val(formatRibuan(data.room_weekend_ro_rate));
+                        $('#room_ro_rate_input').val(data.room_weekend_ro_rate);
+
+                    } else {
+                        $('#room_publish_rate').val(formatRibuan(data.room_publish_rate));
+                        $('#room_publish_rate_input').val(data.room_publish_rate);
+                        $('#room_ro_rate').val(formatRibuan(data.room_ro_rate));
+                        $('#room_ro_rate_input').val(data.room_ro_rate);
+                    }
+
+                    if (data['allotment'].length > 0) {
+                        data['allotment'].some(function(allotment, index) {
+                            if (allotment.allotment_date == startDate) {
+                                $('#room_extrabed_rate').val(allotment.allotment_extrabed_rate);
+                                $('#room_allotment').val(formatRibuan(allotment.allotment_room));
+                                $('#room_allotment_input').val(allotment.allotment_room);
+                                $('#remaining_allotment').val(formatRibuan(allotment.remaining_allotment));
+                                $('#room_publish_rate').val(formatRibuan(allotment.allotment_publish_rate));
+                                $('#room_publish_rate_input').val(allotment.allotment_publish_rate);
+                                $('#room_ro_rate').val(formatRibuan(allotment.allotment_ro_rate));
+                                $('#room_ro_rate_input').val(allotment.allotment_ro_rate);
+                                return true;
+                            }
+                        });
+                    }
+                    return true;
+                }
+            });
+            setTimeout(function() {
+                $('#' + startDate).attr('style', 'background:var(--quaternary-font-color);');
+                setStart.val(String(startDate));
+                setEnd.val(String(startDate));
+            }, 100);
         }
-        var data = rooms[index - 1];
-        var value = {
-            checkIn: "{{$checkIn}}",
-            totalDays: "{{$totalDays}}",
-            totalRooms: "{{$totalRoom}}",
-            totalExtrabed: "{{$totalExtrabed}}",
-            adultTotal: "{{$adultTotal}}",
-            childTotal: "{{$childTotal}}",
-            childAge: child_list,
-            type: type,
-            room: data.id
-        };
-        $('#reserve_data').val(JSON.stringify(value));
-        $('#reserve').submit();
-    }
 
-</script>
+        //START format untuk di set ketika memilih salah satu allotment
+        function formatRibuan(angka) {
+            angka = String(angka);
+
+            var number_string = angka.replace(/[^0-9]*/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+
+            return rupiah;
+        }
+        //END
+
+        //START merubah ketika mengetik pada kolom
+        /* Fungsi formatRupiah */
+        function formatRibuanTyping(rupiah, angka, prefix) {
+            var number_string = angka.replace(/[^0-9]*/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+        }
+        //END
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.responsive').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+    <script>
+        $(".show-textbox").click(function() {
+            $("#enable-promo").toggle();
+        });
+    </script>
+
+    <script>
+            if ("{{ $promo_rate }}" != "") {
+        var e = document.getElementById("promo_rate");
+        e.value = formatRupiah(e, e.value);
+        }
+
+        function ambilRupiah(e) {
+            var hiddenInput = document.getElementById(e.id + "_value");
+            hiddenInput.value = hiddenInput.value.replace(/[^0-9]*/g, '');
+            hiddenInput.value = e.value.match(/\d/g).join("");
+            e.value = formatRupiah(e, e.value);
+        }
+
+        /* Fungsi formatRupiah */
+        function formatRupiah(rupiah, angka, prefix) {
+            var number_string = angka.replace(/[^0-9]*/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+        }
+        function confirmBox(e) {
+            var room_price = document.getElementsByClassName('room_price');
+            console.log(room_price.length);
+            var cek = true;
+            var msg = '';
+
+            for (let index = 0; index < room_price.length; index++) {
+                const element = room_price[index];
+
+                if(element.value == "0"){
+                    if(msg == ''){
+                        msg += element.name;
+                    }else{
+                        msg += ', '+element.name;
+                    }
+                    cek = false;
+                }
+                console.log(msg);
+                if(msg != ''){
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: 'This '+msg+' will be sold for Rp 0 ',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No'
+                        }).then((result) => {
+                        if (result.value) {
+                            e.setAttribute('type','submit');
+                            e.setAttribute('onclick','');
+                            e.click();
+                            cek = false;
+                        // For more information about handling dismissals please visit
+                        // https://sweetalert2.github.io/#handling-dismissals
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire(
+                            'Cancelled',
+                            'Operation Cancel!',
+                            'error'
+                            )
+                        }
+                    })
+                }
+
+            }
+
+            if(cek){
+                e.setAttribute('type','submit');
+                e.setAttribute('onclick','');
+                e.click();
+            }
+        }
+    </script>
+
+    
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // $("#hide").click(function(){
+            //     $("p").hide();
+            // });
+            $("#ratesplan_id").click(function(){
+                $(".rates_card").show();
+            });
+        });
+        // function myFunction123() {
+        // var x = document.getElementById("room_type").value;
+        // document.getElementById("demo123").innerHTML = "You selected: " + x;
+        // }
+
+
+        function myFunction(element) {
+            var text = element.options[element.selectedIndex].text;
+            const article = document.getElementById("ratesplan_id");
+            var base_rate = element.options[element.selectedIndex].dataset.baserate;
+            var extrabed_rate = element.options[element.selectedIndex].dataset.extrabedrate;
+
+            document.getElementById("demo").innerHTML = text;
+            document.getElementById("baserate").innerHTML = base_rate;
+            document.getElementById("extrabedrate").innerHTML = extrabed_rate;
+        }
+    </script>
+
+    <script type="text/javascript">
+
+     function imageClick() {
+            document.getElementById("demo").innerHTML = "Hello World";
+        }
+
+    </script>
+
+
+
+        
+
 @endsection

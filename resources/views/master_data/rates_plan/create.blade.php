@@ -126,7 +126,7 @@ $extrabed_rate = "0";
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
                                     <select name="cancellation_id" id="" class="form-control @error('cancellation_id') is-invalid @enderror" >
-                                        <option value="">Choose Cancellation</option>
+                                        <option value="" hidden>Choose Cancellation</option>
                                         @foreach($cancellations as $cancel)
                                         <option  value="{{ $cancel->id }}">{{ $cancel->name}}</option>
                                         @endforeach
@@ -144,7 +144,7 @@ $extrabed_rate = "0";
                                 <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                                 <div class="form-group">
                                     <select name="room_id" id="" class="form-control  @error('room_name') is-invalid @enderror" >
-                                        <option value="">Choose Room</option>
+                                        <option value="" hidden>Choose Room</option>
                                         @foreach($rooms as $room)
                                         <option   value="{{ $room->id }}"><label>{{ $room->room_name }}</label></option>
                                         @endforeach
@@ -164,9 +164,9 @@ $extrabed_rate = "0";
                                     <span class="input-group-addon">Rp.</span>
                                     <input type="text" name="Base Weekday Publish Rate"
                                         class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="weekday_base_rate" value="{{$base_rate}}" placeholder="0"/>
+                                        id="weekday_base_rate" value="" placeholder="0"/>
                                     <input type="hidden" name="base_rate" id="weekday_base_rate_input"
-                                        value="{{$base_rate}}" />
+                                        value="" />
                                 </div>
                                     @error('base_rate')
                                         <div class="alert alert-danger mt-2">

@@ -100,7 +100,7 @@ class RatesPlanController extends Controller
             'room_id'                => $request->room_id,
             'rate_id'                => $id,
             'is_rate_plan_active'    => 0,
-            'promo_rate'             => NULL,
+            'promo_rate'             => 0,
             'is_promo_rate_active'   => 0,
 
         ]);

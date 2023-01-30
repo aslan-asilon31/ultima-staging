@@ -28,14 +28,6 @@ class RatesPlan extends Model
 
     ];
 
-    // public function type(){
-    //     return $this->belongsTo('App\Models\Room\Type');
-    // }
-    // public function room_rate_plan()
-    // {
-    //     return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'rate_id', 'id');
-    // }
-
     public function room_rate_plans()
     {
         return $this->hasMany('App\Models\Room\RoomRatePlan','rate_id' ,'id' );
@@ -55,8 +47,6 @@ class RatesPlan extends Model
     {
         return $this->belongsTo('App\Models\Room\Type', 'id','room_id');
     }
-
-
 
 
 }

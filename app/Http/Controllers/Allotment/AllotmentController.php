@@ -31,9 +31,13 @@ class AllotmentController extends Controller
         $cancellations = CancellationPolicy::all();
         $ratesplans = RatesPlan::all();
         $roomrateplans = RoomRatePlan::all();
-        $allotments = Allotment::all();
+        $allotments = Allotment::all(   );
         $setting = $this->setting();
-        $rooms = Type::orderBy('room_name')->with('photo')->get();
+        $rooms = Type::orderBy('room_name')->with(['photo','room_rate_plans'=> function($b){
+            $b->with("rate_plan");
+
+        }])->get();
+      
         $mytime = date('d/m/Y');
 
         if (count($rooms) > 0) {

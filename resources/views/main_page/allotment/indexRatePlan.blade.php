@@ -38,7 +38,8 @@ $promo_rate = '0';
                         <div class="col-lg-3 col-sm-6 col-xs-12">
                             <div class="category contain" id="{{ $first_room }}" value="room_{{ $room->id }}"
                                 onClick="setAllotment(this, '{{ $room->id }}');">
-                                
+                                {{-- onlick="imageClick()"> --}}
+
                                 <a>
                                     <img src="{{ asset('/user/' . $img) }}" alt="" class="shadow"
                                         style="width:100%; height:100%;">
@@ -91,7 +92,20 @@ $promo_rate = '0';
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Room Type</label>
-                                    <input type="text"  class="form-control" id="room_type" disabled>
+                                    <input type="text"  class="form-control" name="room_type" id="room_type" disabled>
+                                    {{-- <select  name="ratesplan_name"  id="ratesplan_id"  class="form-control"> --}}
+                                    {{-- @foreach ($allotments as $allotment) --}}
+                                        {{-- @foreach ($allotment->room_rate_plans as $rrps) --}}
+                                            {{-- @foreach ($rrps->types as $typ) --}}
+                                                {{-- @foreach ($typ as $t) --}}
+                                             {{--    @foreach ($rooms as $room)
+                                                    <option class="" value="{{ $room->id }}" >{{ $room->room_name }}</option>
+                                                @endforeach --}}
+                                                {{-- @endforeach --}}
+                                            {{-- @endforeach --}}
+                                        {{-- @endforeach --}}
+                                    {{-- @endforeach --}}
+                                    {{-- </select> --}}
                                 </div>
                             </div>
 
@@ -100,18 +114,20 @@ $promo_rate = '0';
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Available Rate Plan</label>
                                     <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
-                                    <select  name="ratesplan_name" id="ratesplan_id" onchange="myFunction(this)" class="form-control">
-                                        <option  value="">SELECT RATE PLAN</option>
-                                        @foreach ($rooms as $room)
+                                    <select  name="ratesplan_name"  id="ratesplan_id" onchange="myFunction(this)" class="form-control">
+                                        <option hidden> Select Rate Plan</option>
+                                       {{--  @foreach ($rooms as $room)
                                             @foreach ($room->room_rate_plans as $rrrp)
+                                                <option hidden class="" data-israteplanactive="{{ $rrrp->is_rate_plan_active  }}" value="" ></option>
                                                 @foreach ($rrrp->rate_plans as $rtp)
-                                                  <option class="rts" data-extrabedrate="{{ $rtp->extrabed_rate }}" data-baserate="{{ $rtp->base_rate }}" value="{{ $rtp->id }}" >{{ $rtp->rate_name }}</option>
+                                                  <option class="rts"
+                                                            data-extrabedrate="{{ $rtp->extrabed_rate }}" 
+                                                            data-baserate="{{ $rtp->base_rate }}" 
+                                                            value="{{ $rtp->id }}" >{{ $rtp->rate_name }}</option>
                                                 @endforeach
                                             @endforeach
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
-
-
                                 </div>
                             </div>
 
@@ -138,13 +154,6 @@ $promo_rate = '0';
                                     <input type="hidden" class="form-control" id="room_allotment_input" >
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-6">
-                                <!-- ID ROOM EXTRA BED -->
-                                <div class="form-group">
-                                    <label for="field-1" class="control-label">Remaining Allotment 1</label>
-                                    <input type="text" class="form-control" id="remaining_allotment" disabled>
-                                </div>
-                            </div> --}}
 
                             <div class="col-lg-3">
                                 <div class="form-group">
@@ -195,23 +204,24 @@ $promo_rate = '0';
 
                                     <label for="weekday_rate">Base Rate
                                     </label>
-                                    <div class="input-group col-lg-6">
+                                    <div class="input-group col-lg-6" style="background-color:rgb(241, 239, 239);">
                                         <span class="input-group-addon">Rp.</span>
-                                        <span class="room_price thousandSeperator input-group-addon" id="baserate" value="0" style="width: 175px;text-align:left;" ></span>
+                                        <span class="room_price thousandSeperator" oninput="ambilRupiah(this);" id="baserate" style="width: 175px;" >0</span>
+                                        <input type="hidden" name="room_extrabed_rate" id="baserate" value="2" />
                                     </div>
                                     <br>
                                     <label for="bed_price">Extra Bed Rate
                                     </label>
-                                    <div class="input-group col-lg-6" >
-                                        <span class="input-group-addon">Rp.</span>
-                                        <span class="room_price thousandSeperator input-group-addon" id="extrabedrate" value="0" style="width: 175px;text-align:left;" ></span>
-                                        {{-- <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" /> --}}
+                                    <div class="input-group col-lg-6" style="background-color:rgb(241, 239, 239);" >
+                                        <span class="input-group-addon" style="width: 10px;">Rp.</span>
+                                        <span class="room_price thousandSeperator" id="extrabedrate"  style="width: 175px; padding-top:5px;" >0</span>
+                                        <input type="hidden" name="room_extrabed_rate" id="bed_price_input" value="2" />
                                     </div>
 
                                     <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
                                         <div class="col-lg-6" style="margin-left: -15px;">
                                             <label for="bed_price" style="margin-top:0px;width:200px;padding-right:21px;font-size:11px;">Enable/Disable Promo Rate</label>
-                                            {{-- <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required> --}}
+                                            <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
                                             <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
                                                 <span class="input-group-addon">Rp.</span>
 
@@ -224,20 +234,19 @@ $promo_rate = '0';
                                             </label>
                                         </div>
                                     </div>
-
                                 </div>
 
                             </div>
                         </div>
 
-                        <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
+                        <div class="rates_card input-group col-lg-12" style="display: none;margin-top:20px;padding-right:0px;" >
                             <div class="col-lg-6" style="margin-left: -10px; margin-right;">
                                 <label for="bed_price" style="margin-top:0px;padding-right:20px;">Activate this rate plan</label>
-                                <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                                <input type="text" id="enable-promo" style="display: none;width:50px;" class="form-control thousandSeperator" id="room_allotment" required>
                             </div>
                             <div class="col-lg-6">
                                 <label class="toggle" style="margin-left:150px;">
-                                    <input class="toggle-checkbox " type="checkbox" checked>
+                                    <input class="toggle-checkbox " type="checkbox" >
                                     <div class="toggle-switch"></div>
                                 </label>
                             </div>
@@ -264,7 +273,7 @@ $promo_rate = '0';
         ];
 
         var rooms = "";
-
+        const roomsType =<?= json_encode($rooms)?>;
         $(document).ready(function() {
             if ($('#first_room').val() != null) {
                 $('#first_room').click();
@@ -602,78 +611,7 @@ $promo_rate = '0';
 
         var allotmentBefore = "";
 
-        function setAllotment(e, id) {
-            if (allotmentBefore != "") {
-                allotmentBefore.classList.remove('active');
-            }
-
-            allotmentBefore = e;
-
-            e.classList.add('active');
-            $('#active_allotment').val(id);
-            setBackgroundDefault(true);
-            setAllotmentRate();
-
-            var setStart = $('#date_start');
-            var setEnd = $('#date_end');
-
-            let current_datetime = new Date();
-            let formatted_date = months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " +
-                current_datetime.getFullYear() + ' - ' +
-                months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " + current_datetime
-                .getFullYear();
-            $('#date-show').text(formatted_date);
-
-            var startDate = current_datetime.toISOString().slice(0, 10);
-
-            rooms.some(function(data, index) {
-                if (data.id == id) {
-                    $('#room_id').val(data.id);
-                    $('#room_type').val(data.room_name);
-                    $('#room_extrabed_rate').val(data.room_extrabed_rate);
-                    $('#room_allotment').val(formatRibuan(data.room_allotment));
-                    $('#room_allotment_input').val(data.room_allotment);
-
-                    $('#remaining_allotment').val(formatRibuan(data.room_allotment));
-                    var day = current_datetime.getDay();
-                    if (day == 0 || day > 4) {
-                        $('#room_publish_rate').val(formatRibuan(data.room_weekend_rate));
-                        $('#room_publish_rate_input').val(data.room_weekend_rate);
-                        $('#room_ro_rate').val(formatRibuan(data.room_weekend_ro_rate));
-                        $('#room_ro_rate_input').val(data.room_weekend_ro_rate);
-
-                    } else {
-                        $('#room_publish_rate').val(formatRibuan(data.room_publish_rate));
-                        $('#room_publish_rate_input').val(data.room_publish_rate);
-                        $('#room_ro_rate').val(formatRibuan(data.room_ro_rate));
-                        $('#room_ro_rate_input').val(data.room_ro_rate);
-                    }
-
-                    if (data['allotment'].length > 0) {
-                        data['allotment'].some(function(allotment, index) {
-                            if (allotment.allotment_date == startDate) {
-                                $('#room_extrabed_rate').val(allotment.allotment_extrabed_rate);
-                                $('#room_allotment').val(formatRibuan(allotment.allotment_room));
-                                $('#room_allotment_input').val(allotment.allotment_room);
-                                $('#remaining_allotment').val(formatRibuan(allotment.remaining_allotment));
-                                $('#room_publish_rate').val(formatRibuan(allotment.allotment_publish_rate));
-                                $('#room_publish_rate_input').val(allotment.allotment_publish_rate);
-                                $('#room_ro_rate').val(formatRibuan(allotment.allotment_ro_rate));
-                                $('#room_ro_rate_input').val(allotment.allotment_ro_rate);
-                                return true;
-                            }
-                        });
-                    }
-                    return true;
-                }
-            });
-            setTimeout(function() {
-                $('#' + startDate).attr('style', 'background:var(--quaternary-font-color);');
-                setStart.val(String(startDate));
-                setEnd.val(String(startDate));
-            }, 100);
-        }
-
+       
         //START format untuk di set ketika memilih salah satu allotment
         function formatRibuan(angka) {
             angka = String(angka);
@@ -712,6 +650,7 @@ $promo_rate = '0';
         }
         //END
     </script>
+    @include("main_page/allotment/script-js",['myroom'=> $rooms])
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -783,6 +722,58 @@ $promo_rate = '0';
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
         }
+        function confirmBox(e) {
+            var room_price = document.getElementsByClassName('room_price');
+            console.log(room_price.length);
+            var cek = true;
+            var msg = '';
+
+            for (let index = 0; index < room_price.length; index++) {
+                const element = room_price[index];
+
+                if(element.value == "0"){
+                    if(msg == ''){
+                        msg += element.name;
+                    }else{
+                        msg += ', '+element.name;
+                    }
+                    cek = false;
+                }
+                console.log(msg);
+                if(msg != ''){
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: 'This '+msg+' will be sold for Rp 0 ',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No'
+                        }).then((result) => {
+                        if (result.value) {
+                            e.setAttribute('type','submit');
+                            e.setAttribute('onclick','');
+                            e.click();
+                            cek = false;
+                        // For more information about handling dismissals please visit
+                        // https://sweetalert2.github.io/#handling-dismissals
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire(
+                            'Cancelled',
+                            'Operation Cancel!',
+                            'error'
+                            )
+                        }
+                    })
+                }
+
+            }
+
+            if(cek){
+                e.setAttribute('type','submit');
+                e.setAttribute('onclick','');
+                e.click();
+            }
+        }
     </script>
 
     
@@ -801,23 +792,17 @@ $promo_rate = '0';
         // document.getElementById("demo123").innerHTML = "You selected: " + x;
         // }
 
-        
 
-        function myFunction(element) {
-            var text = element.options[element.selectedIndex].text;
-            const article = document.getElementById("ratesplan_id");
-            var base_rate = element.options[element.selectedIndex].dataset.baserate;
-            var extrabed_rate = element.options[element.selectedIndex].dataset.extrabedrate;
-
-            document.getElementById("demo").innerHTML = text;
-            document.getElementById("baserate").innerHTML = base_rate;
-            document.getElementById("extrabedrate").innerHTML = extrabed_rate;
-
-        }
+      
     </script>
 
     <script type="text/javascript">
 
+     function imageClick() {
+            document.getElementById("demo").innerHTML = "Hello World";
+        }
+
     </script>
+
 
 @endsection
