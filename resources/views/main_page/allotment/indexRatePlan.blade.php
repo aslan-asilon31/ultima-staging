@@ -221,7 +221,7 @@ $promo_rate = '0';
                                     <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
                                         <div class="col-lg-6" style="margin-left: -15px;">
                                             <label for="bed_price" style="margin-top:0px;width:200px;padding-right:21px;font-size:11px;">Enable/Disable Promo Rate</label>
-                                            <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                                            <input type="text" id="enable-promo" value="0" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
                                             <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
                                                 <span class="input-group-addon">Rp.</span>
 
