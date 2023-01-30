@@ -17,7 +17,7 @@
                 @endphp
                 <div class="panel panel-default">
                     <div class="panel-body shadow">
-                        <div class="col-lg-3 col-sm-12 mb text-center">
+                        <div class="col-lg-3 col-sm-12 mb text-center" style="">
                             <img src="{{ asset('/user/' . $img) }}" alt="" class="containerBox shadow" loading="lazy">
                         </div>
                         <div class="col-lg-3">
@@ -117,57 +117,48 @@
                         </div> --}}
 
 
-                        <div class="col-lg-12" style="margin-top:-20px; margin-left: 7px;">
-
-                            {{-- @foreach ($rooms as $room)
-                                {{ $room->room_name }}
-
-                            @endforeach --}}
-
-                            @foreach ($room_rate_plans as $room_rate_plan)
-                            
-
-                                <div class="col-lg-6" style="margin-right:-20px;">
-                                    <h4 class="mb" style="margin-left:50%;"><strong>Rate Plan(s)</strong></h4>
-                                    <div class="panel panel-default" style="width: 60%;height:9%;margin-left:50%;margin-top:1%;">
-                                            <div class="panel-body shadow">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-lg-12 col-md-12">
-                                                        <h5 style="margin-bottom:-5px;">
-                                                            @foreach ($room_rate_plan->rate_plans as $room_rate)
-                                                                 <strong>Nama Rates Plan{{ $room_rate->rate_name }}</strong>
-                                                            @endforeach
-                                                        </h5>
-                                                        <br>
-
-                                                    </div>
-                                                    <div class="col-xs-12 col-lg-6 col-md-6">
-                                                        <h6 style="margin-bottom:-5px;">
-                                                            <strong>Rate strategy</strong>
-                                                        </h6>
-                                                        <ul class="checklist-ul mt">
-                                                            {{-- @foreach ($room_rate->rate_plans as $rate_plan) --}}
-                                                            {{-- @if($rate_plan->extrabed_rate == 0)
-                                                            makan
-                                                            @else
-                                                            ga makan
-                                                            @endif --}}
-                                                            <li class="mt text-muted">No Meal {{-- {{ $rate_plan->rate_name }} --}} 123</li>
-                                                            {{-- @endforeach --}}
-                                                            <li class="mt">Allow extra beds</li>
-                                                        </ul>
-                                                    </div>
-
-
-                                                </div>
+                        <div class="col-lg-12 flex-container" style="margin-top:-0px;margin-left:0px;">
+                            <h4 class="mb flex-container" style="margin-left:26%; "><strong>Rate Plan(s)</strong></h4>
+                        </div>
+                        <div class="col-lg-12 " style="margin-left:18%;" >
+                            @foreach ($room->room_rate_plans as $rpr)
+                            <div class="col-lg-4 col-sm-3" style="margin-left:5%; margin-bottom: 10px; " >
+                                    <div class="panel-body shadow" style="margin-left: 0%;">
+                                        <div class="row " >
+                                            @foreach($rpr->rate_plans as $rps)
+                                            <div class="col-xs-12 col-lg-12 col-md-12">
+                                                <h5 style="margin-bottom:-5px;">
+                                                    <strong>{{ $rps->rate_name }}</strong>
+                                                </h5>
+                                                <br>
                                             </div>
+                                            <div class="col-xs-12 col-lg-6 col-md-6" style="">
+                                                <h6 style="margin-bottom:-5px;">
+                                                    <strong>Rate Strategy</strong>
+                                                </h6>
+                                                <ul class="checklist-ul mt">
+                                                    @if($rps->def_meal_available == 0 || $rps->def_meal_available == NULL)
+                                                    <li class="mt text-muted">No Meal</li>
+                                                    @elseif($rps->def_meal_available == 1 )
+                                                    <li class="mt ">Meal</li>
+                                                    @endif
+
+                                                    @if($rps->extrabed_rate == 0 || $rps->extrabed_rate == NULL)
+                                                    <li class="mt text-muted">No extra bed</li>
+                                                    @elseif($rps->extrabed_rate >= 1)
+                                                    <li class="mt">Allow extra bed</li>
+                                                    @endif
+
+                                                </ul>
+                                            </div>
+                                            @endforeach
                                         </div>
+                                    </div>
                                 </div>
                             @endforeach
-
                         </div>
-
-                        <div class="">
+                        <br>
+                        <div class="pull-right">
                             <a href="/master_data/room/edit/{{ Crypt::encryptString($room->id) }}"
                                 class="btn btn-horison pull-right manage-pkg"><b>Manage Room</b>
                             </a>

@@ -3,14 +3,23 @@
     EDIT RATES PLAN
 @endsection
 @section('content')
+@if(isset($room))
+@php
+$base_rate = $room->base_rate;
+$extrabed_rate = $room->extrabed_rate;
+@endphp
+
+@else
+
+@php
+$base_rate = "0";
+$extrabed_rate = "0";
+@endphp
+
+@endif
+
     <div class="col-lg-7">
         <div class="row">
-{{-- 
-        <form id="ratesplan_room" onsubmit="return confirm('Are you sure ?')" method="POST"
-        action="{{ route('rates_plan.delete') }}" enctype="multipart/form-data" autocomplete="off">
-        <input type="hidden" name="ratesplans_name" id="ratesplans_id" value="{{$id}}">
-        {{csrf_field()}}
-          </form> --}}
 
             <div class="panel panel-default">
                 <div class="panel-body shadow">
@@ -30,9 +39,6 @@
                                         </div>
                                     @enderror
                                 </div>
-
-                                <br>
-
                                 {{-- Meals --}}
                                 <h5 class="mt mb">
                                     <strong>Meals</strong>
@@ -59,9 +65,6 @@
                                     </div>
                                     @endif
                                 </div>
-
-                                <br>
-
                                 {{-- Bookables --}}
                                 <h5 class="mt mb">
                                     <strong>Bookables</strong>
@@ -102,10 +105,6 @@
                                     </div>
                                     @endif
                                 </div>
-
-
-                                <br>
-
                                 {{-- Minimum length of stay --}}
                                 <h5 class="mt mb">
                                     <strong>Minimum length of stay</strong>
@@ -142,119 +141,133 @@
                                         id="InputSet" value="{{ $ratesplans->def_minimum_stay }}" style=" width:200px;margin-bottom:1px;margin-left:27px;" />
                                 </div>
                                 @endif
-                              
-                                <hr>
                                 <div class="form-group">
                                     <h5 class="mt mb">
                                         <strong>Set Cancellation Policy</strong>
                                     </h5>
                                     <p class="mt mb">Which cancellation policy is suitable for this rate plan?</p>
-                                    <select name="cancellation_id" id="" class="form-control">
+                                    <select name="cancel_id" id="" class="form-control">
+                                        @foreach($ratesplans->cancellations as $cancel1)
+                                            {{-- <option  value="{{ $cancel->id}}">{{ $cancel->name}}</option> --}}
+                                        @endforeach
                                         @foreach($cancellations as $cancel)
-                                        <option value="{{ $cancel->id }}">{{ $cancel->name}}</option>
+                                            <option  value="{{ $cancel->id}}" {{ $cancel1->id == $cancel->id  ? 'selected' : '' }}>{{ $cancel->name}}</option>
                                         @endforeach
-                                        {{-- <option value="{{ $ratesplans->name }}">{{ $$ratesplans->name}}</option> --}}
                                     </select>
+
                                 </div>
-                                <hr>
-                                <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
-                                <p class="mt mb">Which room type will be bookable with this rate plans?</p>
-                                <div class="row">
-                                    <select name="cancellation_id" id="" class="form-control">
+                                <div class="form-group">
+                                    <h5 class="mt mb">
+                                        <strong>Apply rates to room types</strong>
+                                    </h5>
+                                    <p class="mt mb">Which room type will be bookable with this rate plans?</p>
+                                    <select name="room_id" id="" class="form-control">
+                                        @foreach($ratesplans->room_rate_plans as $rrp )
+                                            @foreach ($rrp->types as $room1)
+                                                <option  value="{{ $room1->id }}">{{ $room1->room_name }}</option>
+                                            @endforeach
+                                        @endforeach
                                         @foreach($rooms as $room)
-                                        <option value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                            <option value="{{ $room->id }}"  {{ $room1->id == $room->id  ? 'selected' : '' }}>{{ $room->room_name  }}</option>
                                         @endforeach
-                                        {{-- <option value="{{ $ratesplans->name }}">{{ $$ratesplans->name}}</option> --}}
                                     </select>
-                                    {{-- @foreach ($rooms as $room)
-                                        <div class="col-lg-4">
-                                            <div class="checkbox checkbox-replace color-primary">
-                                                <input type="checkbox" id="rd-1" name="room_name[]" value="{{ $room->id }}">
-                                                <label>{{ $room->room_name }}</label>
-                                            </div>
-                                        </div>
-                                    @endforeach --}}
-                                    <div class="col-lg-4">
-                                        {{-- <div class="checkbox checkbox-replace color-primary">
-                                            <input type="checkbox" id="rd-1" name="room_name[]" value="{{ $room->id }}">
-                                            <label>{{ $ratesplans->rate_name }}</label>
-                                        </div> --}}
-                                    </div>
                                 </div>
-                                <br>
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-6 col-md-4">
-                                    <label for="base_rate" class="">Base Rate</label>
+                                    <label for="weekday_base_rate" class="">Base Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="number" name="base_rate"
+                                        <input type="text" name="Base Weekday Publish Rate"
                                             class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                            id="base_rate" value="{{ $ratesplans->base_rate }}" />
-                                      {{--   <input type="hidden" name="base_rate" id="base_rate"
-                                            value="" /> --}}
+                                            id="weekday_base_rate" value="{{$ratesplans->base_rate}}" placeholder="0" required/>
+                                        <input type="hidden" name="base_rate" id="weekday_base_rate_input"
+                                            value="{{$ratesplans->base_rate}}" />
                                     </div>
-                                    <br>
-                                    <label for="extrabed_rate" class="">Extra Bed Rate</label>
+                                        @error('base_rate')
+                                            <div class="alert alert-danger mt-2">
+                                            {{$message}}
+                                            </div>
+                                        @enderror
+                                        <br>
+                                    <label for="weekday_extrabed_rate" class="">Extra Bed Rate</label>
                                     <div class="input-group col-lg-12">
                                         <span class="input-group-addon">Rp.</span>
-                                        @if($ratesplans->extrabed_rate == null  )
-                                        <input type="number" name="extrabed_rate"
-                                        class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="extrabed_rate" value="0" />
-                                        @elseif($ratesplans->extrabed_rate != null)
-                                        <input type="number" name="extrabed_rate"
-                                        class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                        id="extrabed_rate" value="{{ $ratesplans->extrabed_rate }}" />
-                                        @endif
-
-                                      {{--   <input type="hidden" name="extrabed_rate" id="extrabed_rate"
-                                            value="" /> --}}
+                                        <input type="text" name="Base Weekday Room Only Rate"
+                                            class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                            id="weekday_extrabed_rate" value="{{$ratesplans->extrabed_rate}}" placeholder="0" required/>
+                                        <input type="hidden" name="extrabed_rate" id="weekday_extrabed_rate_input"
+                                            value="{{$ratesplans->extrabed_rate}}" />
+                                        </div>
+                                        @error('extrabed_rate')
+                                            <div class="alert alert-danger mt-2">
+                                            {{$message}}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    <br>
                                 </div>
                             </div>
-                        </div>
+                            <br>
+                            <div class="pull-right">
+                                <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                                    Cancel
+                                </a>
+                                <button type="submit" class="btn btn-horison-gold btn-padding">Update</button>
+                            </div>
+                        </form>
                         <div class="pull-right">
-                            {{-- <button type="submit" form="delete_ratesplan" class="btn btn-delete btn-padding">
-                                Delete
-                            </button> --}}
-                            {{-- <button type="submit" form="delete_room" class="btn btn-delete btn-padding delete" data-id="{{ $ratesplans->id }}" data-name="{{ $ratesplans->rate_name }}">
-                                Delete
-                            </button> --}}
-                            {{-- <form action="{{route('rates_plan.delete',$ratesplans->id)}}" method="post">
-                                {{csrf_field()}}
-                                {{method_field('DELETE')}}
-                                  <button type="submit" class="btn btn-danger">Delete 1</a>
-                            </form> --}}
-                            {{-- <a class="btn btn-white btn-padding" href="{{ route('rates_plan.delete',$ratesplans->id ) }}">
-                                Delete
-                            </a> --}}
-                           
-                            <a class="btn btn-horison-gold btn-padding" style="margin-right:6px;" href="{{ route('rates_plan.index') }}">
-                                Cancel
-                            </a>
-                            <button type="submit" class="btn btn-horison-gold btn-padding">Update</button>
+                            <form method="post" class="delete_form" onsubmit="return confirm('Are you sure ?')" action="{{route('rates_plan.delete',$ratesplans->id )}}">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-delete btn-padding" style="">Delete</button>
+                            </form>
                         </div>
-                    </form>
-                    <form method="post" class="delete_form" action="{{route('rates_plan.delete',$ratesplans->id )}}">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-horison-gold btn-padding" style="color:red;margin-left:36%;">Delete</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <script src="{{ asset('js/ratesplancreate.js') }}"></script>
 
+    <script type="text/javascript">
+        if ("{{$base_rate}}" != "") {
+                var e = document.getElementById("weekday_base_rate");
+                e.value = formatRupiah(e, e.value);
+        }
+        if ("{{$extrabed_rate}}" != "") {
+                var e = document.getElementById("weekday_extrabed_rate");
+                e.value = formatRupiah(e, e.value);
+        }
+
+        function ambilRupiah(e) {
+            var hiddenInput = document.getElementById(e.id + "_value");
+            hiddenInput.value = hiddenInput.value.replace(/[^0-9]*/g, '');
+            hiddenInput.value = e.value.match(/\d/g).join("");
+            e.value = formatRupiah(e, e.value);
+        }
+
+        /* Fungsi formatRupiah */
+        function formatRupiah(rupiah, angka, prefix) {
+            var number_string = angka.replace(/[^0-9]*/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+        }
+    </script>
     <script>
         // function set_number(){
         //     document.getElementById('input_set_number').style.display = 'inline';
         // }
 
-        // $(document).ready(function(){ 
+        // $(document).ready(function(){
         //     $("input[name=set_number]").change(function() {
         //         var test = $(this).val();
         //         $(".class-number").hide();
@@ -262,7 +275,7 @@
         //     });
         // });
 
-        // $(document).ready(function(){ 
+        // $(document).ready(function(){
         //     $("input[name=action]").change(function() {
         //         var test = $(this).val();
         //         $(".show-hide").hide();
@@ -289,7 +302,7 @@
                     $("#InputSet").show();
                 }
             });
-            
+
         });
 
         $("#DaySet").on("input",function(){
@@ -300,7 +313,6 @@
             $("#set_minimum").val(this.value);
         });
 
-      
 
         $(function () {
             $("input[name='def_meal_available']").click(function () {

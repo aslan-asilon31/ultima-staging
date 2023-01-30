@@ -92,20 +92,20 @@ $promo_rate = '0';
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Room Type</label>
-                                    <input type="text"  class="form-control" name="room_type" id="room_type" disabled>
-                                    {{-- <select  name="ratesplan_name"  id="ratesplan_id"  class="form-control"> --}}
+                                    {{-- <input type="text"  class="form-control" name="room_type" id="room_type" disabled> --}}
+                                    <select  name="ratesplan_name"  id="ratesplan_id"  class="form-control">
                                     {{-- @foreach ($allotments as $allotment) --}}
                                         {{-- @foreach ($allotment->room_rate_plans as $rrps) --}}
                                             {{-- @foreach ($rrps->types as $typ) --}}
                                                 {{-- @foreach ($typ as $t) --}}
-                                             {{--    @foreach ($rooms as $room)
+                                                @foreach ($rooms as $room)
                                                     <option class="" value="{{ $room->id }}" >{{ $room->room_name }}</option>
-                                                @endforeach --}}
+                                                @endforeach
                                                 {{-- @endforeach --}}
                                             {{-- @endforeach --}}
                                         {{-- @endforeach --}}
                                     {{-- @endforeach --}}
-                                    {{-- </select> --}}
+                                    </select>
                                 </div>
                             </div>
 
@@ -116,7 +116,7 @@ $promo_rate = '0';
                                     <p style="margin:0px;font-weight:normal;">select available rate plan for this room</p>
                                     <select  name="ratesplan_name"  id="ratesplan_id" onchange="myFunction(this)" class="form-control">
                                         <option hidden> Select Rate Plan</option>
-                                       {{--  @foreach ($rooms as $room)
+                                        @foreach ($rooms as $room)
                                             @foreach ($room->room_rate_plans as $rrrp)
                                                 <option hidden class="" data-israteplanactive="{{ $rrrp->is_rate_plan_active  }}" value="" ></option>
                                                 @foreach ($rrrp->rate_plans as $rtp)
@@ -126,8 +126,9 @@ $promo_rate = '0';
                                                             value="{{ $rtp->id }}" >{{ $rtp->rate_name }}</option>
                                                 @endforeach
                                             @endforeach
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
+
                                 </div>
                             </div>
 
@@ -221,17 +222,9 @@ $promo_rate = '0';
                                     <div class="input-group col-lg-12" style="margin-top:20px;padding-right:0px;">
                                         <div class="col-lg-6" style="margin-left: -15px;">
                                             <label for="bed_price" style="margin-top:0px;width:200px;padding-right:21px;font-size:11px;">Enable/Disable Promo Rate</label>
-                                            <input type="text" id="enable-promo" value="0" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
+                                            <input type="text" id="enable-promo" style="display: none;width:200px;" class="form-control thousandSeperator" id="room_allotment" required>
                                             <div class="input-group col-lg-12" id="enable-promo" style="display: none;">
                                                 <span class="input-group-addon">Rp.</span>
-<<<<<<< HEAD
-                                                <input type="text" name="Base Weekday Publish Rate" style="background-color:red;"
-                                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                                    id="weekday_rate" value="" />
-                                                <input type="hidden" name="promo_rate" id="weekday_rate_input"
-                                                    value="" />
-=======
->>>>>>> 3fab88031a2abed6f0e86a42b9ee1acb9d929a6c
 
                                             </div>
                                         </div>
@@ -281,7 +274,7 @@ $promo_rate = '0';
         ];
 
         var rooms = "";
-        const roomsType =<?= json_encode($rooms)?>;
+
         $(document).ready(function() {
             if ($('#first_room').val() != null) {
                 $('#first_room').click();
@@ -619,7 +612,78 @@ $promo_rate = '0';
 
         var allotmentBefore = "";
 
-       
+        function setAllotment(e, id) {
+            if (allotmentBefore != "") {
+                allotmentBefore.classList.remove('active');
+            }
+
+            allotmentBefore = e;
+
+            e.classList.add('active');
+            $('#active_allotment').val(id);
+            setBackgroundDefault(true);
+            setAllotmentRate();
+
+            var setStart = $('#date_start');
+            var setEnd = $('#date_end');
+
+            let current_datetime = new Date();
+            let formatted_date = months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " +
+                current_datetime.getFullYear() + ' - ' +
+                months[current_datetime.getMonth()] + ' ' + current_datetime.getDate() + ", " + current_datetime
+                .getFullYear();
+            $('#date-show').text(formatted_date);
+
+            var startDate = current_datetime.toISOString().slice(0, 10);
+
+            rooms.some(function(data, index) {
+                if (data.id == id) {
+                    $('#room_id').val(data.id);
+                    $('#room_type').val(data.room_name);
+                    $('#room_extrabed_rate').val(data.room_extrabed_rate);
+                    $('#room_allotment').val(formatRibuan(data.room_allotment));
+                    $('#room_allotment_input').val(data.room_allotment);
+
+                    $('#remaining_allotment').val(formatRibuan(data.room_allotment));
+                    var day = current_datetime.getDay();
+                    if (day == 0 || day > 4) {
+                        $('#room_publish_rate').val(formatRibuan(data.room_weekend_rate));
+                        $('#room_publish_rate_input').val(data.room_weekend_rate);
+                        $('#room_ro_rate').val(formatRibuan(data.room_weekend_ro_rate));
+                        $('#room_ro_rate_input').val(data.room_weekend_ro_rate);
+
+                    } else {
+                        $('#room_publish_rate').val(formatRibuan(data.room_publish_rate));
+                        $('#room_publish_rate_input').val(data.room_publish_rate);
+                        $('#room_ro_rate').val(formatRibuan(data.room_ro_rate));
+                        $('#room_ro_rate_input').val(data.room_ro_rate);
+                    }
+
+                    if (data['allotment'].length > 0) {
+                        data['allotment'].some(function(allotment, index) {
+                            if (allotment.allotment_date == startDate) {
+                                $('#room_extrabed_rate').val(allotment.allotment_extrabed_rate);
+                                $('#room_allotment').val(formatRibuan(allotment.allotment_room));
+                                $('#room_allotment_input').val(allotment.allotment_room);
+                                $('#remaining_allotment').val(formatRibuan(allotment.remaining_allotment));
+                                $('#room_publish_rate').val(formatRibuan(allotment.allotment_publish_rate));
+                                $('#room_publish_rate_input').val(allotment.allotment_publish_rate);
+                                $('#room_ro_rate').val(formatRibuan(allotment.allotment_ro_rate));
+                                $('#room_ro_rate_input').val(allotment.allotment_ro_rate);
+                                return true;
+                            }
+                        });
+                    }
+                    return true;
+                }
+            });
+            setTimeout(function() {
+                $('#' + startDate).attr('style', 'background:var(--quaternary-font-color);');
+                setStart.val(String(startDate));
+                setEnd.val(String(startDate));
+            }, 100);
+        }
+
         //START format untuk di set ketika memilih salah satu allotment
         function formatRibuan(angka) {
             angka = String(angka);
@@ -658,7 +722,6 @@ $promo_rate = '0';
         }
         //END
     </script>
-    @include("main_page/allotment/script-js",['myroom'=> $rooms])
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -801,7 +864,16 @@ $promo_rate = '0';
         // }
 
 
-      
+        function myFunction(element) {
+            var text = element.options[element.selectedIndex].text;
+            const article = document.getElementById("ratesplan_id");
+            var base_rate = element.options[element.selectedIndex].dataset.baserate;
+            var extrabed_rate = element.options[element.selectedIndex].dataset.extrabedrate;
+
+            document.getElementById("demo").innerHTML = text;
+            document.getElementById("baserate").innerHTML = base_rate;
+            document.getElementById("extrabedrate").innerHTML = extrabed_rate;
+        }
     </script>
 
     <script type="text/javascript">
@@ -812,5 +884,8 @@ $promo_rate = '0';
 
     </script>
 
+
+
+        
 
 @endsection

@@ -39,7 +39,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     });
 
     // Panel Allotment
-    Route::group(['prefix' => 'main_page/reservation'], function() {
+    Route::group(['prefix' => 'main_page/reservation'] , function() {
         Route::get('/', ['as' => 'reservation.index', 'uses' => 'Reservation\ReservationController@index']);
 
         // Get Room Reservation Data
@@ -74,6 +74,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::post('/reservationexportexcel', ['as' => 'reservation.reservation_export_excel', 'uses' => 'Reservation\ReservationController@reservation_export_excel']);
         Route::post('/customerxportexcel', ['as' => 'customer.customer_export_excel', 'uses' => 'Reservation\ReservationController@customer_export_excel']);
         Route::post('/allotmentexportexcel', ['as' => 'reservation.allotment_export_excel', 'uses' => 'Reservation\ReservationController@allotment_export_excel']);
+
+
     });
 
     // Setting

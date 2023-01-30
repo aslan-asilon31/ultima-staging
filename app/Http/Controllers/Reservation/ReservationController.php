@@ -12,6 +12,7 @@ use App\Models\Customer\Customer;
 use App\Models\Inquiry\Inquiry;
 use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
+use App\Models\RatesPlan\RatesPlan;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Room\Type;
 use App\Models\Setting\Setting;
@@ -58,6 +59,7 @@ class ReservationController extends Controller
         $setting = $this->setting();
         return view('main_page.reservation.index', get_defined_vars());
     }
+
 
     public function customer_data($start_date = NULL, $end_date = NULL)
     {

@@ -19,6 +19,7 @@
         <br>
 
         <div class="row">
+
             @foreach ($ratesplans as $rate)
             <div class="panel panel-default">
                 <div class="panel-body shadow">
@@ -26,9 +27,15 @@
 
                         <div class="col-xs-12 col-lg-12 col-md-12">
                             <h5 style="margin-bottom:-5px;">
-                                <strong>{{ $rate->rate_name }}</strong>
+                                    <strong>{{ $rate->rate_name }}</strong>
                             </h5>
-                            <p class="mt">Applied for <i>DELUXE ROOM{{-- {{ $room->room_name }} --}}</i> </p>
+                            <p class="mt">Applied for 
+                                @foreach($rate->room_rate_plans as $tp)
+                                    @foreach($tp->types as $typ)
+                                        <i>{{ $typ->room_name }}</i>
+                                    @endforeach
+                                @endforeach
+                            </p>
                         </div>
 
 
@@ -37,7 +44,6 @@
                                 <strong>Rate Strategy</strong>
                             </h5>
                             <ul class="checklist-ul mt">
-                                
                                     @if($rate->def_meal_available == 0 || $rate->def_meal_available == NULL)
                                     <li class="mt text-muted">No Meal</li>
                                     @elseif($rate->def_meal_available == 1 )
@@ -48,7 +54,8 @@
                                     <li class="mt text-muted">No extra bed</li>
                                     @elseif($rate->extrabed_rate >= 1)
                                     <li class="mt">Allow extra bed</li>
-                                    @endif
+                                    @endif 
+
                             </ul>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
@@ -56,16 +63,16 @@
                                 <strong>Cancel Policy</strong>
                             </h5>
 
-                            {{-- @foreach($rate->room_type as $r) --}}
-                            {{-- <p class="mt"><strong>Cancel Name</strong> applied upon cancellation 4 days prior --}}
-                                before
-                                arrival</p>
-                            {{-- @endforeach --}}
+                            @foreach($rate->cancellations as $cl)
+                            <p class="mt"><strong>{{ $cl->name }}</strong> {{ $cl->description }}</p>
+                            @endforeach
 
                         </div>
 
                         <div class="col-xs-12 col-lg-6 col-md-6">
+                            {{-- @foreach($rrt->rate_plans as $rp) --}}
                             <a href="/master_data/rates-plan/edit/{{ Crypt::encryptString($rate->id) }}" class="btn btn-horison pull-right">
+                            {{-- @endforeach --}}
                             {{-- <a href="/master_data/rates-plan/edit/{{ Crypt::encryptString($rate->id) }}" class="btn btn-horison pull-right"> --}}
                                 <b>Manage Rates Plan</b>
                             </a>

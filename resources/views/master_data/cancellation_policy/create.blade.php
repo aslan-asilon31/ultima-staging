@@ -27,7 +27,6 @@
                             <div class="col-lg-12 col-md-12">
                                 <label for="description">Description</label>
                                 <div class="form-group">
-                                    {{-- <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Description"></textarea> --}}
                                     <textarea type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" style="padding: 2% 0% 20% 2%;"></textarea>
 
                                     <!-- error message untuk title -->

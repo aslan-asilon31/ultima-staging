@@ -2,6 +2,7 @@
 
 namespace App\Models\Room;
 
+use App\Models\RatesPlan\RatesPlan;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Carbon\Carbon;
@@ -17,7 +18,7 @@ class Type extends Model
     public $primaryKey = 'id';
 
     // protected $primaryKey = 'id';
-    
+
 
     protected $fillable = [
         'id',
@@ -71,14 +72,23 @@ class Type extends Model
         return $this->hasMany('App\Models\Room\Rsvp', 'room_id', 'id')->where('rsvp_status', 'Payment received');
     }
 
-    // public function room_rate_plans()
+    // public function rate_plans_rooms()
     // {
-    //     return $this->hasMany('App\Models\Room\RoomRatePlan', 'room_id', 'id');
+    //     return $this->hasMany('App\Models\Room\RoomRatePlan', 'id','room_id');
     // }
 
-    public function room_rate_plan()
+    // public function room_rate_plan()
+    // {
+    //     return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+    // }
+
+    public function room_rate_plans()
     {
-        return $this->belongsTo('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+        return $this->hasMany('App\Models\Room\RoomRatePlan', 'room_id', 'id');
+    }
+
+    public function rate_plans(){
+        return $this->belongsToMany('App\Models\RatesPlan\RatesPlan',"room_rate_plan","room_id","rate_id");
     }
 
 

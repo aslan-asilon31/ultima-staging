@@ -163,19 +163,19 @@
     <div class="row" style="margin-top:15px;">
         <?php $no = 0;?>
         @foreach($room_available as $room) <?php $no++ ;?>
-        <div class="container">
+         <div class="container">
 
 
             <div class="row" style="margin-top:50px; margin-bottom:40px; margi-left:0px;">
                 <div class="col-md-6">
                     @php $i = 0; $total = count($room['photo']) > 3 ? 3 : count($room['photo']); @endphp
                     @foreach($room['photo'] as $photo)@php $i++;@endphp
-                    @if($i > 0)
-                    <div class="mySlides1 id_{{$no}}">
-                        <div class="numbertext">{{$i.'/'.$total}}</div>
-                        <img src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}" class="uwaw img-rooms-mobile">
-                    </div>
-                    @endif
+                        @if($i > 0)
+                        <div class="mySlides1 id_{{$no}}">
+                            <div class="numbertext">{{$i.'/'.$total}}</div>
+                            <img src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}" class="uwaw img-rooms-mobile">
+                        </div>
+                        @endif
                     @endforeach
 
                     <div class="bbaris">
@@ -187,18 +187,18 @@
                         $class="";
                         }@endphp
                         @foreach($room['photo'] as $photo)@php $i++;@endphp
-                        @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
-                            <img class="demo1 id_{{$no}}" src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}"
-                                style="width:100% ; heigth:80px!important;" onclick="currentSlide({{$no}}, {{$i}})"
-                                alt="Room">
-                            @if($i == 3)
-                            <a href="javascript:;" onclick="seeAll({{$no}});" class="seal2"><b>+ See All</b></a>
-                            <img class="bblack2" src="{{asset('/images/blck.jpg')}}"
-                                style="width:100% ; heigth:80px!important;">
+                            @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
+                                <img class="demo1 id_{{$no}}" src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}"
+                                    style="width:100% ; heigth:80px!important;" onclick="currentSlide({{$no}}, {{$i}})"
+                                    alt="Room">
+                                @if($i == 3)
+                                <a href="javascript:;" onclick="seeAll({{$no}});" class="seal2"><b>+ See All</b></a>
+                                <img class="bblack2" src="{{asset('/images/blck.jpg')}}"
+                                    style="width:100% ; heigth:80px!important;">
+                                @endif
+                            </div>
                             @endif
-                    </div>
-                    @endif
-                    @endforeach
+                        @endforeach
                 </div>
 
             </div>
@@ -219,24 +219,25 @@
                         <div class="col-md-3 col-xs-6" style="margin-top:0;">
                             <p>@php $i =1; @endphp
                                 @foreach($room['bed'] as $bed)
-                                @php
-                                switch($bed->bed_id){
-                                case "0":
-                                $bed_type = "King";
-                                break;
-                                case "1":
-                                $bed_type = "Queen";
-                                break;
-                                case "2":
-                                $bed_type = "Double";
-                                break;
-                                default:
-                                $bed_type = "No Bed";
-                                break;
-                                }
-                                @endphp
-                                {{$bed_type}}
-                                @if($i < count($room['bed'])) {{' / '}}@endif @php $i++; @endphp @endforeach </p> </div>
+                                    @php
+                                    switch($bed->bed_id){
+                                    case "0":
+                                    $bed_type = "King";
+                                    break;
+                                    case "1":
+                                    $bed_type = "Queen";
+                                    break;
+                                    case "2":
+                                    $bed_type = "Double";
+                                    break;
+                                    default:
+                                    $bed_type = "No Bed";
+                                    break;
+                                    }
+                                    @endphp
+                                    {{$bed_type}}
+                                    @if($i < count($room['bed'])) {{' / '}}@endif @php $i++; @endphp
+                                @endforeach </p> </div>
                                     <div class="col-md-9 col-xs-7" style="margin-left: 31px; margin-top: 0px">
                                     {{-- <p>{{$room->room_desc}}</p> --}}
                         </div>
@@ -260,21 +261,21 @@
                                         display: inline-block;
                                         list-style: none;">
                                         @foreach($room['amenities'] as $amenities)@php $n++; @endphp
-                                        @php
-                                        if($n == $exp){
-                                        $other_amenitites.='<li class="col-xs-6 col-md-4" style="display: flex; padding-bottom: 10px">
-                                            ';
-                                            $exp+= 3;
-                                            }
-                                            else{
-                                            $other_amenitites.='
-                                        <li class="col-xs-6 col-md-4" style="display: flex; padding-bottom: 10px;">';
-                                            }
-                                            $other_amenitites.='<img
-                                                src="'.$path.$amenities->amenities_name[0]->amenities_icon.'"
-                                                style="display: flex;height:17px;width:17px;margin-right:10px;">'.$amenities->amenities_name[0]->amenities_name.'
-                                        </li>';
-                                        @endphp
+                                            @php
+                                            if($n == $exp){
+                                            $other_amenitites.='<li class="col-xs-6 col-md-4" style="display: flex; padding-bottom: 10px">
+                                                ';
+                                                $exp+= 3;
+                                                }
+                                                else{
+                                                $other_amenitites.='
+                                            <li class="col-xs-6 col-md-4" style="display: flex; padding-bottom: 10px;">';
+                                                }
+                                                $other_amenitites.='<img
+                                                    src="'.$path.$amenities->amenities_name[0]->amenities_icon.'"
+                                                    style="display: flex;height:17px;width:17px;margin-right:10px;">'.$amenities->amenities_name[0]->amenities_name.'
+                                            </li>';
+                                            @endphp
                                         @endforeach
                                         @php $other_amenitites.='
                                     </ul>'; @endphp
@@ -290,103 +291,87 @@
                 </div>
             </div>
 
-            {{-- Box Room with breakfast --}}
-            <div class="row">
-                <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
-                    <div class="col-md-12">
-                        <p class="pt-20"><strong>Room with Breakfast</strong></p>
-                    </div>
-                    <div class="col-md-12" style="margin-top:-18px;">
-                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                    </div>
-                    <div class="col-md-6" style="margin-left:-16px;">
-                        <div class="col-md-12">
-                            <p>Rp
-                                <strong>
-                                    <script>
-                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                    </script>
-                                </strong> / Night</p>
-                        </div>
-                        <div class="col-md-12" style="margin-top:-10px;">
-                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
-                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
-                            class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
-                    </div>
-                </div>
-            </div>
+            @foreach ($room->room_rate_plans as $rrp)
+            @foreach ($rrp->rate_plans as $rp)
+            @if ($rrp->is_rate_plan_active == 1)
 
-            <div class="row " >
-                @if($totalExtrabed > 0)
-                @php
-                $class="";
-                @endphp
-                <div class="col-md-12 col-xs-12 boxrs-disable ml-20 mt-15"
-                    style="box-shadow: 8px 4px 10px -4px #888888; margin-left: 4%;">
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <p class="text-oren"><strong>Room Only</strong></p>
-                        </div>
-                        <div class="col-md-8 oren-d">
-                            <p class="box-oren" style="float:right">Promo Akhir Tahun</p>
-                        </div>
-                        <div class="col-md-12 mb-12" style="margin-left: -15px; margin-top: -15px;">
-                            <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                            <p style="font-size:12px; margin-top: -0px;"> <s> Rp
-                                <strong>
-                                    <script>
-                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                    </script>
-                                </strong> / Night </s></p>
-                        </div>
-
-                        <div class="col-md-12" style="margin-left: -15px;">
-                            <p style="color:red; margin-top: -15px;">Rp
-                                <strong>
-                                    <script>
-                                        document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                    </script>
-                                </strong> / Night</p>
-                                <p class="mt-0" style="font-size:10px; color: #818285; margin-top: -10px;">*Tax Inclusive</p>
-                        </div>
-                        </div>
-                        @else
-                        @php
-                        $class="disabled";
-                        @endphp
-                        <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15"
-                            style="box-shadow: 8px 4px 10px -4px #888888; ">
-                            <div class="col-md-12">
-                                <p class="pt-20"><strong>Room Only</strong></p>
-                            </div>
-                            <div class="col-md-12" style="margin-top:-18px;">
-                                <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal Inclusive</p>
-                            </div>
-                            <div class="col-md-6" style="margin-left:-16px;">
-
-                                <div class="col-md-12">
-                                <p style="">Rp
-                                    <strong>
-                                        <script>
-                                            document.write(formatRupiah("{{$room['allotment'][0]->allotment_publish_rate}}"));
-                                            </script>
-                                    </strong> / Night</p>
-                                </div>
-                                <div class="col-md-12 col-xs-12" style="margin-top:-15px;">
-                                    <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                @if ($rp->def_minimum_stay <= $totalDays && $totalExtrabed <= $rp->extrabed_rate ) {{-- validasi search engine --}}
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 boxrs ml-20 mt-15" style="box-shadow: 8px 4px 10px -4px #888888;">
+                                @if($rrp->is_promo_rate_active == 0 || $rrp->is_promo_rate_active == NULL)
+                                    <div class="col-md-12" style="margin-top: 2%;">
+                                        <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:-18px;">
+                                        @if($rp->def_meal_available == 0)
+                                        <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                                        @else
+                                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6" style="margin-left:-16px;">
+                                        <div class="col-md-12">
+                                            <p>Rp
+                                                <strong>
+                                                    <script>
+                                                        document.write(formatRupiah(
+                                                            "{{$rp->base_rate}}"));
+                                                    </script>
+                                                </strong> / Night</p>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:-10px;">
+                                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-md-12" style="margin-top: 2%;">
+                                        <p class="pt-x20"><strong><strong>{{$rp->rate_name}}</strong></strong></p>
+                                    </div>
+                                    <div class="col-md-8 oren-d" style="margin-left: 31%; margin-top: -8%;">
+                                        <p class="box-oren" style="float:right"><strong>{{$rp->rate_name}}</strong></p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:-23px;">
+                                        @if($rp->def_meal_available == 0)
+                                        <p class="" style="font-size:12px; color: rgb(153, 164, 153);padding:0px; margin:0px;"> No Meal</p>
+                                        @else
+                                        <p class="" style="font-size:12px; color: green;padding:0px; margin:0px;"> Meal</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6" style="margin-left:-16px;">
+                                        <div class="col-md-12">
+                                            <p style="font-size: 13px; margin-top: -5px;"><s>Rp
+                                                <strong>
+                                                    <script>
+                                                        document.write(formatRupiah(
+                                                            "{{$rp->base_rate}}"));
+                                                    </script>
+                                                </strong> / Night</s></p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p style="color:red; margin-top: -14px;">Rp
+                                                <strong>
+                                                    <script>
+                                                        document.write(formatRupiah(
+                                                            "{{$rrp->promo_rate}}"));
+                                                    </script>
+                                                </strong> / Night</p>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:-10px;">
+                                            <p class="mt-0" style="font-size:10px; color: #818285;">*Tax Inclusive</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
+                                    <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
+                                    class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
                                 </div>
                             </div>
-                            @endif
-                            <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6" style="margin-top: -55px; margin-left: 73%;">
-                                <a id="validate_clickY" href="javascript:;" onclick="reserve({{$no}}, 0);"
-                                class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
-                            </div>
                         </div>
+                @endif
 
-                    </div>
+            @endif
+            @endforeach
+            @endforeach
                 </div>
             </div>
         </div>
@@ -441,6 +426,13 @@
 
     function currentSlide(id, n) {
         showSlides(id, slideIndex = n);
+    }
+
+    function ambilRupiah(e) {
+        var hiddenInput = document.getElementById(e.id + "_value");
+        hiddenInput.value = hiddenInput.value.replace(/[^0-9]*/g, '');
+        hiddenInput.value = e.value.match(/\d/g).join("");
+        e.value = formatRupiah(e, e.value);
     }
 
     function showSlides(id, n) {

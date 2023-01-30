@@ -8,13 +8,9 @@ class RoomRatePlan extends Model
 {
     protected $table = 'room_rate_plan';
 
-    // public $primaryKey = 'id';
+    public $primaryKey = 'id';
 
-    // protected $keyType = 'string';
-
-    // public $timestamps = true;
-
-    // protected $guarded = []; 
+    protected $guarded = []; 
 
     protected $fillable =
     [
@@ -27,11 +23,21 @@ class RoomRatePlan extends Model
 
     public function rate_plans()
     {
-        return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'room_id', 'id');
+        return $this->hasMany('App\Models\RatesPlan\RatesPlan', 'id', 'rate_id');
+    }
+    public function rate_plan()
+    {
+        return $this->hasOne('App\Models\RatesPlan\RatesPlan', 'id', 'rate_id');
     }
 
     public function types()
     {
-        return $this->hasMany('App\Models\Room\Type', 'room_id', 'id');
+        return $this->hasMany('App\Models\Room\Type', 'id','room_id');
     }
+
+    public function allotments()
+    {
+        return $this->hasMany('App\Models\Allotment\Allotment', 'id','room_rate_plan_id');
+    }
+
 }

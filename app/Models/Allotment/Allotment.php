@@ -10,12 +10,15 @@ class Allotment extends Model
 
     public $primaryKey = 'id';
 
+    protected $keyType = 'string';
+
     public $timestamps = true;
 
     protected $fillable =
     [
         'room_id',
         'user_id',
+        'room_rate_plan_id',
         'allotment_room',
         'allotment_publish_rate',
         'allotment_ro_rate',
@@ -27,4 +30,11 @@ class Allotment extends Model
         'created_at',
         'updated_at',
     ];
+
+
+    public function room_rate_plans()
+    {
+        return $this->hasMany('App\Models\Room\RoomRatePlan','id','room_rate_plan_id' );
+    }
+
 }
